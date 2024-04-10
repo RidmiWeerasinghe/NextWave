@@ -4,13 +4,16 @@ import Register from './components/Register'
 import PageNotFound from './components/PageNotFound'
 import TopNav from './components/TopNav'
 import SideNav from './components/SideNav'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 
 function App() {
+  const Location = useLocation()
+  const isLoginRoute = Location.pathname === '/login'
+  const isRegisterRoute = Location.pathname === '/register'
   return (
     <main>
-      <TopNav />
-      <SideNav />
+      {!isLoginRoute && !isRegisterRoute && <TopNav />}
+      {!isLoginRoute && !isRegisterRoute && <SideNav />}
 
       <Routes>
         <Route path="/" element={<Home />} />
