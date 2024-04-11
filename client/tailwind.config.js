@@ -1,3 +1,5 @@
+import SearchBar from './src/components/SearchBar';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -15,10 +17,13 @@ export default {
         darkBlue: "#16191e",
         darkTextColor: "#8e9196",
         lightTextColor: "#e2e8f0",
+        lightTextColorSideNav: "#e7e5e4",
         blueTextColor: "#3b82f6",
         // btn
         blueBtnHoverColor: "#1e3a8a",
         blueBtnColor: "#2563eb",
+
+        SearchBarBorderColor:"#52525b",
 
         darkTitle: "#e9e9e9",
         darkSongname: "#ffffffd6",

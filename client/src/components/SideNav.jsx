@@ -18,7 +18,7 @@ function SideNav() {
         <div className={"float-left w-52 h-[26rem] max-md:w-0 select-none"}>
             <div
                 className={
-                    "bg-grayBackground text-lightTextColor top-0  w-52 transition-all duration-200 ease-linear  fixed z-50 h-full  py-10 " +
+                    "bg-grayBackground text-lightTextColorSideNav top-0  w-52 transition-all duration-200 ease-linear  fixed z-50 h-full  py-10 " +
                     (side_navbar_show ? "max-md:w-64 left-0" : "max-md:-left-52")
                 }
             >

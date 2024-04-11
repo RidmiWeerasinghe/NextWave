@@ -1,8 +1,44 @@
 import React from 'react'
+import IconButton from '@mui/material/IconButton'
+import SearchIcon from '@mui/icons-material/Search'
+import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter"
+
+function HandleSideNav(){
+    console.log("HandleSideNav")
+}
+
+function HandleSearch(){
+    console.log("HandleSearch")
+}
+function handleInputChange(){
+    console.log("handleInputChange")
+}
 
 function SearchBar() {
     return (
-        <div className='text-white'>Search bar</div>
+        <section className="flex items-center searchBarContainer  gap-4 w-96 max-md:w-full rounded-3xl border border-lightTextColor">
+            <div className="w-fit hidden max-md:flex" onClick={HandleSideNav}>
+                <IconButton>
+                    <FormatAlignCenterIcon className="text-slate-200" />
+                </IconButton>
+            </div>
+            <div
+                className="flex  items-center w-full focus-within:border-darkTextColor group transition-all duration-400 ease-linear rounded-full pl-5 pr-1 h-10 normaic border-[#ffd4d46e]"
+                onClick={HandleSearch}
+            >
+                <input
+                    type="text"
+                    value=""
+                    onChange={handleInputChange}
+                    placeholder="Type here to search"
+                    className=" placeholder:text-sm bg-transparent placeholder:bg-transparent max-md:placeholder:text-xs text-sm w-full outline-none border-none  text-darkTitle font-light"
+                />
+                <div className="opacity-0 group-hover:opacity-100 group-focus-within:opacity-100  transition-all duration-200 ease-linear"></div>
+                <div className="bg-lightTextColor rounded-full  px-[6px] py-[6px] translate-x-[3px] hover:opacity-80 ">
+                    <SearchIcon className="text-darkBlueS " />
+                </div>
+            </div>
+        </section>
     )
 }
 
