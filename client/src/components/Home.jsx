@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react'
 import SpotifyWebApi from 'spotify-web-api-js'
 import MusicCard from './MusicCard'
 import { Link } from 'react-router-dom'
+import { useStateValue } from '../StateProvider'
 
 function Home() {
-    const [accessToken, setAccess_Token] = useState("")
+    const [{accessToken}, dispatch] = useStateValue()
+
     const [trendingAlbums, setTrendingAlbums] = useState([])
     const [topAlbums, setTopAlbums] = useState([])
     const clientID = "72cdd5687f2146adaf6d90d7d3f95270"
     const clientSecret = "e521133ff90f4230885d2e1dc8d0fd11"
 
-    // console.log("accessToken" + accessToken)
-    // console.log("trendingAlbums" + trendingAlbums)
+    console.log("accessToken from context api : " + accessToken)
 
     useEffect(() => {
         //console.log("useeffect running ")
@@ -25,7 +26,10 @@ function Home() {
         }
         fetch("https://accounts.spotify.com/api/token", authParameters)
             .then(result => result.json())
-            .then(data => setAccess_Token(data.access_token))
+            .then(data => dispatch({
+                type: 'SET_TOKEN',
+                accessToken: data.access_token
+            }))
     }, [])
 
     const spotify = new SpotifyWebApi()
