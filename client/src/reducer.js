@@ -1,19 +1,36 @@
-export const initialState ={
-    user:null,
-    accessToken:""
+export const initialState = {
+    accessToken: "",
+    trendingAlbums: [],
+    currentSingleAlbum: {},
+    topAlbums: []
 }
 
-const reducer = (state, action) =>{
-    console.log(action)
+const reducer = (state, action) => {
+    //console.log(action)
 
-    switch(action.type){
+    switch (action.type) {
         case 'SET_TOKEN':
-            return{
+            return {
                 ...state,
                 accessToken: action.accessToken
             }
-            default:
-                return state;
+        case 'SET_TRENDINGALBUMS':
+            return {
+                ...state,
+                trendingAlbums: action.trendingAlbums
+            }
+        case 'SET_TOPALBUMS':
+            return {
+                ...state,
+                topAlbums: action.topAlbums
+            }
+        case 'SET_CURRENTSINGLEALBUM':
+            return {
+                ...state,
+                currentSingleAlbum: action.currentSingleAlbum
+            }
+        default:
+            return state;
     }
 }
 export default reducer

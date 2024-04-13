@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import SpotifyWebApi from 'spotify-web-api-js'
 import MusicCard from './MusicCard'
-import { Link } from 'react-router-dom'
 import { useStateValue } from '../StateProvider'
 
 function Home() {
-    const [{accessToken}, dispatch] = useStateValue()
+    const [{accessToken,trendingAlbums,topAlbums}, dispatch] = useStateValue()
 
-    const [trendingAlbums, setTrendingAlbums] = useState([])
-    const [topAlbums, setTopAlbums] = useState([])
     const clientID = "72cdd5687f2146adaf6d90d7d3f95270"
     const clientSecret = "e521133ff90f4230885d2e1dc8d0fd11"
 
-    console.log("accessToken from context api : " + accessToken)
+    //console.log("accessToken from context api : " + accessToken)
 
     useEffect(() => {
         //console.log("useeffect running ")
@@ -40,8 +37,11 @@ function Home() {
 
         spotify.getArtistAlbums('63yrD80RY3RNEM2YDpUpO8').then(
             function (data) {
-                console.log('Artist albums', data.items);
-                setTrendingAlbums(data.items)
+                //console.log('Artist albums', data.items);
+                dispatch({
+                    type: 'SET_TRENDINGALBUMS',
+                    trendingAlbums: data.items
+                })
             },
             function (err) {
                 console.error(err);
@@ -50,8 +50,10 @@ function Home() {
 
         spotify.getArtistAlbums('00FQb4jTyendYWaN8pK0wa').then(
             function (data) {
-                console.log('Artist albums', data.items);
-                setTopAlbums(data.items)
+                dispatch({
+                    type: 'SET_TOPALBUMS',
+                    topAlbums: data.items
+                })
             },
             function (err) {
                 console.error(err);
@@ -68,7 +70,7 @@ function Home() {
                 </h1>
                 <div className="flex gap-6 overflow-scroll h-full">
                     {trendingAlbums.map((item) => (
-                        <MusicCard album={item} id={item.id} />
+                        <MusicCard album={item} key={item.id} />
                     ))}
                 </div>
             </section >
