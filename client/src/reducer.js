@@ -1,7 +1,9 @@
+import {currentAlbum} from './dummyData/dummy.js'
+
 export const initialState = {
     accessToken: "",
     trendingAlbums: [],
-    currentSingleAlbum: {},
+    currentSingleAlbum: currentAlbum,
     topAlbums: []
 }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import SpotifyWebApi from 'spotify-web-api-js'
 import { useStateValue } from '../StateProvider'
+import AlbumSongList from './AlbumSongLists'
 
 function SingleAlbum() {
     const albumID = useParams()
@@ -23,17 +24,17 @@ function SingleAlbum() {
             .then(result => result.json())
             .then(data => dispatch({
                 type: "SET_CURRENTSINGLEALBUM",
-                currentSingleAlbum : data
+                currentSingleAlbum: data
             })
             )
     }, [])
-    //console.log(currentSingleAlbum)
+    console.log("id : " + currentSingleAlbum.tracks.items.id)
     return (
         <div className={"bg-darkBlue  overflow-hidden "}>
             <div className={"bg-darkBlue  overflow-hidden "}>
                 <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7  Artistbackground">
                     <div className="grid grid-cols-[max-content,auto] mt-7 max-md:grid-cols-1 max-md:place-items-center gap-5 ">
-                        <img className="w-56 h-56 rounded-md" src={currentSingleAlbum?.images[0].url}/>
+                        <img className="w-56 h-56 rounded-md" src={currentSingleAlbum?.images[0].url} />
 
                         <div className="flex place-content-end max-md:place-items-center flex-col">
                             <h2
@@ -64,7 +65,9 @@ function SingleAlbum() {
                     </div>
                 </div>
                 <section className="mx-12 mb-10 mt-6 max-md:mx-2">
-                    song list
+                {currentSingleAlbum?.tracks.items.map((track) => (
+                        <AlbumSongList key={track.id} trackID={track.id} />
+                    ))}
                 </section>
             </div>
         </div>
