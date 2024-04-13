@@ -21,3 +21,5 @@ export const cTrack = {
     name: "",
     duration_ms: ""
 }
+
+export const artists = ["2CIMQHirSU0MQqyYHq0eOx"]

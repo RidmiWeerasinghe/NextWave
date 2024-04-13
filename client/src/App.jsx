@@ -5,6 +5,7 @@ import PageNotFound from './components/PageNotFound'
 import TopNav from './components/TopNav'
 import SideNav from './components/SideNav'
 import SingleAlbum from './components/SingleAlbum'
+import TopArtists from './components/TopArtists'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/singlealbum/:id" element={<SingleAlbum />} />
+        <Route path="/topartists" element={<TopArtists />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
 

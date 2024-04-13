@@ -34,6 +34,10 @@ function AlbumSongLists(trackID) {
             ).catch(console.error("err"))
     }, [])
     console.log(track)
+
+    function handleClick(){
+        console.log("play song : " + trackID.trackID)
+    }
     return (
         <div className="w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1">
             <div className='p-3 m-2 rounded-lg flex items-center justify-between' style={{ backgroundColor: 'rgba(169,169,169,0.05)' }}>
@@ -46,7 +50,7 @@ function AlbumSongLists(trackID) {
                 </div>
                 <div className="flex items-center space-x-4">
                     <h4 className="text-base font-semibold">{millisToMinutesAndSeconds(track.duration_ms)}</h4>
-                    <div className='text-xl'><PlayArrowRoundedIcon /></div>
+                    <div className='text-xl cursor-pointer' onClick={handleClick}><PlayArrowRoundedIcon style={{ fontSize: 35 }}/></div>
                 </div>
             </div>
 

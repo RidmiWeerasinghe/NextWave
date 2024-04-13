@@ -42,7 +42,7 @@ function SideNav() {
                             </NavLink>
                             <NavLink
                                 onClick={HandleSideNav}
-                                to={"/topartist"}
+                                to={"/topartists"}
                                 className="flex items-center gap-4 text-sm max-md:text-base font-medium"
                             >
                                 <AccountBoxIcon />
