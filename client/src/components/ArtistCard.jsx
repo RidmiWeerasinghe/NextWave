@@ -1,14 +1,18 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-function ArtistCard(artistID) {
-    console.log("artistID : "+ artistID)
+function ArtistCard(artist) {
+    const imageUrl = artist.artistID.images[0].url
+    const name = artist.artistID.name
+    const id = artist.artistID.id
+
+    //console.log(artist)
+    
     return (
-        <Link to={`/artist/`} className="w-28 block group">
+        <Link to={`/singleartist/${id}`} className="w-48 block group">
             <div className="relative w-48 h-48 border-1 border-opacity-5 border-slate-300 rounded-full overflow-hidden">
                 <img
-                    src="https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg"
+                    src={imageUrl}
                     alt=""
                     loading="lazy"
                     className="w-full h-full object-cover rounded-full group-hover:scale-110 ease-linear duration-500"
@@ -16,12 +20,12 @@ function ArtistCard(artistID) {
             </div>
             <h4
                 className="w-full text-center text-darkSongname text-sm mt-3 px-1 "
-                title="{title}"
+                title={name}
             >
-                
+
             </h4>
             <p className="text-center text-slate-400 text-xs tracking-wide mt-1">
-                Artist
+                {name}
             </p>
         </Link>
     )

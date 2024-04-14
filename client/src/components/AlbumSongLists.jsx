@@ -33,6 +33,7 @@ function AlbumSongLists(trackID) {
             .then(data => setTrack(data)
             ).catch(console.error("err"))
     }, [])
+    console.log("track")
     console.log(track)
 
     function handleClick(){

@@ -1,11 +1,14 @@
-import {currentAlbum,artists} from './dummyData/dummy.js'
+import { currentAlbum, artists, currentAtist, currentAtistTracks } from './dummyData/dummy.js'
 
 export const initialState = {
+    user: {},
     accessToken: "",
     trendingAlbums: [],
     currentSingleAlbum: currentAlbum,
     topAlbums: [],
-    topArtists:artists
+    topArtists: artists,
+    currentAtist: currentAtist,
+    currentAtistTracks: currentAtistTracks
 }
 
 const reducer = (state, action) => {
@@ -32,10 +35,20 @@ const reducer = (state, action) => {
                 ...state,
                 currentSingleAlbum: action.currentSingleAlbum
             }
-            case 'SET_TOPARTISTS':
+        case 'SET_TOPARTISTS':
             return {
                 ...state,
                 topArtists: action.topArtists
+            }
+        case 'SET_CURRENTARTIST':
+            return {
+                ...state,
+                currentAtist: action.currentAtist
+            }
+        case 'SET_CURRENTARTISTTRACKS':
+            return {
+                ...state,
+                currentAtistTracks: action.currentAtistTracks
             }
         default:
             return state;
