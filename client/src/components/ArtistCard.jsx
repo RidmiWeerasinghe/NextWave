@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-function ArtistCard(artist) {
-    const imageUrl = artist.artistID.images[0].url
-    const name = artist.artistID.name
-    const id = artist.artistID.id
+function ArtistCard(props) {
+    const imageUrl = props.props.images[0].url
+    const name = props.props.name
+    const id =  props.props.id
+    //console.log(props)
 
-    //console.log(artist)
     
     return (
         <Link to={`/singleartist/${id}`} className="w-48 block group">

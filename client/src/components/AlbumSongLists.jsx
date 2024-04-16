@@ -8,6 +8,8 @@ function AlbumSongLists(trackID) {
 
     const [{ accessToken }, dispatch] = useStateValue()
     const [track, setTrack] = useState(cTrack)
+    console.log("cTrack");
+    console.log(cTrack);
 
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)

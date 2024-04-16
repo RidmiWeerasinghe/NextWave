@@ -40,4 +40,4 @@ export const currentAtistTracks={
 }
 
 export const artists = [{ id: "" }, {}]
-export const topArtists =['2hazSY4Ef3aB9ATXW7F5w3', '6J6yx1t3nwIDyPXk5xa7O8', '00FQb4jTyendYWaN8pK0wa', '63yrD80RY3RNEM2YDpUpO8', '21aa4pj9BvbFB2iT8kRpnq', '06HL4z0CvFAxyc27GXpf02','66CXWjxzNUsdJxJ2JdwvnR']
+export const topArtists =[{id:'2hazSY4Ef3aB9ATXW7F5w3',name:"name",images:[{url:"https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg"}]}]
