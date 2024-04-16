@@ -8,14 +8,15 @@ function AlbumSongLists(trackID) {
 
     const [{ accessToken }, dispatch] = useStateValue()
     const [track, setTrack] = useState(cTrack)
-    console.log("cTrack");
-    console.log(cTrack);
+    // console.log("cTrack");
+    // console.log(cTrack);
 
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)
 
 
 
+    //converting ms to mins and secs
     function millisToMinutesAndSeconds(millis) {
         var minutes = Math.floor(millis / 60000);
         var seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -23,6 +24,7 @@ function AlbumSongLists(trackID) {
     }
 
     useEffect(() => {
+        //retreving track by track using track id
         var authParameters = {
             method: 'GET',
             mode: "cors",
@@ -35,8 +37,8 @@ function AlbumSongLists(trackID) {
             .then(data => setTrack(data)
             ).catch(console.error("err"))
     }, [])
-    console.log("track")
-    console.log(track)
+    // console.log("track")
+    // console.log(track)
 
     function handleClick(){
         console.log("play song : " + trackID.trackID)

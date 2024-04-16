@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useStateValue } from '../StateProvider'
 import SpotifyWebApi from 'spotify-web-api-js'
-import { currentAtistTracks } from '../dummyData/dummy'
 import AlbumSongList from './AlbumSongLists'
 
 function SingleArtist() {
     const [{ accessToken, currentAtist, currentAtistTracks }, dispatch] = useStateValue()
     const id = useParams()
-    console.log(id.id)
-    console.log(currentAtistTracks)
+    // console.log(id.id)
+    // console.log(currentAtistTracks)
 
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)
@@ -33,7 +32,7 @@ function SingleArtist() {
     useEffect(() => {
         spotify.getArtist(id.id).then(
             function (data) {
-                console.log('Artist information', data);
+                //console.log('Artist information', data);
                 dispatch({
                     type: 'SET_CURRENTARTIST',
                     currentAtist: data

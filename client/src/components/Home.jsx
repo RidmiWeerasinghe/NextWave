@@ -14,6 +14,7 @@ function Home() {
     useEffect(() => {
         //console.log("useeffect running ")
 
+        //getting access token
         var authParameters = {
             method: 'POST',
             headers: {
@@ -35,6 +36,7 @@ function Home() {
     useEffect(() => {
         //console.log("useeffect running ")
 
+        //getting trending albums
         spotify.getArtistAlbums('63yrD80RY3RNEM2YDpUpO8').then(
             function (data) {
                 //console.log('Artist albums', data.items);
@@ -48,6 +50,7 @@ function Home() {
             }
         );
 
+        //getting top albums
         spotify.getArtistAlbums('00FQb4jTyendYWaN8pK0wa').then(
             function (data) {
                 dispatch({

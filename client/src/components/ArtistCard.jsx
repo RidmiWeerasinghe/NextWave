@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 function ArtistCard(props) {
+    //accessing image, name and id through props
     const imageUrl = props.props.images[0].url
     const name = props.props.name
     const id =  props.props.id
