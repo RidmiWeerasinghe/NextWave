@@ -1,5 +1,5 @@
 import express from 'express'
-import {User} from '../model/userModel.js'
+import { User } from '../model/userModel.js'
 
 const router = express.Router();
 
@@ -55,6 +55,7 @@ router.get('/:id', async (request, response) => {
         response.status(500).send({ message: error.message });
     }
 })
+
 
 //update user
 router.put('/:id', async (request, response) => {

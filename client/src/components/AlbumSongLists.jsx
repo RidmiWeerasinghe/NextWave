@@ -3,6 +3,8 @@ import SpotifyWebApi from 'spotify-web-api-js'
 import { useStateValue } from '../StateProvider'
 import { cTrack } from '../dummyData/dummy'
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function AlbumSongLists(trackID) {
 
@@ -38,7 +40,7 @@ function AlbumSongLists(trackID) {
             ).catch(console.error("err"))
     }, [])
     // console.log("track")
-    // console.log(track)
+    //console.log(track)
 
     function handleClick(){
         console.log("play song : " + trackID.trackID)
@@ -50,10 +52,11 @@ function AlbumSongLists(trackID) {
                     <img src={track.album.images[0].url} alt="" className='w-14 h-14 rounded-sm' />
                     <div>
                         <h4 className="text-base font-semibold">{track.name}</h4>
-                        <h6 className="text-sm text-gray-500">{track.album.artists[0].name}</h6>
+                        <h6 className="text-sm text-gray-500">{track.album.artists[0].name} | {track.album.name}</h6>
                     </div>
                 </div>
                 <div className="flex items-center space-x-4">
+                    <FavoriteBorderIcon className='cursor-pointer'/>
                     <h4 className="text-base font-semibold">{millisToMinutesAndSeconds(track.duration_ms)}</h4>
                     <div className='text-xl cursor-pointer' onClick={handleClick}><PlayArrowRoundedIcon style={{ fontSize: 35 }}/></div>
                 </div>
