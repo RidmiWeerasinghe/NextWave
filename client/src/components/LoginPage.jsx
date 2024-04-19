@@ -6,9 +6,10 @@ import axios from 'axios'
 import { loginSchema } from '../validation/userValidation'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { useStateValue } from '../StateProvider'
 
 function Login() {
-
+    const [{ username }, dispatch] = useStateValue()
     const [loginData, setloginData] = useState({
         email: "",
         password: ""
@@ -34,14 +35,18 @@ function Login() {
 
         try {
             await loginSchema.validate(user, { abortEarly: false })
-            axios.post('http://localhost:5555/login', { email:loginData.email, password:loginData.password })
+            axios.post('http://localhost:5555/users/login', { email: loginData.email, password: loginData.password })
                 .then(result => {
                     console.log(result)
-                    if (result.data === "success"){
+                    if (result.data.status === "success") {
+                        dispatch({
+                            type:'SET_USER',
+                            user :result.data.user
+                        })
                         navigate('/')
                     }
-                    else{
-                        toast.error(result.data)
+                    else {
+                        toast.error(result.data.status)
                     }
                 })
         } catch (error) {
@@ -50,7 +55,6 @@ function Login() {
             })
         }
     }
-
     return (
         <div>
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

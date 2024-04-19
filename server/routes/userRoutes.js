@@ -29,6 +29,51 @@ router.post('/', async (req, res) => {
     }
 })
 
+//check if user exists
+router.post('/email', async (req, res) => {
+    const {email} = req.body
+    //console.log(email)
+    User.findOne({email: email})
+    .then(user => {
+        console.log(user)
+        if(user){
+            res.json("User already exists")
+        }
+        else{
+            res.json("ok")
+        }
+    })
+    
+})
+
+//user login
+router.post('/login', (req, res)=>{
+    const {email, password} = req.body
+    User.findOne({email: email})
+    .then(user => {
+        if(user){
+            if(user.password === password){
+                res.json({
+                    status: "success",
+                    user: user
+                })
+            }
+            else{
+                res.json({
+                    status: "Incorrect password"
+                })
+            }
+        }
+        else{
+            res.json({
+                status:"User doesn't exists"
+            })
+        }
+    })
+})
+
+
+
 //retrieving whole users
 router.get('/', async (req, res) => {
     try {

@@ -4,14 +4,24 @@ import { useStateValue } from '../StateProvider'
 function MyPlaylists() {
     const [{ user }, dispatch] = useStateValue()
 
+    const notLoggedInMessage = (
+        <div className="w-full flex justify-center items-center mt-10">
+            <p className="text-neutral-400 w-1/2 text-center max-md:w-full max-md:px-4">
+                Access to your playlists is only available to logged-in users. Please
+                log in to view your playlists or try again later.
+            </p>
+        </div>
+    )
+    const LoggedInMessage = (
+        <div className="w-full flex justify-center items-center mt-10">
+            <p className="text-neutral-400 w-1/2 text-center max-md:w-full max-md:px-4">
+                {user.username}
+            </p>
+        </div>)
+
     return (
         <div>
-            {!user.loggedIn && <div className="w-full flex justify-center items-center mt-10">
-                <p className="text-neutral-400 w-1/2 text-center max-md:w-full max-md:px-4">
-                    Access to your playlists is only available to logged-in users. Please
-                    log in to view your playlists or try again later.
-                </p>
-            </div>}
+            {user.username ? LoggedInMessage : notLoggedInMessage}
         </div>
     )
 }

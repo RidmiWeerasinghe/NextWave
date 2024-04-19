@@ -48,7 +48,7 @@ function Register() {
                 return toast.error("confirm password doesn't match")
             }
 
-            axios.post('http://localhost:5555/email', { email: form.email })
+            axios.post('http://localhost:5555/users/email', { email: form.email })
                 .then(result => {
                     console.log(result)
                     if (result.data === "ok") {
