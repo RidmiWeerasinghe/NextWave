@@ -1,11 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStateValue } from '../StateProvider'
 import ListItemButton from '@mui/material/ListItemButton'
 import AddIcon from '@mui/icons-material/Add'
 import CreatePlaylistWindow from './CreatePlaylistWindow'
+import PlaylistCard from './PlaylistCard'
+import axios from 'axios'
 
 function MyPlaylists() {
-    const [{ user, showCreatePlaylistWindow }, dispatch] = useStateValue()
+    const [{ user, showCreatePlaylistWindow, currentUserPlaylists }, dispatch] = useStateValue()
+
+    //loading all playlists
+    useEffect(() => {
+        console.log("use effect running")
+        axios.get(`http://localhost:5555/playlist/getallplaylist/${user.email}`)
+            .then(response => {
+                //console.log(response.data.data)
+                dispatch({
+                    type: 'SET_CURRENTUSERPLAYLIST',
+                    currentUserPlaylists: response.data.data
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [showCreatePlaylistWindow])
+
 
     const notLoggedInMessage = (
         <div className="w-full flex justify-center items-center mt-10">
@@ -22,8 +41,8 @@ function MyPlaylists() {
                     className="flex gap-3 items-center"
                     sx={[{ borderRadius: 2 }]}
                     onClick={() => dispatch({
-                        type:'SET_SHOWCREATEPLAYLISTWINDOW',
-                        showCreatePlaylistWindow:true
+                        type: 'SET_SHOWCREATEPLAYLISTWINDOW',
+                        showCreatePlaylistWindow: true
                     })}
                 >
                     <div className="grid place-items-center bg-[#34343275] rounded-md p-2 scale-90">
@@ -36,17 +55,24 @@ function MyPlaylists() {
                 <h3 className="text-xl text-neutral-200 mb-2 pl-4 mt-4">
                     Your Playlists
                 </h3>
-                <div className="w-full flex justify-center items-center mt-10">
-                    <p className="text-neutral-400 w-1/2 text-center max-md:w-full max-md:px-4">
-                        You haven't created any playlist yet.
-                    </p>
-                </div>
+                {(currentUserPlaylists.length < 0) ?
+                    <div className="w-full flex justify-center items-center mt-10">
+                        <p className="text-neutral-400 w-1/2 text-center max-md:w-full max-md:px-4">
+                            You haven't created any playlist yet.
+                        </p>
+                    </div> :
+                    <section className="mt-4 flex flex-col mb-12">
+                        {currentUserPlaylists.map((playlist) => (
+                            <PlaylistCard key={playlist.id} playlist={playlist} />
+                        ))}
+                    </section>}
             </section>
             {showCreatePlaylistWindow && (
-                <CreatePlaylistWindow/>
+                <CreatePlaylistWindow />
             )}
-        </div>)
 
+        </div>)
+    //console.log(currentUserPlaylists.length)
     return (
         <div>
             {user.username ? LoggedInMessage : notLoggedInMessage}

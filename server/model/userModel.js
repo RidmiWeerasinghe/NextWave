@@ -1,23 +1,38 @@
 import mongoose from "mongoose";
 
+const songSchema = mongoose.Schema({
+    songID:{
+        type: String
+    }
+})
+
+const playlistSchema = mongoose.Schema({
+    name:{
+        type:String
+    },
+    songs:[songSchema]
+})
+
+
 const userSchema = mongoose.Schema(
     {
-        username:{
+        username: {
             type: String,
             required: true
         },
-        password:{
+        password: {
             type: String,
             required: true
         },
-        email:{
+        email: {
             type: String,
             required: true
         },
+        playlist:[playlistSchema]
     },
     {
         timestamps: true,
     }
 )
 
-export const User = mongoose.model('users',userSchema)
+export const User = mongoose.model('users', userSchema)

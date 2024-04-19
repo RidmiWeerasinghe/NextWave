@@ -2,8 +2,8 @@ import express, { json, request, response } from "express";
 import { PORT, mongodbUrl } from './config.js'
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes.js"
+import playlistRoutes from './routes/playlistRoutes.js'
 import cors from 'cors'
-import { User } from "./model/userModel.js";
 
 const app = express();
 app.use(express.json());
@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/users',userRoutes)
+app.use('/playlist',playlistRoutes)
 
 mongoose.connect(mongodbUrl)
     .then(() => {

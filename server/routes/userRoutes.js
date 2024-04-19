@@ -32,10 +32,9 @@ router.post('/', async (req, res) => {
 //check if user exists
 router.post('/email', async (req, res) => {
     const {email} = req.body
-    //console.log(email)
     User.findOne({email: email})
     .then(user => {
-        console.log(user)
+        //console.log(user)
         if(user){
             res.json("User already exists")
         }
@@ -71,8 +70,6 @@ router.post('/login', (req, res)=>{
         }
     })
 })
-
-
 
 //retrieving whole users
 router.get('/', async (req, res) => {

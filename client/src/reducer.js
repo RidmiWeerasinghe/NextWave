@@ -10,7 +10,8 @@ export const initialState = {
     topArtists: topArtists,
     currentAtist: currentAtist,
     currentAtistTracks: currentAtistTracks,
-    showCreatePlaylistWindow: false
+    showCreatePlaylistWindow: false,
+    currentUserPlaylists: []
 }
 
 const reducer = (state, action) => {
@@ -61,6 +62,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 showCreatePlaylistWindow: action.showCreatePlaylistWindow
+            }
+        case 'SET_CURRENTUSERPLAYLIST':
+            return {
+                ...state,
+                currentUserPlaylists: action.currentUserPlaylists
             }
         default:
             return state;
