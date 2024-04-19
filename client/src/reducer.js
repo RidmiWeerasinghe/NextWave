@@ -1,15 +1,16 @@
 import { currentAlbum, currentAtist, currentAtistTracks, topArtists } from './dummyData/dummy.js'
 
 export const initialState = {
-    user: {loggedIn:false,username:""},
-    username:"",
+    user: { loggedIn: false, username: "" },
+    username: "",
     accessToken: "",
     trendingAlbums: [],
     currentSingleAlbum: currentAlbum,
     topAlbums: [],
     topArtists: topArtists,
     currentAtist: currentAtist,
-    currentAtistTracks: currentAtistTracks
+    currentAtistTracks: currentAtistTracks,
+    showCreatePlaylistWindow: false
 }
 
 const reducer = (state, action) => {
@@ -55,6 +56,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 currentAtistTracks: action.currentAtistTracks
+            }
+        case 'SET_SHOWCREATEPLAYLISTWINDOW':
+            return {
+                ...state,
+                showCreatePlaylistWindow: action.showCreatePlaylistWindow
             }
         default:
             return state;

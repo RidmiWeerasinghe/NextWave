@@ -5,8 +5,7 @@ import AddIcon from '@mui/icons-material/Add'
 import CreatePlaylistWindow from './CreatePlaylistWindow'
 
 function MyPlaylists() {
-    const [{ user }, dispatch] = useStateValue()
-    const [showCreatePlaylistWindow, setCreatePlaylistWindow] = useState(false)
+    const [{ user, showCreatePlaylistWindow }, dispatch] = useStateValue()
 
     const notLoggedInMessage = (
         <div className="w-full flex justify-center items-center mt-10">
@@ -22,7 +21,10 @@ function MyPlaylists() {
                 <ListItemButton
                     className="flex gap-3 items-center"
                     sx={[{ borderRadius: 2 }]}
-                    onClick={() => setCreatePlaylistWindow(true)}
+                    onClick={() => dispatch({
+                        type:'SET_SHOWCREATEPLAYLISTWINDOW',
+                        showCreatePlaylistWindow:true
+                    })}
                 >
                     <div className="grid place-items-center bg-[#34343275] rounded-md p-2 scale-90">
                         <AddIcon className="text-neutral-200" />
@@ -41,7 +43,7 @@ function MyPlaylists() {
                 </div>
             </section>
             {showCreatePlaylistWindow && (
-                <div className='bg-white'>dsds</div>
+                <CreatePlaylistWindow/>
             )}
         </div>)
 
