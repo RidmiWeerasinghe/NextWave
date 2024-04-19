@@ -4,7 +4,8 @@ import { useStateValue } from '../StateProvider'
 import { cTrack } from '../dummyData/dummy'
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd'
 
 function AlbumSongLists(trackID) {
 
@@ -42,13 +43,14 @@ function AlbumSongLists(trackID) {
     // console.log("track")
     //console.log(track)
 
-    function handleClick(){
+    function handleClick() {
         console.log("play song : " + trackID.trackID)
     }
     return (
         <div className="w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1">
             <div className='p-3 m-2 rounded-lg flex items-center justify-between' style={{ backgroundColor: 'rgba(169,169,169,0.05)' }}>
                 <div className="flex items-center space-x-4">
+                    <div className='text-xl cursor-pointer' onClick={handleClick}><PlaylistAddIcon style={{ fontSize: 30 }} /></div>
                     <img src={track.album.images[0].url} alt="" className='w-14 h-14 rounded-sm' />
                     <div>
                         <h4 className="text-base font-semibold">{track.name}</h4>
@@ -56,9 +58,10 @@ function AlbumSongLists(trackID) {
                     </div>
                 </div>
                 <div className="flex items-center space-x-4">
-                    <FavoriteBorderIcon className='cursor-pointer'/>
+                    <FavoriteBorderIcon className='cursor-pointer' />
                     <h4 className="text-base font-semibold">{millisToMinutesAndSeconds(track.duration_ms)}</h4>
-                    <div className='text-xl cursor-pointer' onClick={handleClick}><PlayArrowRoundedIcon style={{ fontSize: 35 }}/></div>
+                    <div className='text-xl cursor-pointer' onClick={handleClick}><PlayArrowRoundedIcon style={{ fontSize: 35 }} /></div>
+
                 </div>
             </div>
 

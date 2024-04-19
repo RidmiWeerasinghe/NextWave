@@ -29,6 +29,7 @@ export default {
         darkSongname: "#ffffffd6",
         skyBlue: "#007aff",
         grayBackground: "#1f2937",
+        backgroundColor: "#1e2126"
       },
       screens: {
         xxs: "325px",
