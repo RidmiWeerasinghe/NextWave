@@ -15,7 +15,7 @@ function TopNav() {
   }
 
   const userLoggendIn = (
-    <div className="flex gap-8 items-center mr-0 max-md:hidden">
+    <div className="flex gap-4 items-center mr-0 max-md:hidden">
       <div className='text-lightTextColor'>Hi {user.username},</div>
       <ListItemButton
         sx={[
@@ -26,9 +26,9 @@ function TopNav() {
       >
         <button
           onClick={signout}
-          className="bg-lightTextColor hover:opacity-90 text-backgroundColor rounded-md px-3 py-1 tracking-wide"
+          className="text-neutral-200 hover:bg-lightTextColor hover:text-backgroundColor bg-backgroundColor rounded-md px-3 py-1 tracking-wide border border-neutral-200"
         >
-          SignOut
+          Sign out
         </button>
       </ListItemButton>
     </div>

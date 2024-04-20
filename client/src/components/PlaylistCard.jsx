@@ -9,16 +9,29 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import MusicNoteIcon from '@mui/icons-material/MusicNote'
 
 function PlaylistCard(playlist) {
+    const [anchorEl, setAnchorEl] = React.useState(null);
     //console.log(playlist.playlist.songs.length)
-    const handleClick = () =>{
-        console.log("handle click")
-    }
+    // const handleClick = () => {
+    //     console.log("handle click")
+    // }
     const HandleRename = () => {
         console.log("handle click")
     }
-    const HandleDeleteModal = () =>{
+    const HandleDeleteModal = () => {
         console.log("handle click")
     }
+
+    const handle3dotsClick = (e) => {
+        setAnchorEl(e.currentTarget);
+      };
+    
+      const handleClose = () => {
+        setAnchorEl(null);
+      };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
     return (
         <div className="relative w-full">
             <Link
@@ -28,8 +41,8 @@ function PlaylistCard(playlist) {
                 <div className="flex overflow-hidden cursor-pointer   rounded-md items-center">
                     <div className="flex  w-full items-center gap-5 ">
                         <div className="grid place-items-center bg-[#343432] rounded-md p-2">
-                                <MusicNoteIcon className="text-neutral-300" />
-                            </div>
+                            <MusicNoteIcon className="text-neutral-300" />
+                        </div>
                         <div className="">
                             <h3 className="text-neutral-200 tracking-wide text-base">
                                 {playlist.playlist.name}
@@ -43,13 +56,65 @@ function PlaylistCard(playlist) {
             </Link>
             <section
                 className="absolute right-2 top-0 bottom-0 grid place-items-center   z-10"
-                onClick={handleClick}
+                onClick={handle3dotsClick}
             >
                 <IconButton size="large">
-                    <MoreVertIcon className="text-neutral-400" />
+                    <MoreVertIcon className="text-neutral-400" aria-describedby={id} />
                 </IconButton>
             </section>
-            
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                }}
+                transformOrigin={{
+                    vertical: "center",
+                    horizontal: "right",
+                }}
+                PaperProps={{
+                    sx: {
+                        backgroundColor: "#282a2e",
+                        paddingY: 1,
+                        borderRadius: 3,
+                        overflow: "visible",
+                        width: "10rem",
+                    },
+                }}
+            >
+                <ListItemButton onClick={HandleRename}>
+                    <li className="flex gap-3 items-center text-neutral-200 py-1 font-normal text-sm">
+                        <EditIcon />
+                        <p className="tracking-wider">Rename</p>
+                    </li>
+                </ListItemButton>
+                <ListItemButton onClick={HandleDeleteModal}>
+                    <li className="flex gap-3 text-neutral-200 py-1 font-normal text-sm">
+                        <DeleteIcon />
+                        <p className="tracking-wider">Delete</p>
+                    </li>
+                </ListItemButton>
+
+                {/* {ShowRename && (
+                        <PlalylistRenameModal
+                            handleClose={handleClose}
+                            setShowRename={setShowRename}
+                            playlistId={playlistId}
+                            name={name}
+                        />
+                    )}
+                    {ShowDelete && (
+                        <PlaylistDeleteModal
+                            handleClose={handleClose}
+                            setShowDelete={setShowDelete}
+                            playlistId={playlistId}
+                        />
+                    )}
+                 */}
+            </Popover>
         </div>
     )
 }
