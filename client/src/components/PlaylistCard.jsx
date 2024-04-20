@@ -7,18 +7,31 @@ import ListItemButton from '@mui/material/ListItemButton'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import MusicNoteIcon from '@mui/icons-material/MusicNote'
+import {useStateValue} from '../StateProvider'
+import DeletePlaylistWindow from './DeletePlaylistWindow'
+import EditPlaylistWindow from './EditPlaylistWindow'
 
 function PlaylistCard(playlist) {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    //console.log(playlist.playlist.songs.length)
-    // const handleClick = () => {
-    //     console.log("handle click")
-    // }
-    const HandleRename = () => {
+    const [{showDeletePlaylistWindow, showEditPlaylistWindow}, dispatch] = useStateValue()
+
+    const handleClick = () => {
         console.log("handle click")
     }
-    const HandleDeleteModal = () => {
+    const handleEdit = () => {
         console.log("handle click")
+        dispatch({
+            type:'SET_SHOWEDITPLAYLISTWINDOW',
+            showEditPlaylistWindow:true
+        })
+    }
+    const handleDelete = () => {
+        console.log(playlist.playlist.id)
+        console.log("handle click")
+        dispatch({
+            type:'SET_SHOWDELETEPLAYLISTWINDOW',
+            showDeletePlaylistWindow:true
+        })
     }
 
     const handle3dotsClick = (e) => {
@@ -33,10 +46,11 @@ function PlaylistCard(playlist) {
     const id = open ? 'simple-popover' : undefined;
 
     return (
-        <div className="relative w-full">
+        <div className="relative w-full p-3 m-2 rounded-lg bg-playlistcardbg hover:bg-playlistcardhoverbg">
             <Link
                 to={`/`}
-                className="hover:bg-lightBlue block  hover:bg-opacity-60 mr-3 transition-all duration-300 ease-linear py-[10px] rounded-md px-4"
+                className=" block  hover:bg-opacity-60 mr-3 transition-all duration-300 ease-linear py-[10px] rounded-md px-4"
+                style={{ textDecoration: 'none' }}
             >
                 <div className="flex overflow-hidden cursor-pointer   rounded-md items-center">
                     <div className="flex  w-full items-center gap-5 ">
@@ -85,35 +99,27 @@ function PlaylistCard(playlist) {
                     },
                 }}
             >
-                <ListItemButton onClick={HandleRename}>
+                <ListItemButton onClick={handleEdit}>
                     <li className="flex gap-3 items-center text-neutral-200 py-1 font-normal text-sm">
                         <EditIcon />
                         <p className="tracking-wider">Rename</p>
                     </li>
                 </ListItemButton>
-                <ListItemButton onClick={HandleDeleteModal}>
+                <ListItemButton onClick={handleDelete}>
                     <li className="flex gap-3 text-neutral-200 py-1 font-normal text-sm">
                         <DeleteIcon />
                         <p className="tracking-wider">Delete</p>
                     </li>
                 </ListItemButton>
 
-                {/* {ShowRename && (
-                        <PlalylistRenameModal
-                            handleClose={handleClose}
-                            setShowRename={setShowRename}
-                            playlistId={playlistId}
-                            name={name}
+                {showEditPlaylistWindow && (
+                        <EditPlaylistWindow id={playlist.playlist._id}/>
+                    )}
+                    {showDeletePlaylistWindow && (
+                        <DeletePlaylistWindow
                         />
                     )}
-                    {ShowDelete && (
-                        <PlaylistDeleteModal
-                            handleClose={handleClose}
-                            setShowDelete={setShowDelete}
-                            playlistId={playlistId}
-                        />
-                    )}
-                 */}
+                
             </Popover>
         </div>
     )

@@ -11,6 +11,8 @@ export const initialState = {
     currentAtist: currentAtist,
     currentAtistTracks: currentAtistTracks,
     showCreatePlaylistWindow: false,
+    showEditPlaylistWindow: false,
+    showDeletePlaylistWindow: false,
     currentUserPlaylists: []
 }
 
@@ -62,6 +64,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 showCreatePlaylistWindow: action.showCreatePlaylistWindow
+            }
+        case 'SET_SHOWEDITPLAYLISTWINDOW':
+            return {
+                ...state,
+                showEditPlaylistWindow: action.showEditPlaylistWindow
+            }
+        case 'SET_SHOWDELETEPLAYLISTWINDOW':
+            return {
+                ...state,
+                showDeletePlaylistWindow: action.showDeletePlaylistWindow
             }
         case 'SET_CURRENTUSERPLAYLIST':
             return {

@@ -23,6 +23,11 @@ export default {
         blueBtnHoverColor: "#1e3a8a",
         blueBtnColor: "#2563eb",
 
+        //playlist card bg
+        playlistcardbg: 'rgba(169,169,169,0.05)',
+        playlistcardhoverbg: 'rgba(169,169,169,0.12)',
+
+
         SearchBarBorderColor:"#52525b",
 
         darkTitle: "#e9e9e9",
