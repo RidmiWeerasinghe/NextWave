@@ -35,7 +35,7 @@ function PlaylistCard(playlist) {
     }
 
     const handle3dotsClick = (e) => {
-        setAnchorEl(e.currentTarget);
+        setAnchorEl(e.currentTarget)
       };
     
       const handleClose = () => {

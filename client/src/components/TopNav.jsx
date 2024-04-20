@@ -3,9 +3,23 @@ import SearchBar from './SearchBar'
 import { useStateValue } from '../StateProvider'
 import LoginAndSignUp from './LoginAndSignUp'
 import ListItemButton from '@mui/material/ListItemButton'
+import Popover from '@mui/material/Popover'
 
 function TopNav() {
   const [{ user }, dispatch] = useStateValue()
+  const [anchorEl, setAnchorEl] = React.useState(null)
+
+  const showPopover = (e) => {
+    setAnchorEl(e.currentTarget);
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
 
   const signout = () => {
     dispatch({
@@ -15,22 +29,52 @@ function TopNav() {
   }
 
   const userLoggendIn = (
-    <div className="flex gap-4 items-center mr-0 max-md:hidden">
-      <div className='text-lightTextColor'>Hi {user.username},</div>
-      <ListItemButton
-        sx={[
-          {
-            padding: 0,
+    <div className="flex gap-4 items-center mr-0 max-md:hidden"  >
+      <div className='text-lightTextColor cursor-pointer p-4'aria-describedby={id} onMouseOver={showPopover}>
+        Hi {user.username},
+      </div>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        PaperProps={{
+          sx: {
+            backgroundColor: "#282a2e",
+            paddingY: 1,
+            borderRadius: 3,
+            overflow: "visible",
+            width: "10rem",
+            alignItems: "center",
+            justifyItems:"center"
           },
-        ]}
+        }}
       >
-        <button
-          onClick={signout}
-          className="text-neutral-200 hover:bg-lightTextColor hover:text-backgroundColor bg-backgroundColor rounded-md px-3 py-1 tracking-wide border border-neutral-200"
-        >
-          Sign out
-        </button>
-      </ListItemButton>
+        <ListItemButton onClick={signout}>
+          <li className="flex text-neutral-200 font-normal text-sm text-center text-justify">
+
+            <p className="tracking-wider">My Profile</p>
+          </li>
+        </ListItemButton>
+        <ListItemButton onClick={signout}>
+          <li className="flex text-neutral-200 font-normal text-sm text-center text-justify">
+
+            <p
+              onClick={signout}
+            >
+              Sign out
+            </p>
+          </li>
+        </ListItemButton>
+      </Popover>
     </div>
   )
   return (
