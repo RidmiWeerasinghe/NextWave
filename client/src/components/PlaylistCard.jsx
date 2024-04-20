@@ -113,7 +113,7 @@ function PlaylistCard(playlist) {
                 </ListItemButton>
 
                 {showEditPlaylistWindow && (
-                        <EditPlaylistWindow id={playlist.playlist._id}/>
+                        <EditPlaylistWindow name={playlist.playlist.name}/>
                     )}
                     {showDeletePlaylistWindow && (
                         <DeletePlaylistWindow

@@ -7,7 +7,7 @@ import PlaylistCard from './PlaylistCard'
 import axios from 'axios'
 
 function MyPlaylists() {
-    const [{ user, showCreatePlaylistWindow, currentUserPlaylists }, dispatch] = useStateValue()
+    const [{ user, showCreatePlaylistWindow, currentUserPlaylists,showEditPlaylistWindow }, dispatch] = useStateValue()
 
     //loading all playlists
     useEffect(() => {
@@ -23,7 +23,7 @@ function MyPlaylists() {
             .catch((error) => {
                 console.log(error)
             })
-    }, [showCreatePlaylistWindow])
+    }, [showCreatePlaylistWindow, showEditPlaylistWindow])
 
 
     const notLoggedInMessage = (

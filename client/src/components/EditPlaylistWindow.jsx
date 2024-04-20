@@ -4,8 +4,8 @@ import { playlistSchema } from '../validation/playlistValidation'
 import toast, { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 
-function EditPlaylistWindow(id) {
-    const [{ user, showEditPlaylistWindow}, dispatch] = useStateValue()
+function EditPlaylistWindow(name) {
+    const [{ user, showEditPlaylistWindow }, dispatch] = useStateValue()
     const [inputTxt, setInputTxt] = useState("")
 
     const handleCancle = () => {
@@ -20,7 +20,36 @@ function EditPlaylistWindow(id) {
     }
 
     const handlSubmit = async () => {
-        console.log(id)
+        const playlist = {
+            name: inputTxt
+        }
+        console.log(name.name)
+        try {
+            await playlistSchema.validate(playlist, { abortEarly: false })
+            axios.put(`http://localhost:5555/playlist/updatename/${user.email}`, { playlistname: name.name, newName: inputTxt })
+                .then(response => {
+                    console.log(response)
+                    if (response.data === "updated") {
+                        toast.success("Playlist name updated successfully")
+                        setTimeout(() => {
+                            dispatch({
+                                type: 'SET_SHOWEDITPLAYLISTWINDOW',
+                                showEditPlaylistWindow: false
+                            })
+                        }, 800)
+                    }
+                    else {
+                        toast.error("update fail")
+                    }
+                })
+                .catch((error) =>
+                    console.log(error)
+                )
+        } catch (error) {
+            error.inner.forEach((err) => {
+                toast.error(err.message)
+            })
+        }
     }
     return (
         <div className="fixed inset-0 z-[60] grid place-items-center bg-black bg-opacity-30">

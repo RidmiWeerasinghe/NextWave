@@ -48,18 +48,54 @@ router.post('/findPlaylist', async (req, res) => {
 
 //getting all playlists
 router.get('/getallplaylist/:email', async (req, res) => {
-    const {email} = req.params
+    const { email } = req.params
     try {
         const user = await User.findOne({ email })
         if (user) {
-           return res.status(200).json({
-            count: user.playlist.length,
-            data: user.playlist
-           })
+            return res.status(200).json({
+                count: user.playlist.length,
+                data: user.playlist
+            })
         }
     } catch (error) {
         console.log(error.message)
     }
 })
 
+//update the name of playlist
+router.put('/updatename/:email', async (req, res) => {
+    const { email } = req.params
+    const { playlistname, newName } = req.body
+    try {
+        const user = await User.findOne({ email })
+        if (user) {
+            try {
+                let i = 0
+                while (user.playlist[i].name !== playlistname) {
+                    i++
+                    if (!user.playlist[i]) {
+                        i = -1
+                        break
+                    }
+                }
+                const playlistIndex = i
+                if (playlistIndex !== -1) {
+                    user.playlist[playlistIndex].name = newName
+                    await user.save()
+                    res.json("updated")
+                }
+                else{
+                    res.json("playlist not found")
+                }
+
+            } catch (error) {
+                console.log(error.message)
+            }
+        } else {
+            res.json("user not found")
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+})
 export default router
