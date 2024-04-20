@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 const songSchema = mongoose.Schema({
     songID:{
         type: String
+    },
+    isFavourite:{
+        type: Boolean
     }
 })
 

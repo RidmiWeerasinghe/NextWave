@@ -56,16 +56,16 @@ function MyPlaylists() {
                     Your Playlists
                 </h3>
                 {(currentUserPlaylists.length < 0) ?
-                    <div className="w-full flex justify-center items-center mt-10">
+                    (<div className="w-full flex justify-center items-center mt-10">
                         <p className="text-neutral-400 w-1/2 text-center max-md:w-full max-md:px-4">
                             You haven't created any playlist yet.
                         </p>
-                    </div> :
-                    <section className="mt-4 flex flex-col mb-12">
+                    </div> ):
+                    (<section className="mt-4 flex flex-col mb-12">
                         {currentUserPlaylists.map((playlist) => (
                             <PlaylistCard key={playlist.id} playlist={playlist} />
                         ))}
-                    </section>}
+                    </section>)}
             </section>
             {showCreatePlaylistWindow && (
                 <CreatePlaylistWindow />
