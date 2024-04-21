@@ -24,6 +24,7 @@ router.post('/createplaylist', async (req, res) => {
 router.post('/findPlaylist', async (req, res) => {
     //console.log(req.body)
     //find user
+    console.log(req.body)
     try {
         User.findOne({ email: req.body.email })
             .then(user => {
@@ -84,7 +85,7 @@ router.put('/updatename/:email', async (req, res) => {
                     await user.save()
                     res.json("updated")
                 }
-                else{
+                else {
                     res.json("playlist not found")
                 }
 
@@ -93,6 +94,43 @@ router.put('/updatename/:email', async (req, res) => {
             }
         } else {
             res.json("user not found")
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+})
+
+//delete a playlist
+router.delete('/delete/:email', async (req, res) => {
+    const { email } = req.params
+    const { name } = req.body
+    console.log(name)
+    try {
+        const user = await User.findOne({ email })
+        if (user) {
+            try {
+                let i = 0
+                while (user.playlist[i].name !== name) {
+                    i++
+                    if (!user.playlist[i]) {
+                        i = -1
+                        break
+                    }
+                }
+                const playlistIndex = i
+                console.log(playlistIndex)
+                if (playlistIndex !== -1) {
+                    user.playlist.splice(playlistIndex, 1)
+                    await user.save()
+                    res.json("deleted")
+                }
+                else {
+                    res.json("playlist not found")
+                }
+
+            } catch (error) {
+                console.log(error.message)
+            }
         }
     } catch (error) {
         console.log(error.message)

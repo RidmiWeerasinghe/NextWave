@@ -26,25 +26,34 @@ function EditPlaylistWindow(name) {
         console.log(name.name)
         try {
             await playlistSchema.validate(playlist, { abortEarly: false })
-            axios.put(`http://localhost:5555/playlist/updatename/${user.email}`, { playlistname: name.name, newName: inputTxt })
-                .then(response => {
-                    console.log(response)
-                    if (response.data === "updated") {
-                        toast.success("Playlist name updated successfully")
-                        setTimeout(() => {
-                            dispatch({
-                                type: 'SET_SHOWEDITPLAYLISTWINDOW',
-                                showEditPlaylistWindow: false
+            axios.post("http://localhost:5555/playlist/findplaylist", { playlist: { name: playlist.name }, email: user.email })
+                .then(res => {
+                    if (res.status === 200) {
+                        axios.put(`http://localhost:5555/playlist/updatename/${user.email}`, { playlistname: name.name, newName: inputTxt })
+                            .then(response => {
+                                console.log(response)
+                                if (response.data === "updated") {
+                                    toast.success("Playlist name updated successfully")
+                                    setTimeout(() => {
+                                        dispatch({
+                                            type: 'SET_SHOWEDITPLAYLISTWINDOW',
+                                            showEditPlaylistWindow: false
+                                        })
+                                    }, 800)
+                                }
+                                else {
+                                    toast.error("update fail")
+                                }
                             })
-                        }, 800)
+                            .catch((error) =>
+                                console.log(error)
+                            )
+                    } else {
+                        toast.error("Playlist already exists")
                     }
-                    else {
-                        toast.error("update fail")
-                    }
-                })
-                .catch((error) =>
+                }).catch((error) => {
                     console.log(error)
-                )
+                })
         } catch (error) {
             error.inner.forEach((err) => {
                 toast.error(err.message)

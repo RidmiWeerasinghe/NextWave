@@ -4,7 +4,7 @@ import { playlistSchema } from '../validation/playlistValidation'
 import toast, { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 
-function DeletePlaylistWindow() {
+function DeletePlaylistWindow(name) {
     const [{ user }, dispatch] = useStateValue()
 
     const handleCancle = () => {
@@ -15,6 +15,29 @@ function DeletePlaylistWindow() {
     }
 
     const handlSubmit = async () => {
+        try {
+            axios.delete(`http://localhost:5555/playlist/delete/${user.email}`, {data:{ name: name.name }})
+                .then(response => {
+                    console.log(response)
+                    if (response.data === "deleted") {
+                        toast.success("Playlist deleted successfully")
+                        setTimeout(() => {
+                            dispatch({
+                                type: 'SET_SHOWDELETEPLAYLISTWINDOW',
+                                showDeletePlaylistWindow: false
+                            })
+                        }, 800)
+                    }
+                    else {
+                        toast.error("delete fail")
+                    }
+                })
+                .catch((error) =>
+                    console.log(error)
+                )
+        } catch (error) {
+            console.log(error)
+        }
     }
     return (
         <div className="fixed inset-0 z-[60] grid place-items-center bg-black bg-opacity-30">

@@ -116,7 +116,7 @@ function PlaylistCard(playlist) {
                         <EditPlaylistWindow name={playlist.playlist.name}/>
                     )}
                     {showDeletePlaylistWindow && (
-                        <DeletePlaylistWindow
+                        <DeletePlaylistWindow name={playlist.playlist.name}
                         />
                     )}
                 
