@@ -85,7 +85,7 @@ function AlbumSongLists(trackID) {
     return (
         <div className="w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1 cursor-pointer">
             <div className='p-3 m-2 rounded-lg flex items-center justify-between bg-playlistcardbg  hover:bg-playlistcardhoverbg'>
-                <div className="flex items-center space-x-1">
+                <div className="flex items-center space-x-4">
 
 
                     <img src={track.album.images[0].url} alt="" className='w-14 h-14 rounded-sm' />
@@ -99,7 +99,7 @@ function AlbumSongLists(trackID) {
                     <h4 className="text-base font-semibold">{millisToMinutesAndSeconds(track.duration_ms)}</h4>
                     <div className='text-xl cursor-pointer' onClick={handleClick}><PlayArrowRoundedIcon style={{ fontSize: 35 }} /></div>
                     
-                    <div className='text-xl cursor-pointer' onClick={handleClickPlaylistIcon}><MoreVertIcon style={{ fontSize: 30 }} aria-describedby={id} /></div>
+                    {user.email &&<div className='text-xl cursor-pointer' onClick={handleClickPlaylistIcon}><MoreVertIcon style={{ fontSize: 30 }} aria-describedby={id} /></div>}
                     {user.email && <Popover
                         id={id}
                         open={open}

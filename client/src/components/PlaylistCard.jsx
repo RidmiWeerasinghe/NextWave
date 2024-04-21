@@ -46,7 +46,7 @@ function PlaylistCard(playlist) {
     const id = open ? 'simple-popover' : undefined;
 
     return (
-        <div className="relative w-full p-3 m-2 rounded-lg bg-playlistcardbg hover:bg-playlistcardhoverbg">
+        <div className="relative overflow-hidden p-3 m-2 rounded-lg bg-playlistcardbg hover:bg-playlistcardhoverbg">
             <Link
                 to={`/`}
                 className=" block  hover:bg-opacity-60 mr-3 transition-all duration-300 ease-linear py-[10px] rounded-md px-4"

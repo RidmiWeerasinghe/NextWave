@@ -4,19 +4,29 @@ import { useStateValue } from '../StateProvider'
 import LoginAndSignUp from './LoginAndSignUp'
 import ListItemButton from '@mui/material/ListItemButton'
 import Popover from '@mui/material/Popover'
+import LogoutIcon from '@mui/icons-material/Logout'
+import PersonIcon from '@mui/icons-material/Person'
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt'
+import { Link, useLocation  } from 'react-router-dom'
+import MyPlaylists from './MyPlaylists'
 
 function TopNav() {
   const [{ user, currentUserPlaylists }, dispatch] = useStateValue()
+  //popover
   const [anchorEl, setAnchorEl] = React.useState(null)
 
+  //display searchbar
+  const Location = useLocation()
+  const isMyprofile = Location.pathname === '/myprofile'
+  const isMyplaylists = Location.pathname === '/myplaylists'
+
+  //popover
   const showPopover = (e) => {
     setAnchorEl(e.currentTarget);
   }
-
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
+  }
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
@@ -32,10 +42,14 @@ function TopNav() {
     })
   }
 
+  const myProfile = () => {
+
+  }
+
   const userLoggendIn = (
     <div className="flex gap-4 items-center mr-0 max-md:hidden"  >
-      <div className='text-lightTextColor cursor-pointer p-4'aria-describedby={id} onMouseOver={showPopover}>
-        Hi {user.username},
+      <div className='text-lightTextColor cursor-pointer p-4' aria-describedby={id} onMouseOver={showPopover}>
+        Hi {user.username} <SentimentSatisfiedAltIcon className='text-neutral-200' />
       </div>
       <Popover
         id={id}
@@ -58,19 +72,21 @@ function TopNav() {
             overflow: "visible",
             width: "10rem",
             alignItems: "center",
-            justifyItems:"center"
+            justifyItems: "center"
           },
         }}
       >
+        <Link to={'/myprofile'}>
+          <ListItemButton onClick={myProfile}>
+            <PersonIcon className='text-neutral-200' />
+            <li className="pl-3 flex text-neutral-200 font-normal text-center text-justify">
+              <p className="tracking-wider">My Profile</p>
+            </li>
+          </ListItemButton>
+        </Link>
         <ListItemButton onClick={signout}>
-          <li className="flex text-neutral-200 font-normal text-sm text-center text-justify">
-
-            <p className="tracking-wider">My Profile</p>
-          </li>
-        </ListItemButton>
-        <ListItemButton onClick={signout}>
-          <li className="flex text-neutral-200 font-normal text-sm text-center text-justify">
-
+          <LogoutIcon className='text-neutral-200' />
+          <li className="pl-3 flex text-neutral-200 font-normal text-center text-justify">
             <p
               onClick={signout}
             >
@@ -84,7 +100,8 @@ function TopNav() {
   return (
     <div className=" border-b-2 border-slate-100 border-opacity-10 h-20">
       <div className="h-20 flex items-center px-9 max-md:px-4 justify-between fixed z-40 backdrop-blur-sm bg-darkBlue bg-opacity-60 right-0 left-0 ml-52 max-md:ml-0 top-0">
-        <SearchBar />
+        {!isMyprofile && !isMyplaylists && <SearchBar />}
+        <div className="flex-grow" />
         <div> {user.username ? userLoggendIn : <LoginAndSignUp />}</div>
       </div>
     </div>

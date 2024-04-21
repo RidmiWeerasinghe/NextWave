@@ -10,6 +10,7 @@ import SingleArtist from './components/SingleArtist'
 import Recent from './components/Recent'
 import MyPlaylists from './components/MyPlaylists'
 import MyFavorites from './components/MyFavorites'
+import MyProfile from './components/MyProfile'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/recentsongs" element={<Recent />} />
         <Route path="/myplaylists" element={<MyPlaylists />} />
         <Route path="/myfavorites" element={<MyFavorites />} />
+        <Route path="/myprofile" element={<MyProfile />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
 
