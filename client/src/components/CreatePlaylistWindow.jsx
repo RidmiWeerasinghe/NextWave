@@ -30,6 +30,7 @@ function CreatePlaylistWindow() {
             //check if user has a playlist by same name
             axios.post("http://localhost:5555/playlist/findplaylist", { playlist: { name: playlist.name }, email: user.email })
                 .then(res => {
+                    console.log(res)
                     if (res.status === 200) {
                         //creating playlist
                         axios.post("http://localhost:5555/playlist/createplaylist", { name: playlist.name, email: user.email })

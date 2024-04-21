@@ -22,9 +22,9 @@ router.post('/createplaylist', async (req, res) => {
 
 //finding a playlist
 router.post('/findPlaylist', async (req, res) => {
-    //console.log(req.body)
-    //find user
     console.log(req.body)
+    //find user
+    //console.log(req.body)
     try {
         User.findOne({ email: req.body.email })
             .then(user => {

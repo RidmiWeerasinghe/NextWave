@@ -6,7 +6,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import Popover from '@mui/material/Popover'
 
 function TopNav() {
-  const [{ user }, dispatch] = useStateValue()
+  const [{ user, currentUserPlaylists }, dispatch] = useStateValue()
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const showPopover = (e) => {
@@ -25,6 +25,10 @@ function TopNav() {
     dispatch({
       type: 'SET_USER',
       user: {}
+    })
+    dispatch({
+      type: 'SET_CURRENTUSERPLAYLIST',
+      currentUserPlaylists: []
     })
   }
 
