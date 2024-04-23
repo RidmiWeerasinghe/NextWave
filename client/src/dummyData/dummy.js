@@ -22,23 +22,25 @@ export const cTrack = {
     name: "",
     duration_ms: ""
 }
-export const currentAtist ={
-    images:[
-        {url: "/images/spinner.gif" }
+export const currentAtist = {
+    images: [
+        { url: "/images/spinner.gif" }
     ]
 }
 
-export const currentAtistTracks={
-    tracks:[
+export const currentAtistTracks = {
+    tracks: [
         {
-            id:"1BxfuPKGuaTgP7aM0Bbdwr",
-            name:"name",
-            album:{image:[
-                {url:'/images/spinner.gif'}
-            ]}
+            id: "1BxfuPKGuaTgP7aM0Bbdwr",
+            name: "name",
+            album: {
+                image: [
+                    { url: '/images/spinner.gif' }
+                ]
+            }
         }
     ]
 }
 
 export const artists = [{ id: "" }, {}]
-export const topArtists =[{id:'2hazSY4Ef3aB9ATXW7F5w3',name:"name",images:[{url:"/images/spinner.gif"}]}]
+export const topArtists = [{ id: '2hazSY4Ef3aB9ATXW7F5w3', name: "name", images: [{ url: "/images/spinner.gif" }] }]

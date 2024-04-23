@@ -66,26 +66,32 @@ function AlbumSongLists(trackID) {
 
     useEffect(() => {
         //retreving track by track using track id
-        try {
-            var authParameters = {
-                method: 'GET',
-                mode: "cors",
-                headers: {
-                    "Authorization": `Bearer ${accessToken}`
-                }
-            }
-            fetch(`https://api.spotify.com/v1/tracks/${trackID.trackID}`, authParameters)
-                .then(result => result.json())
-                .then(data => {
-                    //if there isn't an error
-                    if (data.album) {
-                        setTrack(data)
+        if (trackID.trackID) {
+            //console.log(trackID.trackID)
+            try {
+                var authParameters = {
+                    method: 'GET',
+                    mode: "cors",
+                    headers: {
+                        "Authorization": `Bearer ${accessToken}`
                     }
                 }
-                )
-                .catch(console.error("err"))
-        } catch (error) {
-            console.log(error)
+                fetch(`https://api.spotify.com/v1/tracks/${trackID.trackID}`, authParameters)
+                    .then(result => result.json())
+                    .then(data => {
+                        //if there isn't an error
+                        if (data.album) {
+                            setTrack(data)
+                        }
+                    }
+                    )
+                    .catch((error)=>{
+                        console.log(error)
+                        console.log("error")
+                    })
+            } catch (error) {
+                console.log(error)
+            }
         }
     }, [])
     // console.log("track")
@@ -147,7 +153,7 @@ function AlbumSongLists(trackID) {
                         </ListItemButton>
                         {currentUserPlaylists.length > 0 &&
                             currentUserPlaylists.map((playlist) => (
-                                <ListItemButton onClick={addToPlaylist}>
+                                <ListItemButton key={playlist.name} onClick={addToPlaylist}>
                                     <li className="flex gap-3 text-neutral-200 py-1 font-normal text-sm">
                                         <MusicNoteIcon />
                                         <p className="tracking-wider">{playlist.name}</p>
