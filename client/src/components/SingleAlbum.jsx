@@ -8,25 +8,40 @@ function SingleAlbum() {
     const albumID = useParams()
     //console.log(albumID)
     const [{ accessToken, currentSingleAlbum }, dispatch] = useStateValue()
+    const [{ isLoading, setIsLoading }] = useState(true)
 
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)
 
     useEffect(() => {
-        var authParameters = {
-            method: 'GET',
-            mode: "cors",
-            headers: {
-                "Authorization": `Bearer ${accessToken}`
+        try {
+            var authParameters = {
+                method: 'GET',
+                mode: "cors",
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
             }
+            fetch(`https://api.spotify.com/v1/albums/${albumID.id}`, authParameters)
+                .then(result => result.json())
+                .then(data => {
+                    if (data) {
+                        console.log("y")
+                        //setIsLoading(false);
+                        dispatch({
+                            type: "SET_CURRENTSINGLEALBUM",
+                            currentSingleAlbum: data
+                        })
+                    }
+                    else {
+                        console.log("no")
+                    }
+
+                }
+                )
+        } catch (error) {
+            console.log(error)
         }
-        fetch(`https://api.spotify.com/v1/albums/${albumID.id}`, authParameters)
-            .then(result => result.json())
-            .then(data => dispatch({
-                type: "SET_CURRENTSINGLEALBUM",
-                currentSingleAlbum: data
-            })
-            )
     }, [])
     console.log("id : " + currentSingleAlbum.tracks.items.id)
     return (
@@ -65,7 +80,7 @@ function SingleAlbum() {
                     </div>
                 </div>
                 <section className="mx-12 mb-10 mt-6 max-md:mx-2">
-                {currentSingleAlbum?.tracks.items.map((track) => (
+                    {!isLoading &&currentSingleAlbum?.tracks.items.map((track) => (
                         <AlbumSongList key={track.id} trackID={track.id} />
                     ))}
                 </section>

@@ -45,36 +45,52 @@ function AlbumSongLists(trackID) {
 
     useEffect(() => {
         //loading all playlists
-        try {
-            axios.get(`http://localhost:5555/playlist/getallplaylist/${user.email}`)
-                .then(response => {
-                    console.log(response.data.data)
-                    setCurrentUserPlaylists(response.data.data)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        } catch (error) {
-            console.log(error)
+        if (user.username) {
+            try {
+                axios.get(`http://localhost:5555/playlist/getallplaylist/${user.email}`)
+                    .then(response => {
+                        //console.log(response.data.data)
+                        setCurrentUserPlaylists(response.data.data)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        else {
+            console.log("no user")
         }
     }, [])
 
     useEffect(() => {
         //retreving track by track using track id
-        var authParameters = {
-            method: 'GET',
-            mode: "cors",
-            headers: {
-                "Authorization": `Bearer ${accessToken}`
+        try {
+            var authParameters = {
+                method: 'GET',
+                mode: "cors",
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
             }
+            fetch(`https://api.spotify.com/v1/tracks/${trackID.trackID}`, authParameters)
+                .then(result => result.json())
+                .then(data => {
+                    //if there isn't an error
+                    if (data.album) {
+                        setTrack(data)
+                    }
+                }
+                )
+                .catch(console.error("err"))
+        } catch (error) {
+            console.log(error)
         }
-        fetch(`https://api.spotify.com/v1/tracks/${trackID.trackID}`, authParameters)
-            .then(result => result.json())
-            .then(data => setTrack(data)
-            ).catch(console.error("err"))
     }, [])
     // console.log("track")
-    //console.log(track)
+    // console.log(cTrack.album.images[0])
+    // console.log(track)
 
     function addToPlaylist() {
         const songID = trackID.trackID
@@ -98,8 +114,8 @@ function AlbumSongLists(trackID) {
                     <FavoriteBorderIcon className='cursor-pointer' />
                     <h4 className="text-base font-semibold">{millisToMinutesAndSeconds(track.duration_ms)}</h4>
                     <div className='text-xl cursor-pointer' onClick={handleClick}><PlayArrowRoundedIcon style={{ fontSize: 35 }} /></div>
-                    
-                    {user.email &&<div className='text-xl cursor-pointer' onClick={handleClickPlaylistIcon}><MoreVertIcon style={{ fontSize: 30 }} aria-describedby={id} /></div>}
+
+                    {user.email && <div className='text-xl cursor-pointer' onClick={handleClickPlaylistIcon}><MoreVertIcon style={{ fontSize: 30 }} aria-describedby={id} /></div>}
                     {user.email && <Popover
                         id={id}
                         open={open}

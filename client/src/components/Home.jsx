@@ -4,7 +4,7 @@ import MusicCard from './MusicCard'
 import { useStateValue } from '../StateProvider'
 
 function Home() {
-    const [{accessToken,trendingAlbums,topAlbums}, dispatch] = useStateValue()
+    const [{ accessToken, trendingAlbums, topAlbums }, dispatch] = useStateValue()
 
     const clientID = "72cdd5687f2146adaf6d90d7d3f95270"
     const clientSecret = "e521133ff90f4230885d2e1dc8d0fd11"
@@ -12,22 +12,29 @@ function Home() {
     //console.log("accessToken from context api : " + accessToken)
 
     useEffect(() => {
-        //console.log("useeffect running ")
-
         //getting access token
-        var authParameters = {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: "grant_type=client_credentials&client_id=" + clientID + "&client_secret=" + clientSecret
+        try {
+            var authParameters = {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "grant_type=client_credentials&client_id=" + clientID + "&client_secret=" + clientSecret
+            }
+            fetch("https://accounts.spotify.com/api/token", authParameters)
+                .then(result => result.json())
+                .then(data => {
+                   // if (data) {
+                        //setIsLoading(false)
+                        dispatch({
+                            type: 'SET_TOKEN',
+                            accessToken: data.access_token
+                        })
+                    //}
+                })
+        } catch (error) {
+            console.log(error)
         }
-        fetch("https://accounts.spotify.com/api/token", authParameters)
-            .then(result => result.json())
-            .then(data => dispatch({
-                type: 'SET_TOKEN',
-                accessToken: data.access_token
-            }))
     }, [])
 
     const spotify = new SpotifyWebApi()

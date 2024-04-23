@@ -1,6 +1,6 @@
 export const currentAlbum = {
     images: [
-        { url: 'https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg' }
+        { url: '/images/spinner.gif' }
     ],
     name: "name",
     label: "label",
@@ -16,7 +16,7 @@ export const currentAlbum = {
 export const cTrack = {
     album: {
         name: "album name",
-        images: [{ url: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg" }],
+        images: [{ url: "/images/spinner.gif" }],
         artists: [{ name: "" }]
     },
     name: "",
@@ -24,7 +24,7 @@ export const cTrack = {
 }
 export const currentAtist ={
     images:[
-        {url: "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg" }
+        {url: "/images/spinner.gif" }
     ]
 }
 
@@ -34,11 +34,11 @@ export const currentAtistTracks={
             id:"1BxfuPKGuaTgP7aM0Bbdwr",
             name:"name",
             album:{image:[
-                {url:"https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg"}
+                {url:'/images/spinner.gif'}
             ]}
         }
     ]
 }
 
 export const artists = [{ id: "" }, {}]
-export const topArtists =[{id:'2hazSY4Ef3aB9ATXW7F5w3',name:"name",images:[{url:"https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg"}]}]
+export const topArtists =[{id:'2hazSY4Ef3aB9ATXW7F5w3',name:"name",images:[{url:"/images/spinner.gif"}]}]

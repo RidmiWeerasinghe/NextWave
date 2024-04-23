@@ -12,7 +12,7 @@ import DeletePlaylistWindow from './DeletePlaylistWindow'
 import EditPlaylistWindow from './EditPlaylistWindow'
 
 function PlaylistCard(playlist) {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const [{showDeletePlaylistWindow, showEditPlaylistWindow}, dispatch] = useStateValue()
 
     const handleClick = () => {
