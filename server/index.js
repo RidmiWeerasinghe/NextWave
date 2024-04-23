@@ -3,6 +3,7 @@ import { PORT, mongodbUrl } from './config.js'
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes.js"
 import playlistRoutes from './routes/playlistRoutes.js'
+import songRoutes from './routes/songRoutes.js'
 import cors from 'cors'
 
 const app = express();
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 
 app.use('/users',userRoutes)
 app.use('/playlist',playlistRoutes)
+app.use('/songs', songRoutes)
 
 mongoose.connect(mongodbUrl)
     .then(() => {

@@ -1,5 +1,5 @@
 import React ,{useState}from 'react'
-import { Link } from '@mui/material'
+import { Link } from 'react-router-dom'
 import IconButton from '@mui/material/IconButton'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Popover from '@mui/material/Popover'
@@ -48,7 +48,7 @@ function PlaylistCard(playlist) {
     return (
         <div className="relative overflow-hidden p-3 m-2 rounded-lg bg-playlistcardbg hover:bg-playlistcardhoverbg">
             <Link
-                to={`/`}
+                to={`/singleuserplaylist/${playlist.playlist.name}`}
                 className=" block  hover:bg-opacity-60 mr-3 transition-all duration-300 ease-linear py-[10px] rounded-md px-4"
                 style={{ textDecoration: 'none' }}
             >

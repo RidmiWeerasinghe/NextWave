@@ -71,15 +71,8 @@ router.put('/updatename/:email', async (req, res) => {
         const user = await User.findOne({ email })
         if (user) {
             try {
-                let i = 0
-                while (user.playlist[i].name !== playlistname) {
-                    i++
-                    if (!user.playlist[i]) {
-                        i = -1
-                        break
-                    }
-                }
-                const playlistIndex = i
+                //finging the index of playlist
+                const playlistIndex = user.playlist.findIndex(playlist => playlist.name === playlistname)
                 if (playlistIndex !== -1) {
                     user.playlist[playlistIndex].name = newName
                     await user.save()
@@ -117,7 +110,7 @@ router.delete('/delete/:email', async (req, res) => {
                         break
                     }
                 }
-                const playlistIndex = i
+                const playlistIndex = user.playlist.findIndex(playlist => playlist.name === name)
                 console.log(playlistIndex)
                 if (playlistIndex !== -1) {
                     user.playlist.splice(playlistIndex, 1)
@@ -131,6 +124,32 @@ router.delete('/delete/:email', async (req, res) => {
             } catch (error) {
                 console.log(error.message)
             }
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+})
+
+//get playlist by name
+router.get('/getplaylist/:email/:name', async (req, res) => {
+    const {name} = req.params
+    const {email} = req.params
+
+    try {
+        const user = await User.findOne({email})
+        if(user){
+            console.log(user.playlist)
+            const playlistIndex = user.playlist.findIndex(playlist => playlist.name == name)
+            if(playlistIndex !== -1){
+                res.json(user.playlist[playlistIndex])
+            }
+            else{
+                res.json("not found")
+            }
+        }
+        //user doesnt exists
+        else{
+            res.json("user not found")
         }
     } catch (error) {
         console.log(error.message)

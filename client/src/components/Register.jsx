@@ -83,7 +83,7 @@ function Register() {
                         </h1>
                         <form className="space-y-4 md:space-y-6" action="#">
                             <div className='flex items-center justify-center'>
-                                <input type="text" name="username" id="username" value={form.username} onChange={handleChange} className=" text-lightTextColor text-base mt-5 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" placeholder="name" required="" />
+                                <input type="text" name="username" id="username" value={form.username} onChange={handleChange} className=" text-lightTextColor text-base mt-5 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" placeholder="🖉 name" required="" />
                             </div>
                             <div className='flex items-center justify-center'>
                                 <input type="text" name="email" id="email" value={form.email} onChange={handleChange} className=" text-lightTextColor text-base mt-5 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" placeholder="✉ Email" required="" />
