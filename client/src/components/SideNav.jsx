@@ -35,7 +35,7 @@ function SideNav() {
                             <NavLink
                                 onClick={HandleSideNav}
                                 to={"/"}
-                                className="flex items-center gap-4 text-sm max-md:text-base font-medium"
+                                className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
                                 <ExploreIcon />
                                 Discover
@@ -43,7 +43,7 @@ function SideNav() {
                             <NavLink
                                 onClick={HandleSideNav}
                                 to={"/topartists"}
-                                className="flex items-center gap-4 text-sm max-md:text-base font-medium"
+                                className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
                                 <AccountBoxIcon />
                                 Top Artists
@@ -51,7 +51,7 @@ function SideNav() {
                             <NavLink
                                 onClick={HandleSideNav}
                                 to={"topplaylists/Hindi"}
-                                className="flex items-center gap-4 text-sm max-md:text-base font-medium"
+                                className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
                                 <AssessmentIcon />
                                 Top Playlists
@@ -70,7 +70,7 @@ function SideNav() {
                         <NavLink
                             onClick={HandleSideNav}
                             to={"/recentsongs"}
-                            className="flex items-center gap-4 text-sm max-md:text-base font-medium"
+                            className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                         >
                             <DonutSmallIcon />
                             Recent
@@ -78,7 +78,7 @@ function SideNav() {
                         <NavLink
                             onClick={HandleSideNav}
                             to={"/myplaylists"}
-                            className="flex items-center  gap-4 text-sm max-md:text-base font-medium"
+                            className="flex items-center  gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                         >
                             <SubscriptionsIcon />
                             Your Playlists
@@ -86,7 +86,7 @@ function SideNav() {
                         <NavLink
                             onClick={HandleSideNav}
                             to={"/myfavorites"}
-                            className="flex items-center gap-4 text-sm max-md:text-base font-medium"
+                            className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                         >
                             <FavoriteIcon /> Favorites
                         </NavLink>
@@ -98,7 +98,7 @@ function SideNav() {
                         <NavLink
                             onClick={HandleSideNav}
                             to={"/about"}
-                            className="flex items-center gap-4 text-sm max-md:text-base font-medium"
+                            className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                         >
                             <InfoIcon /> Help & Support
                         </NavLink>

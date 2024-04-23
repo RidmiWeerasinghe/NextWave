@@ -24,12 +24,12 @@ function Home() {
             fetch("https://accounts.spotify.com/api/token", authParameters)
                 .then(result => result.json())
                 .then(data => {
-                   // if (data) {
-                        //setIsLoading(false)
-                        dispatch({
-                            type: 'SET_TOKEN',
-                            accessToken: data.access_token
-                        })
+                    // if (data) {
+                    //setIsLoading(false)
+                    dispatch({
+                        type: 'SET_TOKEN',
+                        accessToken: data.access_token
+                    })
                     //}
                 })
         } catch (error) {
@@ -44,33 +44,38 @@ function Home() {
         //console.log("useeffect running ")
 
         //getting trending albums
-        spotify.getArtistAlbums('63yrD80RY3RNEM2YDpUpO8').then(
-            function (data) {
-                //console.log('Artist albums', data.items);
-                dispatch({
-                    type: 'SET_TRENDINGALBUMS',
-                    trendingAlbums: data.items
-                })
-            },
-            function (err) {
-                console.error(err);
-            }
-        );
+        if (accessToken) {
+            spotify.getArtistAlbums('63yrD80RY3RNEM2YDpUpO8').then(
+                function (data) {
+                    //console.log('Artist albums', data.items);
+                    dispatch({
+                        type: 'SET_TRENDINGALBUMS',
+                        trendingAlbums: data.items
+                    })
+                },
+                function (err) {
+                    console.error(err);
+                }
+            );
 
-        //getting top albums
-        spotify.getArtistAlbums('00FQb4jTyendYWaN8pK0wa').then(
-            function (data) {
-                dispatch({
-                    type: 'SET_TOPALBUMS',
-                    topAlbums: data.items
-                })
-            },
-            function (err) {
-                console.error(err);
-            }
-        );
+            //getting top albums
+            spotify.getArtistAlbums('00FQb4jTyendYWaN8pK0wa').then(
+                function (data) {
+                    dispatch({
+                        type: 'SET_TOPALBUMS',
+                        topAlbums: data.items
+                    })
+                },
+                function (err) {
+                    console.error(err);
+                }
+            );
+        }
+        else {
+            console.log("no access token")
+        }
     }, [])
-
+    console.log(trendingAlbums)
 
     return (
         <div className="bg-darkBlue pl-10 pr-4 max-md:pl-4 overflow-hidden ">

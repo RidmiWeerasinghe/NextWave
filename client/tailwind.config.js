@@ -18,6 +18,7 @@ export default {
         darkTextColor: "#8e9196",
         lightTextColor: "#e2e8f0",
         lightTextColorSideNav: "#e7e5e4",
+        lightTextHoverColorSideNav: "#727378",
         blueTextColor: "#3b82f6",
         // btn
         blueBtnHoverColor: "#1e3a8a",

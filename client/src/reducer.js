@@ -1,10 +1,10 @@
-import { currentAlbum, currentAtist, currentAtistTracks, topArtists } from './dummyData/dummy.js'
+import { currentAlbum, currentAtist, currentAtistTracks, topArtists, trendingAlbums } from './dummyData/dummy.js'
 
 export const initialState = {
     user: { loggedIn: false, username: "" },
     username: "",
     accessToken: "",
-    trendingAlbums: [],
+    trendingAlbums: trendingAlbums,
     currentSingleAlbum: currentAlbum,
     topAlbums: [],
     topArtists: topArtists,

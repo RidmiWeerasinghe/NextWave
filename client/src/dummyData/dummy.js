@@ -12,6 +12,23 @@ export const currentAlbum = {
         ]
     }
 }
+export const trendingAlbums =
+    [{
+        images: [
+            { url: '/images/spinner.gif' }
+        ],
+        name: "name",
+        label: "label",
+        release_date: "release_date",
+        total_tracks: "total_tracks",
+        tracks: {
+            items: [
+                "item1"
+            ]
+        }
+    }
+    ]
+
 
 export const cTrack = {
     album: {
