@@ -61,3 +61,14 @@ export const currentAtistTracks = {
 
 export const artists = [{ id: "" }, {}]
 export const topArtists = [{ id: '2hazSY4Ef3aB9ATXW7F5w3', name: "name", images: [{ url: "/images/spinner.gif" }] }]
+
+export const userSelectedPlaylist = {
+    name: "name",
+    songs: [
+        { 
+            isFavourite: true,
+            songID: "6cWotAT4XRc5BO4aw6GjRt"
+         }
+
+    ]
+}

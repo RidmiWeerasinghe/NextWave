@@ -2,7 +2,9 @@ import React from 'react'
 
 function LogoText() {
     return (
-        <h1>NextWave</h1>
+       <div className='flex justify-center items-center'>
+         <span className=' font-bold text-2xl'>NextWave</span>
+       </div>
     )
 }
 

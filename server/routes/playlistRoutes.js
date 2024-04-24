@@ -118,41 +118,81 @@ router.delete('/delete/:email', async (req, res) => {
                     res.json("deleted")
                 }
                 else {
-                    res.json("playlist not found")
+                    res.status(404).json("playlist not found")
                 }
 
             } catch (error) {
                 console.log(error.message)
+                res.status(500).json("Internal Server Error")
             }
         }
     } catch (error) {
         console.log(error.message)
+        res.status(500).json("Internal Server Error")
     }
 })
 
 //get playlist by name
 router.get('/getplaylist/:email/:name', async (req, res) => {
-    const {name} = req.params
-    const {email} = req.params
+    const { name } = req.params
+    const { email } = req.params
 
     try {
-        const user = await User.findOne({email})
-        if(user){
+        const user = await User.findOne({ email })
+        if (user) {
             console.log(user.playlist)
             const playlistIndex = user.playlist.findIndex(playlist => playlist.name == name)
-            if(playlistIndex !== -1){
+            if (playlistIndex !== -1) {
                 res.json(user.playlist[playlistIndex])
             }
-            else{
-                res.json("not found")
+            else {
+                res.status(404).json("not found")
             }
         }
         //user doesnt exists
-        else{
-            res.json("user not found")
+        else {
+            res.status(404).json("user not found")
         }
     } catch (error) {
         console.log(error.message)
+        res.status(500).json("Internal Server Error")
+    }
+})
+
+router.post('/addtoplaylist/:email/:name/:songid', async (req, res) => {
+    const { email, name, songid } = req.params
+    try {
+        const user = await User.findOne({ email })
+        if (user) {
+            const playlistIndex = user.playlist.findIndex(playlist => playlist.name == name)
+            if (playlistIndex !== -1) {
+                try {
+                    const isUpdated = await User.findOneAndUpdate(
+                        { email, "playlist.name": name },
+                        { $push: { "playlist.$.songs": { songID: songid, isFavourite: false } } },
+                        { new: true }
+                    )
+                    if(isUpdated){
+                        res.json("updated")
+                    }
+                    else{
+                        res.json("fail")
+                    }
+                } catch (error) {
+                    console.log(error.message)
+                }
+            }
+            else {
+                res.status(404).json("not found")
+            }
+        }
+        //user doesnt exists
+        else {
+            res.status(404).json("user not found")
+        }
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json("Internal Server Error")
     }
 })
 export default router
