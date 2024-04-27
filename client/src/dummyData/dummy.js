@@ -65,10 +65,20 @@ export const topArtists = [{ id: '2hazSY4Ef3aB9ATXW7F5w3', name: "name", images:
 export const userSelectedPlaylist = {
     name: "name",
     songs: [
-        { 
+        {
             isFavourite: true,
             songID: "6cWotAT4XRc5BO4aw6GjRt"
-         }
+        }
 
     ]
 }
+
+export const currentUserPlaylistsInDummy = [
+    {
+        id: "",
+        name: "",
+        songs:[
+            {songID: ""}
+        ]
+    }
+]

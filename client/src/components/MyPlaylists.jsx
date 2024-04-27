@@ -63,7 +63,7 @@ function MyPlaylists() {
                     </div> ):
                     (<section className="mt-4 flex flex-col mb-12">
                         {currentUserPlaylists.map((playlist) => (
-                            <PlaylistCard key={playlist.id} playlist={playlist} />
+                            <PlaylistCard key={playlist.id} playlist={playlist} threedots={true}/>
                         ))}
                     </section>)}
             </section>

@@ -1,7 +1,7 @@
-import { currentAlbum, currentAtist, currentAtistTracks, topArtists, trendingAlbums } from './dummyData/dummy.js'
+import { currentAlbum, currentAtist, currentAtistTracks, currentUserPlaylistsInDummy, topArtists, trendingAlbums } from './dummyData/dummy.js'
 
 export const initialState = {
-    user: { loggedIn: false, username: "" },
+    user: { loggedIn: false, username: "", playlist:[]},
     username: "",
     accessToken: "",
     trendingAlbums: trendingAlbums,
@@ -13,7 +13,7 @@ export const initialState = {
     showCreatePlaylistWindow: false,
     showEditPlaylistWindow: false,
     showDeletePlaylistWindow: false,
-    currentUserPlaylists: []
+    currentUserPlaylists: currentUserPlaylistsInDummy
 }
 
 const reducer = (state, action) => {

@@ -7,7 +7,7 @@ import Popover from '@mui/material/Popover'
 import LogoutIcon from '@mui/icons-material/Logout'
 import PersonIcon from '@mui/icons-material/Person'
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt'
-import { Link, useLocation  } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import MyPlaylists from './MyPlaylists'
 
 function TopNav() {
@@ -84,16 +84,18 @@ function TopNav() {
             </li>
           </ListItemButton>
         </Link>
-        <ListItemButton onClick={signout}>
-          <LogoutIcon className='text-neutral-200' />
-          <li className="pl-3 flex text-neutral-200 font-normal text-center text-justify">
-            <p
-              onClick={signout}
-            >
-              Sign out
-            </p>
-          </li>
-        </ListItemButton>
+        <Link to={'/'}>
+          <ListItemButton onClick={signout}>
+            <LogoutIcon className='text-neutral-200' />
+            <li className="pl-3 flex text-neutral-200 font-normal text-center text-justify">
+              <p
+                onClick={signout}
+              >
+                Sign out
+              </p>
+            </li>
+          </ListItemButton>
+        </Link>
       </Popover>
     </div>
   )

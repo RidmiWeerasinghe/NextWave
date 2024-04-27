@@ -43,7 +43,7 @@ function Login() {
                             type: 'SET_USER',
                             user: result.data.user
                         })
-                        navigate('/')
+                        navigate('/myprofile')
                     }
                     else {
                         toast.error(result.data.status)
@@ -67,26 +67,29 @@ function Login() {
                         <h1 className="text-xl mt-5 font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-lightTextColor text text-center">
                             NextWave
                         </h1>
-                        <form className="space-y-4 md:space-y-6" action="#">
-                            <div className='flex items-center justify-center'>
+                        <form className="space-y-4 md:space-y-1" action="#">
+                            <div className='flex items-center justify-center mb-5'>
                                 <input type="text" onChange={handleChange} name="email" id="email" className=" text-lightTextColor text-base mt-8 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" placeholder="✉ Email" required="" />
                             </div>
                             <div className='flex items-center justify-center'>
                                 <input type="password" onChange={handleChange} name="password" id="password" placeholder="🗝 Password" className=" text-lightTextColor text-base mt-4 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" required="" />
                             </div>
+                            <div className=" mr-8 flex items-center justify-end">
+                                <a href="#" className="text-sm text-white hover:underline">Forgot password?</a>
+                            </div>
 
                         </form>
 
-                        <NavLink to={'/'}>
+                        <NavLink to={'/myprofile'}>
                             <div className='flex items-center justify-center mb-0'>
                                 <button type="submit" className="w-10/12 text-lightTextColor  p-3 bg-grayBackground border border-lightTextColor hover:bg-lightTextColor hover:text-zinc-800 focus:ring-3.5 focus:outline-none focus:ring-primary-300 font-large rounded-lg text-lg px-5 text-center mt-14 mb-0" onClick={handleClick}
                                 >Log In</button>
                             </div>
                         </NavLink>
                         <div className='flex items-center justify-center mt-14'>
-                        <p className="text-sm font-light text-gray-500 dark:text-gray-400 mt-14">
-                            Don’t have an account yet? <NavLink to={'/register'} className="font-medium text-white hover:underline">Sign up</NavLink>
-                        </p>
+                            <p className="text-sm font-light text-gray-500 dark:text-gray-400 mt-14">
+                                Don’t have an account yet? <NavLink to={'/register'} className="font-medium text-white hover:underline">Sign up</NavLink>
+                            </p>
                         </div>
 
                     </div>

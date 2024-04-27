@@ -11,9 +11,12 @@ import {useStateValue} from '../StateProvider'
 import DeletePlaylistWindow from './DeletePlaylistWindow'
 import EditPlaylistWindow from './EditPlaylistWindow'
 
-function PlaylistCard(playlist) {
+function PlaylistCard(playlist, threedots) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [{showDeletePlaylistWindow, showEditPlaylistWindow}, dispatch] = useStateValue()
+
+    // console.log("threedots.threedots")
+    // console.log(playlist.threedots)
 
     const handleClick = () => {
         console.log("handle click")
@@ -45,6 +48,9 @@ function PlaylistCard(playlist) {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
+    console.log("playlist")
+    console.log(playlist)
+
     return (
         <div className="relative overflow-hidden p-3 m-2 rounded-lg bg-playlistcardbg hover:bg-playlistcardhoverbg">
             <Link
@@ -68,14 +74,14 @@ function PlaylistCard(playlist) {
                     </div>
                 </div>
             </Link>
-            <section
+           {playlist.threedots && <section
                 className="absolute right-2 top-0 bottom-0 grid place-items-center   z-10"
                 onClick={handle3dotsClick}
             >
                 <IconButton size="large">
                     <MoreVertIcon className="text-neutral-400" aria-describedby={id} />
                 </IconButton>
-            </section>
+            </section>}
             <Popover
                 id={id}
                 open={open}

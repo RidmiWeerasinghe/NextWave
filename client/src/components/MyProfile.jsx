@@ -1,9 +1,37 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../StateProvider'
 import EditIcon from '@mui/icons-material/Edit'
+import PlaylistCard from './PlaylistCard'
+import axios from 'axios'
+import { currentUserPlaylistsInDummy } from '../dummyData/dummy'
+import { Link } from 'react-router-dom'
 
 function MyProfile() {
     const [{ user }, dispatch] = useStateValue()
+    const [currentUserPlaylists, setCurrentUserPlaylists] = useState(currentUserPlaylistsInDummy)
+
+    console.log(user)
+
+    useEffect(() => {
+        //loading all playlists
+        if (user.username) {
+            try {
+                axios.get(`http://localhost:5555/playlist/getallplaylist/${user.email}`)
+                    .then(response => {
+                        console.log(response.data.data)
+                        setCurrentUserPlaylists(response.data.data)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        else {
+            console.log("no user")
+        }
+    }, [])
 
     return (
         <div className={"bg-darkBlue  overflow-hidden"}>
@@ -28,11 +56,11 @@ function MyProfile() {
                             />
                             <div className="bg-darkTextColor rounded-full w-1 h-1 max-md:hidden"></div>
                             <p className="text-slate-200 text-sm max-md:text-xs">
-                                10 playlists
+                                {user?.playlist.length} playlists
                             </p>
                             <div className="bg-darkTextColor rounded-full max-md:text-xs w-1 h-1 max-md:hidden"></div>
                             <p className="text-slate-200 text-sm min-w-fit">
-                                ridmi@gmail.com
+                                {user?.email}
                             </p>
                             <p className="text-slate-200 text-sm min-w-fit cursor-pointer">
                                 <EditIcon />
@@ -43,24 +71,29 @@ function MyProfile() {
                 </div>
             </div>
             <hr className="bg-darkTextColor h-[0.8px] opacity-10 my-6 px-7" />
-            <section className="flex ml-10 w-full my-6 mt-10">
-                <div className='flex justify-between items-center'>
-                    <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
-                        My Top Playlists
+            <section className="flex ml-10 my-6 mt-10 flex-col mr-6">
+                <div className='flex justify-between items-center ml-3'>
+                    <h1 className="font-medium text-xl text-lightTextColor my-4">
+                        My Most played Playlists
                     </h1>
-                    <h2 className=' font-light text-sm w-fit text-lightTextColor mr-8'>show all</h2>
+                    <Link to={'/myplaylists'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>show all playlists</h2></Link>
                 </div>
-                <div className="flex gap-6 overflow-scroll h-full">
-                    {/* {trendingAlbums.map((item) => (
-                        <MusicCard album={item} key={item.id} />
-                    ))} */}
+                <div className='flex flex-wrap'>
+                    {currentUserPlaylists.slice(0,4).map((playlist) => (
+                        <div key={playlist.id} className="w-1/2">
+                            <PlaylistCard playlist={playlist} threedots={false}/>
+                        </div>
+                    ))}
                 </div>
-            </section >
-            <section className="flex justify-between ml-10 my-6 mt-10 items-center">
-                <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
-                    Suggest for you
-                </h1>
-                <h2 className=' font-light text-sm w-fit text-lightTextColor mr-8'>show all</h2>
+            </section>
+
+            <section className="flex justify-between ml-10 my-6 mt-10 items-center mr-6">
+                <div className='flex justify-between w-full  items-center'>
+                    <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
+                        Suggest for you
+                    </h1>
+                    <h2 className=' font-light text-sm w-fit text-lightTextColor mr-8 hover:underline cursor-pointer'>show all</h2>
+                </div>
             </section >
         </div>
     )
