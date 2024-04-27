@@ -10,7 +10,8 @@ function MyProfile() {
     const [{ user }, dispatch] = useStateValue()
     const [currentUserPlaylists, setCurrentUserPlaylists] = useState(currentUserPlaylistsInDummy)
 
-    console.log(user)
+    console.log("currentUserPlaylists")
+    console.log(currentUserPlaylists)
 
     useEffect(() => {
         //loading all playlists
@@ -71,7 +72,7 @@ function MyProfile() {
                 </div>
             </div>
             <hr className="bg-darkTextColor h-[0.8px] opacity-10 my-6 px-7" />
-            <section className="flex ml-10 my-6 mt-10 flex-col mr-6">
+            {currentUserPlaylists.length >0 && <section className="flex ml-10 my-6 mt-10 flex-col mr-6">
                 <div className='flex justify-between items-center ml-3'>
                     <h1 className="font-medium text-xl text-lightTextColor my-4">
                         My Most played Playlists
@@ -79,22 +80,22 @@ function MyProfile() {
                     <Link to={'/myplaylists'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>show all playlists</h2></Link>
                 </div>
                 <div className='flex flex-wrap'>
-                    {currentUserPlaylists.slice(0,4).map((playlist) => (
+                    {currentUserPlaylists.slice(0, 4).map((playlist) => (
                         <div key={playlist.id} className="w-1/2">
-                            <PlaylistCard playlist={playlist} threedots={false}/>
+                            <PlaylistCard playlist={playlist} threedots={false} />
                         </div>
                     ))}
                 </div>
-            </section>
+            </section>}
 
-            <section className="flex justify-between ml-10 my-6 mt-10 items-center mr-6">
+            {currentUserPlaylists.length >0 && <section className="flex justify-between ml-10 my-6 mt-10 items-center mr-6">
                 <div className='flex justify-between w-full  items-center'>
                     <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
                         Suggest for you
                     </h1>
                     <h2 className=' font-light text-sm w-fit text-lightTextColor mr-8 hover:underline cursor-pointer'>show all</h2>
                 </div>
-            </section >
+            </section >}
         </div>
     )
 }

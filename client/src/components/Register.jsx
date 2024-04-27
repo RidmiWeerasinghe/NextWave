@@ -92,7 +92,7 @@ function Register() {
                                 <input type="password" name="password" id="password" value={form.password} onChange={handleChange} placeholder="🗝 Password" className=" text-lightTextColor text-base mt-5 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" required="" />
                             </div>
                             <div className='flex items-center justify-center'>
-                                <input type="password" name="confirmPassword" id="confirmPassword" value={form.confirmPassword} onChange={handleChange} placeholder="🗝 Password" className="text-lightTextColor text-base mt-5 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" required="" />
+                                <input type="password" name="confirmPassword" id="confirmPassword" value={form.confirmPassword} onChange={handleChange} placeholder="🗝 Confirm Password" className="text-lightTextColor text-base mt-5 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" required="" />
                             </div>
                         </form>
                         <div className='flex items-center justify-center'>
