@@ -6,11 +6,12 @@ import { useStateValue } from '../StateProvider'
 import { userSelectedPlaylist } from '../dummyData/dummy'
 
 function UserSinglePlaylist() {
-    const [{ user }, dispatch] = useStateValue()
+    const [{ user, pageRefresh }, dispatch] = useStateValue()
     const playlistName = useParams()
     const [playlist, setPlaylist] = useState(userSelectedPlaylist)
 
-    console.log(playlist.songs)
+    // console.log("playlist")
+    console.log(playlist)
 
     useEffect(() => {
         try {
@@ -24,11 +25,8 @@ function UserSinglePlaylist() {
         } catch (error) {
             console.log(error)
         }
-    }, [])
+    }, [pageRefresh])
 
-    useEffect(() => {
-
-    })
 
     return (
         <div>
@@ -43,7 +41,7 @@ function UserSinglePlaylist() {
                 </section>
 
                 {playlist.songs.length > 0 && playlist.songs.map((song) => (
-                    <AlbumSongLists trackID={song.songID}/>
+                    <AlbumSongLists trackID={song.songID} removeBtnVisible={true} playlistName={playlist.name}/>
                 ))
 
                 }

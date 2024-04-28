@@ -1,7 +1,7 @@
 import { currentAlbum, currentAtist, currentAtistTracks, currentUserPlaylistsInDummy, topArtists, trendingAlbums } from './dummyData/dummy.js'
 
 export const initialState = {
-    user: { loggedIn: false, username: "", playlist:[]},
+    user: { loggedIn: false, username: "", playlist: [] },
     username: "",
     accessToken: "",
     trendingAlbums: trendingAlbums,
@@ -13,7 +13,8 @@ export const initialState = {
     showCreatePlaylistWindow: false,
     showEditPlaylistWindow: false,
     showDeletePlaylistWindow: false,
-    currentUserPlaylists: currentUserPlaylistsInDummy
+    currentUserPlaylists: currentUserPlaylistsInDummy,
+    pageRefresh: false
 }
 
 const reducer = (state, action) => {
@@ -79,6 +80,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 currentUserPlaylists: action.currentUserPlaylists
+            }
+        case 'SET_PAGEREFRESH':
+            return {
+                ...state,
+                pageRefresh: action.pageRefresh
             }
         default:
             return state;

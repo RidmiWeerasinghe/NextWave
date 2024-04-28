@@ -11,17 +11,24 @@ import Popover from '@mui/material/Popover'
 import ListItemButton from '@mui/material/ListItemButton'
 import AddIcon from '@mui/icons-material/Add'
 import MusicNoteIcon from '@mui/icons-material/MusicNote'
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreVertIcon from '@mui/icons-material/MoreVert'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { Link } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast'
 
 function AlbumSongLists(trackID) {
 
-    const [{ user, accessToken }, dispatch] = useStateValue()
+    const [{ user, accessToken, pageRefresh}, dispatch] = useStateValue()
     const [track, setTrack] = useState(cTrack)
     const [currentUserPlaylists, setCurrentUserPlaylists] = useState([{ name: "" }])
     //popover
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState(null)
+
+    //getting from the props
+    const removeBtnVisible = trackID.removeBtnVisible ? trackID.removeBtnVisible : false
+    //to remove a song, the name of the playlist should be there
+    const playlistName = trackID.playlistName ? trackID.playlistName : ""
 
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)
@@ -41,6 +48,33 @@ function AlbumSongLists(trackID) {
         var minutes = Math.floor(millis / 60000);
         var seconds = ((millis % 60000) / 1000).toFixed(0);
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    }
+
+    const handleRemoveSong = () => {
+        const email = user.email
+        const name = playlistName
+        const songid = trackID.trackID
+
+        axios.delete(`http://localhost:5555/playlist/removefromplalist/${email}/${name}/${songid}`)
+            .then(response => {
+                if (response.data === "deleted") {
+                    toast.success("Song removed from the playlist")
+                    setTimeout(() => {
+                        dispatch({
+                            type: 'SET_PAGEREFRESH',
+                            pageRefresh: !pageRefresh
+                        })
+                    }, 800)
+                    console.log(songid + " is removed ")
+                }
+                else {
+                    toast.error("delete fail")
+                }
+            })
+            .catch((error) => {
+                console.log(error.message)
+                toast.error("something went wrong")
+            })
     }
 
     useEffect(() => {
@@ -85,7 +119,7 @@ function AlbumSongLists(trackID) {
                         }
                     }
                     )
-                    .catch((error)=>{
+                    .catch((error) => {
                         console.log(error)
                         console.log("error")
                     })
@@ -98,18 +132,39 @@ function AlbumSongLists(trackID) {
     // console.log(cTrack.album.images[0])
     // console.log(track)
 
-    function addToPlaylist() {
+    function addToPlaylist(event, playlist) {
         const songID = trackID.trackID
+        const name = playlist.name
+        const email = user.email
+
+        //adding song to playlist
+        try {
+            axios.post(`http://localhost:5555/playlist/addtoplaylist/${email}/${name}/${songID}`)
+                .then(response => {
+                    if (response.data == "updated") {
+                        toast.success("Song is added to playlist")
+                        console.log(songID + " is added")
+                    }
+                    else {
+                        toast.error(response.data)
+                    }
+                })
+                .catch((error) => {
+                    toast.error(error.response.data)
+                    console.log(error)
+                })
+        } catch (error) {
+            console.log(error.message)
+        }
     }
     function handleClick() {
         console.log("play song : " + trackID.trackID)
     }
     return (
-        <div className="w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1 cursor-pointer">
+        <div className="w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1 cursor-pointer" onClick={()=>{console.log(trackID)}}>
+            <Toaster />
             <div className='p-3 m-2 rounded-lg flex items-center justify-between bg-playlistcardbg  hover:bg-playlistcardhoverbg'>
                 <div className="flex items-center space-x-4">
-
-
                     <img src={track.album.images[0].url} alt="" className='w-14 h-14 rounded-sm' />
                     <div>
                         <h4 className="text-base font-semibold">{track.name}</h4>
@@ -121,7 +176,8 @@ function AlbumSongLists(trackID) {
                     <h4 className="text-base font-semibold">{millisToMinutesAndSeconds(track.duration_ms)}</h4>
                     <div className='text-xl cursor-pointer' onClick={handleClick}><PlayArrowRoundedIcon style={{ fontSize: 35 }} /></div>
 
-                    {user.email && <div className='text-xl cursor-pointer' onClick={handleClickPlaylistIcon}><MoreVertIcon style={{ fontSize: 30 }} aria-describedby={id} /></div>}
+
+                    {user.email && !removeBtnVisible && <div className='text-xl cursor-pointer' onClick={handleClickPlaylistIcon}><MoreVertIcon style={{ fontSize: 30 }} aria-describedby={id} /></div>}
                     {user.email && <Popover
                         id={id}
                         open={open}
@@ -144,6 +200,7 @@ function AlbumSongLists(trackID) {
                                 width: "15rem",
                             },
                         }}
+
                     >
                         <ListItemButton>
                             <li className="flex gap-3 items-center text-neutral-200 py-1 font-normal text-sm cursor-default">
@@ -153,7 +210,7 @@ function AlbumSongLists(trackID) {
                         </ListItemButton>
                         {currentUserPlaylists.length > 0 &&
                             currentUserPlaylists.map((playlist) => (
-                                <ListItemButton key={playlist.name} onClick={addToPlaylist}>
+                                <ListItemButton key={playlist.name} onClick={(event) => addToPlaylist(event, playlist)}>
                                     <li className="flex gap-3 text-neutral-200 py-1 font-normal text-sm">
                                         <MusicNoteIcon />
                                         <p className="tracking-wider">{playlist.name}</p>
@@ -169,6 +226,8 @@ function AlbumSongLists(trackID) {
                                 </Link>
                             </ListItemButton>}
                     </Popover>}
+
+                    {removeBtnVisible && <div className='text-xl cursor-pointer' onClick={handleRemoveSong}><RemoveCircleIcon style={{ fontSize: 25 }} /></div>}
                 </div>
             </div>
 

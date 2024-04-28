@@ -48,8 +48,8 @@ function PlaylistCard(playlist, threedots) {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-    console.log("playlist")
-    console.log(playlist)
+    // console.log("playlist")
+    // console.log(playlist)
 
     return (
         <div className="relative overflow-hidden p-3 m-2 rounded-lg bg-playlistcardbg hover:bg-playlistcardhoverbg">

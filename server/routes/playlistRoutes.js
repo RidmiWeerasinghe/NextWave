@@ -159,6 +159,7 @@ router.get('/getplaylist/:email/:name', async (req, res) => {
     }
 })
 
+//pushing a song to a playlist
 router.post('/addtoplaylist/:email/:name/:songid', async (req, res) => {
     const { email, name, songid } = req.params
     try {
@@ -166,20 +167,28 @@ router.post('/addtoplaylist/:email/:name/:songid', async (req, res) => {
         if (user) {
             const playlistIndex = user.playlist.findIndex(playlist => playlist.name == name)
             if (playlistIndex !== -1) {
-                try {
-                    const isUpdated = await User.findOneAndUpdate(
-                        { email, "playlist.name": name },
-                        { $push: { "playlist.$.songs": { songID: songid, isFavourite: false } } },
-                        { new: true }
-                    )
-                    if(isUpdated){
-                        res.json("updated")
+
+                const songIndex = user.playlist[playlistIndex].songs.findIndex(songs => songs.songID == songid)
+
+                if (songIndex === -1) {
+                    try {
+                        const isUpdated = await User.findOneAndUpdate(
+                            { email, "playlist.name": name },
+                            { $push: { "playlist.$.songs": { songID: songid, isFavourite: false } } },
+                            { new: true }
+                        )
+                        if (isUpdated) {
+                            res.json("updated")
+                        }
+                        else {
+                            res.json("fail")
+                        }
+                    } catch (error) {
+                        console.log(error.message)
                     }
-                    else{
-                        res.json("fail")
-                    }
-                } catch (error) {
-                    console.log(error.message)
+                }
+                else {
+                    res.status(404).json("Song already exists")
                 }
             }
             else {
@@ -192,7 +201,47 @@ router.post('/addtoplaylist/:email/:name/:songid', async (req, res) => {
         }
     } catch (error) {
         console.log(error.message)
-        res.status(500).json("Internal Server Error")
+        res.status(500).json("Internal Server Errorrr")
     }
 })
+
+//removing a song from a playlist
+router.delete('/removefromplalist/:email/:name/:songid', async (req, res) => {
+    const { email, name, songid } = req.params
+
+    try {
+        const user = await User.findOne({ email })
+        if (user) {
+            const playlistIndex = user.playlist.findIndex(playlist => playlist.name == name)
+            if (playlistIndex !== -1) {
+
+                const songIndex = user.playlist[playlistIndex].songs.findIndex(songs => songs.songID == songid)
+
+                if (songIndex !== -1) {
+                    try {
+                        user.playlist[playlistIndex].songs.splice(songIndex, 1)
+                        await user.save()
+                        res.json("deleted")
+                    } catch (error) {
+                        console.log(error.message)
+                    }
+                }
+                else {
+                    res.status(404).json("Song does not exists")
+                }
+            }
+            else {
+                res.status(404).json("playlist not found")
+            }
+        }
+        //user doesnt exists
+        else {
+            res.status(404).json("user not found")
+        }
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json("Internal Server Errorrr")
+    }
+})
+
 export default router
