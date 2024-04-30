@@ -12,6 +12,7 @@ import MyPlaylists from './components/MyPlaylists'
 import MyFavorites from './components/MyFavorites'
 import MyProfile from './components/MyProfile'
 import UserSinglePlaylist from './components/UserSinglePlaylist'
+import TopPlaylists from './components/TopPlaylists'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/singleartist/:id" element={<SingleArtist />} />
         <Route path="/singleuserplaylist/:name" element={<UserSinglePlaylist />} />
         <Route path="/topartists" element={<TopArtists />} />
+        <Route path="/topplaylists" element={<TopPlaylists />} />
         <Route path="/recentsongs" element={<Recent />} />
         <Route path="/myplaylists" element={<MyPlaylists />} />
         <Route path="/myfavorites" element={<MyFavorites />} />

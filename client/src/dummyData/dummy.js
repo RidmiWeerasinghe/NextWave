@@ -82,3 +82,15 @@ export const currentUserPlaylistsInDummy = [
         ]
     }
 ]
+
+export const playlistFromApi={
+    images: [
+            { url: '/images/spinner.gif' }
+        ],
+        name: "name",
+        tracks: {
+            items: [
+                "item1"
+            ]
+        }
+}

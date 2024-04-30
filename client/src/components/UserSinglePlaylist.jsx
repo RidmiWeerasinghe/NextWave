@@ -41,7 +41,7 @@ function UserSinglePlaylist() {
                 </section>
 
                 {playlist.songs.length > 0 && playlist.songs.map((song) => (
-                    <AlbumSongLists trackID={song.songID} removeBtnVisible={true} playlistName={playlist.name}/>
+                    <AlbumSongLists key={song.songID} trackID={song.songID} removeBtnVisible={true} playlistName={playlist.name}/>
                 ))
 
                 }

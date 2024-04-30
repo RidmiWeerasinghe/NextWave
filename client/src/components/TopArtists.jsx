@@ -10,7 +10,7 @@ function TopArtists() {
     spotify.setAccessToken(accessToken)
     useEffect(() => {
         spotify
-            .getArtists(['2hazSY4Ef3aB9ATXW7F5w3', '6J6yx1t3nwIDyPXk5xa7O8', '00FQb4jTyendYWaN8pK0wa', '63yrD80RY3RNEM2YDpUpO8', '21aa4pj9BvbFB2iT8kRpnq', '06HL4z0CvFAxyc27GXpf02'])
+            .getArtists(['2hazSY4Ef3aB9ATXW7F5w3', '6J6yx1t3nwIDyPXk5xa7O8', '00FQb4jTyendYWaN8pK0wa', '63yrD80RY3RNEM2YDpUpO8', '21aa4pj9BvbFB2iT8kRpnq', '06HL4z0CvFAxyc27GXpf02','66CXWjxzNUsdJxJ2JdwvnR','1Xyo4u8uXC1ZmMpatF05PJ','0X2BH1fck6amBIoJhDVmmJ','6qqNVTkY8uBg9cP3Jd7DAH','5WUlDfRSoLAfcVSX1WnrxN','53XhwfbYqKCa1cC15pYq2q'])
             .then(
                 function (data) {
                     console.log('Artists information', data);
