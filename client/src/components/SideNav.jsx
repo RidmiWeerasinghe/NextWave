@@ -34,7 +34,7 @@ function SideNav() {
                         <ul className="flex flex-col gap-6 mt-5">
                             <NavLink
                                 onClick={HandleSideNav}
-                                to={"/"}
+                                to={"/topalbums"}
                                 className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
                                 <ExploreIcon />
@@ -54,7 +54,7 @@ function SideNav() {
                                 className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
                                 <AssessmentIcon />
-                                Top Hits
+                                Songs
                             </NavLink>
                         </ul>
                     </section>

@@ -11,6 +11,7 @@ import Recent from './components/Recent'
 import MyPlaylists from './components/MyPlaylists'
 import MyFavorites from './components/MyFavorites'
 import MyProfile from './components/MyProfile'
+import EditProfile from './components/EditProfile'
 import UserSinglePlaylist from './components/UserSinglePlaylist'
 import TopPlaylists from './components/TopPlaylists'
 import SinglePlaylist from './components/SinglePlaylist'
@@ -29,7 +30,8 @@ function App() {
       {!isLoginRoute && !isRegisterRoute && <SideNav />}
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<SinglePlaylist />} />
+        <Route path="/topalbums" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/singlealbum/:id" element={<SingleAlbum />} />
@@ -42,6 +44,7 @@ function App() {
         <Route path="/myplaylists" element={<MyPlaylists />} />
         <Route path="/myfavorites" element={<MyFavorites />} />
         <Route path="/myprofile" element={<MyProfile />} />
+        <Route path="/editprofile" element={<EditProfile />} />
         <Route path="/searchresultsartists" element={<SearchResultsArtists />} />
         <Route path="/searchresultstracks" element={<SearchResultsTracks />} />
         <Route path="/searchresultsalbums" element={<SearchResultsAlbums />} />

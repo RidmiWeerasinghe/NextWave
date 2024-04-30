@@ -6,36 +6,36 @@ import { useStateValue } from '../StateProvider'
 function Home() {
     const [{ accessToken, trendingAlbums, topAlbums }, dispatch] = useStateValue()
 
-    const clientID = "72cdd5687f2146adaf6d90d7d3f95270"
-    const clientSecret = "e521133ff90f4230885d2e1dc8d0fd11"
+    // const clientID = "72cdd5687f2146adaf6d90d7d3f95270"
+    // const clientSecret = "e521133ff90f4230885d2e1dc8d0fd11"
 
-    //console.log("accessToken from context api : " + accessToken)
+    // //console.log("accessToken from context api : " + accessToken)
 
-    useEffect(() => {
-        //getting access token
-        try {
-            var authParameters = {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: "grant_type=client_credentials&client_id=" + clientID + "&client_secret=" + clientSecret
-            }
-            fetch("https://accounts.spotify.com/api/token", authParameters)
-                .then(result => result.json())
-                .then(data => {
-                    // if (data) {
-                    //setIsLoading(false)
-                    dispatch({
-                        type: 'SET_TOKEN',
-                        accessToken: data.access_token
-                    })
-                    //}
-                })
-        } catch (error) {
-            console.log(error)
-        }
-    }, [])
+    // useEffect(() => {
+    //     //getting access token
+    //     try {
+    //         var authParameters = {
+    //             method: 'POST',
+    //             headers: {
+    //                 "Content-Type": "application/x-www-form-urlencoded"
+    //             },
+    //             body: "grant_type=client_credentials&client_id=" + clientID + "&client_secret=" + clientSecret
+    //         }
+    //         fetch("https://accounts.spotify.com/api/token", authParameters)
+    //             .then(result => result.json())
+    //             .then(data => {
+    //                 // if (data) {
+    //                 //setIsLoading(false)
+    //                 dispatch({
+    //                     type: 'SET_TOKEN',
+    //                     accessToken: data.access_token
+    //                 })
+    //                 //}
+    //             })
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }, [])
 
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)
@@ -90,7 +90,7 @@ function Home() {
                 </div>
             </section > */}
             <section className="w-full my-6 ">
-                <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
+                <h1 className="font-medium text-xl w-fit text-lightTextColor my-6">
                     Top Albums of all the time
                 </h1>
                 <div className="flex flex-wrap justify-between gap-8 overflow-scroll h-full mr-4">

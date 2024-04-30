@@ -15,9 +15,7 @@ function Recent() {
     )
     const LoggedInMessage = (
         <div className="w-full flex justify-center items-center mt-10">
-            <p className="text-neutral-400 w-1/2 text-center max-md:w-full max-md:px-4">
-                {user.username}
-            </p>
+            <h1 className=' text-white'>Recent</h1>
         </div>
     )
 

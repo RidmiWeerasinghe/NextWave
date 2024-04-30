@@ -63,16 +63,18 @@ function MyProfile() {
                             <p className="text-slate-200 text-sm min-w-fit">
                                 {user?.email}
                             </p>
-                            <p className="text-slate-200 text-sm min-w-fit cursor-pointer">
-                                <EditIcon />
-                            </p>
+                            <Link to={'/editprofile'}>
+                                <p className="text-slate-200 text-sm min-w-fit cursor-pointer">
+                                    <EditIcon />
+                                </p>
+                            </Link>
                         </div>
 
                     </div>
                 </div>
             </div>
             <hr className="bg-darkTextColor h-[0.8px] opacity-10 my-6 px-7" />
-            {currentUserPlaylists.length >0 && <section className="flex ml-10 my-6 mt-10 flex-col mr-6">
+            {currentUserPlaylists.length > 0 && <section className="flex ml-10 my-6 mt-10 flex-col mr-6">
                 <div className='flex justify-between items-center ml-3'>
                     <h1 className="font-medium text-xl text-lightTextColor my-4">
                         My Most played Playlists
@@ -88,7 +90,7 @@ function MyProfile() {
                 </div>
             </section>}
 
-            {currentUserPlaylists.length >0 && <section className="flex justify-between ml-10 my-6 mt-10 items-center mr-6">
+            {currentUserPlaylists.length > 0 && <section className="flex justify-between ml-10 my-6 mt-10 items-center mr-6">
                 <div className='flex justify-between w-full  items-center'>
                     <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
                         Suggest for you

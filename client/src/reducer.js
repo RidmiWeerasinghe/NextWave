@@ -18,7 +18,8 @@ export const initialState = {
     searchedArtists: topArtists,
     searchedAlbums: trendingAlbums,
     searchedTracks: currentUserPlaylistsInDummy,
-    pageRefresh: false
+    pageRefresh: false,
+    searchResultsLoading: false
 }
 
 const reducer = (state, action) => {
@@ -109,6 +110,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 searchedTracks: action.searchedTracks
+            }
+        case 'SET_SEARCHRESULTLOADING':
+            return {
+                ...state,
+                searchResultsLoading: action.searchResultsLoading
             }
         default:
             return state;

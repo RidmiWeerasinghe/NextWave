@@ -92,7 +92,11 @@ export const playlistFromApi =
         name: "name",
         tracks: {
             items: [
-                "item1"
+                {
+                    track:{
+                        id: "id"
+                    }
+                }
             ]
         }
     }
