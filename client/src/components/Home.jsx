@@ -45,18 +45,18 @@ function Home() {
 
         //getting trending albums
         if (accessToken) {
-            spotify.getArtistAlbums('63yrD80RY3RNEM2YDpUpO8').then(
-                function (data) {
-                    //console.log('Artist albums', data.items);
-                    dispatch({
-                        type: 'SET_TRENDINGALBUMS',
-                        trendingAlbums: data.items
-                    })
-                },
-                function (err) {
-                    console.error(err);
-                }
-            );
+            // spotify.getArtistAlbums('63yrD80RY3RNEM2YDpUpO8').then(
+            //     function (data) {
+            //         //console.log('Artist albums', data.items);
+            //         dispatch({
+            //             type: 'SET_TRENDINGALBUMS',
+            //             trendingAlbums: data.items
+            //         })
+            //     },
+            //     function (err) {
+            //         console.error(err);
+            //     }
+            // );
 
             //getting top albums
             spotify.getArtistAlbums('00FQb4jTyendYWaN8pK0wa').then(
@@ -79,7 +79,7 @@ function Home() {
 
     return (
         <div className=" bg-darkBlue pl-10 pr-4 max-md:pl-4 overflow-hidden ">
-            <section className=" w-full my-6 ">
+            {/* <section className=" w-full my-6 ">
                 <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
                     Trending
                 </h1>
@@ -88,12 +88,12 @@ function Home() {
                         <MusicCard album={item} key={item.id} />
                     ))}
                 </div>
-            </section >
+            </section > */}
             <section className="w-full my-6 ">
                 <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
                     Top Albums of all the time
                 </h1>
-                <div className="flex gap-6 overflow-scroll h-full">
+                <div className="flex flex-wrap justify-between gap-8 overflow-scroll h-full mr-4">
                     {topAlbums.map((item) => (
                         <MusicCard album={item} key={item.id} />
                     ))}

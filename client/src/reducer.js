@@ -15,6 +15,9 @@ export const initialState = {
     showDeletePlaylistWindow: false,
     currentUserPlaylists: currentUserPlaylistsInDummy,
     currentPlaylistsSpotify: playlistFromApi,
+    searchedArtists: topArtists,
+    searchedAlbums: trendingAlbums,
+    searchedTracks: currentUserPlaylistsInDummy,
     pageRefresh: false
 }
 
@@ -91,6 +94,21 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 currentPlaylistsSpotify: action.currentPlaylistsSpotify
+            }
+        case 'SET_SEARCHEDARTISTS':
+            return {
+                ...state,
+                searchedArtists: action.searchedArtists
+            }
+        case 'SET_SEARCHEDALBUMS':
+            return {
+                ...state,
+                searchedAlbums: action.searchedAlbums
+            }
+        case 'SET_SEARCHEDTRACKS':
+            return {
+                ...state,
+                searchedTracks: action.searchedTracks
             }
         default:
             return state;

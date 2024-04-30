@@ -164,7 +164,7 @@ function AlbumSongLists(trackID) {
     return (
         <div className="w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1 cursor-pointer" onClick={()=>{console.log(trackID)}}>
             <Toaster />
-            <div className='p-3 m-2 rounded-lg flex items-center justify-between bg-playlistcardbg  hover:bg-playlistcardhoverbg'>
+            <div className='p-5 m-2 rounded-lg flex items-center justify-between bg-playlistcardbg  hover:bg-playlistcardhoverbg'>
                 <div className="flex items-center space-x-4">
                     <img src={track.album.images[0].url} alt="" className='w-14 h-14 rounded-sm' />
                     <div>

@@ -6,9 +6,7 @@ import AlbumSongList from './AlbumSongLists'
 
 function SinglePlaylist() {
     const [{ accessToken, currentPlaylistsSpotify }, dispatch] = useStateValue()
-    const id = useParams()
-    console.log(id)
-    // console.log(currentAtistTracks)
+    console.log(currentPlaylistsSpotify)
 
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)

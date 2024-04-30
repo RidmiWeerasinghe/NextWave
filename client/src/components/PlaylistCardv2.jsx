@@ -1,15 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import IconButton from '@mui/material/IconButton'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
-import Popover from '@mui/material/Popover'
-import ListItemButton from '@mui/material/ListItemButton'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
-import MusicNoteIcon from '@mui/icons-material/MusicNote'
-import { useStateValue } from '../StateProvider'
-import DeletePlaylistWindow from './DeletePlaylistWindow'
-import EditPlaylistWindow from './EditPlaylistWindow'
 import QueueMusicIcon from '@mui/icons-material/QueueMusic'
 
 function PlaylistCard(playlist) {
@@ -21,7 +11,7 @@ function PlaylistCard(playlist) {
     // console.log(playlist)
 
     return (
-        <div className=" w-6/12 relative overflow-hidden p-1 ml-2 mb-4 rounded-lg bg-playlistcardbg hover:bg-playlistcardhoverbg">
+        <div className=" w-7/12 relative overflow-hidden p-1 ml-2 mb-4 rounded-lg bg-playlistcardbg hover:bg-playlistcardhoverbg">
             <Link
                 to={`/singleplaylist/${playlist.playlist.id}`}
                 className=" block  hover:bg-opacity-60 mr-3 transition-all duration-300 ease-linear py-[6px] rounded-md px-2"

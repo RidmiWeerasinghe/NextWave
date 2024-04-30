@@ -88,6 +88,7 @@ export const playlistFromApi =
         images: [
             { url: '/images/spinner.gif' }
         ],
+        id: "id",
         name: "name",
         tracks: {
             items: [

@@ -50,11 +50,11 @@ function SideNav() {
                             </NavLink>
                             <NavLink
                                 onClick={HandleSideNav}
-                                to={"/topplaylists"}
+                                to={"/singleplaylist"}
                                 className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
                                 <AssessmentIcon />
-                                Playlists
+                                Top Hits
                             </NavLink>
                         </ul>
                     </section>

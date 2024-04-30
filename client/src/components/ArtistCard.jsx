@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom'
 
 function ArtistCard(props) {
     //accessing image, name and id through props
-    const imageUrl = props.props.images[0].url
-    const name = props.props.name
-    const id =  props.props.id
-    //console.log(props)
+    let imageUrl = "props.artist.images[0].url"
+    try {
+        imageUrl = props.artist.images[0].url
+    } catch (error) {
+        imageUrl = '/images/user.jpg'
+    }
+    const name = props.artist.name
+    const id =  props.artist.id
+    console.log("props")
+    console.log(props.artist.name)
 
     
     return (

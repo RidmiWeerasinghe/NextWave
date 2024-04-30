@@ -38,7 +38,7 @@ function MyProfile() {
         <div className={"bg-darkBlue  overflow-hidden"}>
             <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7  Artistbackground">
                 <div className="grid grid-cols-[max-content,auto] mt-7 max-md:grid-cols-1 max-md:place-items-center gap-5 ">
-                    <img className="w-56 h-56 rounded-full" src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg" />
+                    <img className="w-56 h-56 rounded-full" src='/images/user.jpg' />
 
                     <div className="flex place-content-end max-md:place-items-center flex-col">
                         <h2
