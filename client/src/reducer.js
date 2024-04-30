@@ -1,4 +1,4 @@
-import { currentAlbum, currentAtist, currentAtistTracks, currentUserPlaylistsInDummy, topArtists, trendingAlbums } from './dummyData/dummy.js'
+import { currentAlbum, currentAtist, currentAtistTracks, currentUserPlaylistsInDummy, playlistFromApi, topArtists, trendingAlbums } from './dummyData/dummy.js'
 
 export const initialState = {
     user: { loggedIn: false, username: "", playlist: [] },
@@ -14,6 +14,7 @@ export const initialState = {
     showEditPlaylistWindow: false,
     showDeletePlaylistWindow: false,
     currentUserPlaylists: currentUserPlaylistsInDummy,
+    currentPlaylistsSpotify: playlistFromApi,
     pageRefresh: false
 }
 
@@ -85,6 +86,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 pageRefresh: action.pageRefresh
+            }
+        case 'SET_CURRENTPLAYLISTSPOTIFY':
+            return {
+                ...state,
+                currentPlaylistsSpotify: action.currentPlaylistsSpotify
             }
         default:
             return state;

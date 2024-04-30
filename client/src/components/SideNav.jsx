@@ -38,7 +38,7 @@ function SideNav() {
                                 className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
                                 <ExploreIcon />
-                                Discover
+                                Albums
                             </NavLink>
                             <NavLink
                                 onClick={HandleSideNav}
@@ -46,7 +46,7 @@ function SideNav() {
                                 className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
                                 <AccountBoxIcon />
-                                Top Artists
+                                Artists
                             </NavLink>
                             <NavLink
                                 onClick={HandleSideNav}
@@ -54,7 +54,7 @@ function SideNav() {
                                 className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
                                 <AssessmentIcon />
-                                Top Playlists
+                                Playlists
                             </NavLink>
                         </ul>
                     </section>

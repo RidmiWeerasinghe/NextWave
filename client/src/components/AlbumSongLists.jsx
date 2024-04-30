@@ -19,6 +19,7 @@ import toast, { Toaster } from 'react-hot-toast'
 
 function AlbumSongLists(trackID) {
 
+    console.log(trackID)
     const [{ user, accessToken, pageRefresh}, dispatch] = useStateValue()
     const [track, setTrack] = useState(cTrack)
     const [currentUserPlaylists, setCurrentUserPlaylists] = useState([{ name: "" }])

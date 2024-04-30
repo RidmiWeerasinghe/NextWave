@@ -77,14 +77,15 @@ export const currentUserPlaylistsInDummy = [
     {
         id: "",
         name: "",
-        songs:[
-            {songID: ""}
+        songs: [
+            { songID: "" }
         ]
     }
 ]
 
-export const playlistFromApi={
-    images: [
+export const playlistFromApi =
+    {
+        images: [
             { url: '/images/spinner.gif' }
         ],
         name: "name",
@@ -93,4 +94,4 @@ export const playlistFromApi={
                 "item1"
             ]
         }
-}
+    }
