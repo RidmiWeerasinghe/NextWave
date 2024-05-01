@@ -109,7 +109,7 @@ function MyProfile() {
             {currentUserPlaylists.length > 0 && <section className="flex ml-10 my-6 mt-10 flex-col mr-6">
                 <div className='flex justify-between items-center ml-3'>
                     <h1 className="font-medium text-xl text-lightTextColor my-4">
-                    Suggest for you
+                        Suggest for you
                     </h1>
                     <Link to={'/myplaylists'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>show all playlists</h2></Link>
                 </div>
@@ -121,6 +121,14 @@ function MyProfile() {
                     ))} */}
                     <h6 className='text-white pl-20'><i>song Suggestions goes here.......</i></h6>
                 </div>
+            </section>}
+            {!currentUserPlaylists.length && <section className="flex ml-10 my-6 mt-10 flex-col mr-6 items-center">
+                <p className="text-lg text-lightTextColor my-4">
+                    Are you new to NextWave ?
+                </p>
+                <p className="text-sm text-lightTextColor my-4">
+                    <i>Let's start exploring🎉🎉🎉 !!</i>
+                </p>
             </section>}
         </div>
     )

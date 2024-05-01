@@ -207,6 +207,9 @@ function AlbumSongLists(trackID) {
                 console.log(error)
             }
         }
+        else {
+            toast.error("Login to add to favorites")
+        }
     }
 
     return (

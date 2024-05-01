@@ -3,6 +3,7 @@ import { useStateValue } from '../StateProvider'
 import { favoriteSongs } from '../dummyData/dummy'
 import AlbumSongLists from './AlbumSongLists'
 import axios from 'axios'
+import { Toaster } from 'react-hot-toast'
 
 function MyFavorites() {
     const [{ user, pageRefresh }, dispatch] = useStateValue()
@@ -19,7 +20,8 @@ function MyFavorites() {
             })
     }, [pageRefresh])
 
-    console.log(favorites.length)
+    console.log("favorites.count")
+    console.log(favorites)
 
     const notLoggedInMessage = (
         <div className="w-full flex justify-center items-center mt-10">
@@ -47,7 +49,7 @@ function MyFavorites() {
 
                 }
 
-                {favorites.count === 0 && (
+                {!favorites.count && (
                     <div className="w-full flex justify-center items-center mt-10">
                         <p className="text-neutral-400 w-1/2 text-center max-md:w-full max-md:px-4">
                             You haven't added any song to favorites yet.
@@ -59,6 +61,7 @@ function MyFavorites() {
     )
     return (
         <div>
+            <Toaster/>
             {!user.username ? notLoggedInMessage : LoggedInMessage}
         </div>
     )

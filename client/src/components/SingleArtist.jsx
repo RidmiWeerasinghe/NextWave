@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useStateValue } from '../StateProvider'
 import SpotifyWebApi from 'spotify-web-api-js'
 import AlbumSongList from './AlbumSongLists'
+import { Toaster } from 'react-hot-toast'
 
 function SingleArtist() {
     const [{ accessToken, currentAtist, currentAtistTracks }, dispatch] = useStateValue()
@@ -45,6 +46,7 @@ function SingleArtist() {
     }, [])
     return (
         <div className={"bg-darkBlue  overflow-hidden "}>
+            <Toaster/>
             <div className={"bg-darkBlue  overflow-hidden "}>
                 <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7  Artistbackground">
                     <div className="grid grid-cols-[max-content,auto] mt-7 max-md:grid-cols-1 max-md:place-items-center gap-5 ">

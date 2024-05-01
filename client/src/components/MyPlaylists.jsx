@@ -55,7 +55,7 @@ function MyPlaylists() {
                 <h3 className="text-xl text-neutral-200 mb-2 pl-4 mt-4">
                     Your Playlists
                 </h3>
-                {(currentUserPlaylists.length < 0) ?
+                {(currentUserPlaylists.length < 0 || !currentUserPlaylists.length) ?
                     (<div className="w-full flex justify-center items-center mt-10">
                         <p className="text-neutral-400 w-1/2 text-center max-md:w-full max-md:px-4">
                             You haven't created any playlist yet.
