@@ -1,7 +1,4 @@
 import React, { useState } from 'react'
-import PersonIcon from '@mui/icons-material/Person'
-import MailIcon from '@mui/icons-material/Mail'
-import LockIcon from '@mui/icons-material/Lock'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
