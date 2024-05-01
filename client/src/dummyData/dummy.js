@@ -84,19 +84,26 @@ export const currentUserPlaylistsInDummy = [
 ]
 
 export const playlistFromApi =
-    {
-        images: [
-            { url: '/images/spinner.gif' }
-        ],
-        id: "id",
-        name: "name",
-        tracks: {
-            items: [
-                {
-                    track:{
-                        id: "id"
-                    }
+{
+    images: [
+        { url: '/images/spinner.gif' }
+    ],
+    id: "id",
+    name: "name",
+    tracks: {
+        items: [
+            {
+                track: {
+                    id: "id"
                 }
-            ]
-        }
+            }
+        ]
     }
+}
+
+export const favoriteSongs = {
+    count: 0,
+    tracks: [
+        { songID: "id" }
+    ]
+}

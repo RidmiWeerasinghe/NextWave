@@ -113,6 +113,7 @@ function SearchBar() {
 
     return (
         <section className="flex items-center searchBarContainer  gap-4 w-96 max-md:w-full rounded-3xl border border-lightTextColor">
+            <Toaster/>
             <div className="w-fit hidden max-md:flex" onClick={HandleSideNav}>
                 <IconButton>
                     <FormatAlignCenterIcon className="text-slate-200" />
@@ -133,7 +134,7 @@ function SearchBar() {
                 <div className="bg-lightTextColor rounded-full  px-[6px] py-[6px] translate-x-[3px] hover:opacity-80 ">
                     <SearchIcon className="text-darkBlueS cursor-pointer" onClick={handleSearch} />
                 </div>
-                <Toaster />
+                
             </div>
 
         </section>

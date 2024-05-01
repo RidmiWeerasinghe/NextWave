@@ -31,13 +31,13 @@ function UserSinglePlaylist() {
     return (
         <div>
             <section className=" px-14 max-md:px-2 overflow-auto pb-8 pt-5">
-                <section className="flex justify-between items-center pr-6">
+                <section className="flex justify-normal items-center pr-6">
                     <h3 className="text-neutral-50  text-2xl flex items-center max-md:text-xl px-4 mb-5">
-                        {playlistName.name} .
-                        <span className="text-sm text-neutral-300">
-                            {" . "} {playlist.songs.length} {" songs"}
-                        </span>
+                        {playlistName.name} 
                     </h3>
+                    <p className='text-lightTextColor text-sm flex items-center max-md:text-xl px-4 mb-5'>
+                        {playlist.songs.length} Songs
+                        </p>
                 </section>
 
                 {playlist.songs.length > 0 && playlist.songs.map((song) => (

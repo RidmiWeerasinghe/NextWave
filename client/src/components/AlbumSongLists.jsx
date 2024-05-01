@@ -20,8 +20,9 @@ import toast, { Toaster } from 'react-hot-toast'
 function AlbumSongLists(trackID) {
 
     console.log(trackID)
-    const [{ user, accessToken, pageRefresh}, dispatch] = useStateValue()
+    const [{ user, accessToken, pageRefresh }, dispatch] = useStateValue()
     const [track, setTrack] = useState(cTrack)
+    const [isFavorite, setIsFavorite] = useState(false)
     const [currentUserPlaylists, setCurrentUserPlaylists] = useState([{ name: "" }])
     //popover
     const [anchorEl, setAnchorEl] = React.useState(null)
@@ -161,9 +162,55 @@ function AlbumSongLists(trackID) {
     function handleClick() {
         console.log("play song : " + trackID.trackID)
     }
+
+    //find the favorite sts
+    if (user.username) {
+        try {
+            axios.get(`http://localhost:5555/songs/checkfavorite/${user.email}/${trackID.trackID}`)
+                .then(response => {
+                    if (response.data === "true") {
+                        setIsFavorite(true)
+                    }
+                    else {
+                        setIsFavorite(false)
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    //setting favorite songs
+    const setFavourite = () => {
+        if (user.username) {
+            try {
+                axios.put(`http://localhost:5555/songs/setfavorite/${trackID.trackID}`, { email: user.email })
+                    .then(response => {
+                        if (response.data === "added") {
+                            toast.success("Song added to favorites")
+                        }
+                        else if (response.data == "removed") {
+                            toast.success("Song removed from favorites")
+                        }
+                        dispatch({
+                            type: 'SET_PAGEREFRESH',
+                            pageRefresh: !pageRefresh
+                        })
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
     return (
-        <div className="w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1 cursor-pointer" onClick={()=>{console.log(trackID)}}>
-            <Toaster />
+        <div className="w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1 cursor-pointer" onClick={() => { console.log(trackID) }}>
             <div className='p-5 m-2 rounded-lg flex items-center justify-between bg-playlistcardbg  hover:bg-playlistcardhoverbg'>
                 <div className="flex items-center space-x-4">
                     <img src={track.album.images[0].url} alt="" className='w-14 h-14 rounded-sm' />
@@ -173,7 +220,8 @@ function AlbumSongLists(trackID) {
                     </div>
                 </div>
                 <div className="flex items-center space-x-4">
-                    <FavoriteBorderIcon className='cursor-pointer' />
+                    {!isFavorite && <FavoriteBorderIcon className='cursor-pointer' onClick={setFavourite} />}
+                    {isFavorite && <FavoriteIcon className='cursor-pointer text-red-600' onClick={setFavourite} />}
                     <h4 className="text-base font-semibold">{millisToMinutesAndSeconds(track.duration_ms)}</h4>
                     <div className='text-xl cursor-pointer' onClick={handleClick}><PlayArrowRoundedIcon style={{ fontSize: 35 }} /></div>
 

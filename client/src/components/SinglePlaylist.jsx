@@ -60,7 +60,7 @@ function SinglePlaylist() {
     console.log(currentPlaylistsSpotify)
     return (
         <div className={"bg-darkBlue  overflow-hidden "}>
-            {!searchResultsLoading && <div className={"bg-darkBlue  overflow-hidden "}>
+            <div className={"bg-darkBlue  overflow-hidden "}>
                 <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7  Artistbackground">
                     <div className="grid grid-cols-[max-content,auto] mt-7 max-md:grid-cols-1 max-md:place-items-center gap-5 ">
                         <img className="w-60 h-60 rounded-lg" src={currentPlaylistsSpotify.images[0].url} />
@@ -87,7 +87,7 @@ function SinglePlaylist() {
                         <AlbumSongList key={track.track.id} trackID={track.track.id} />
                     ))}
                 </section>
-            </div>}
+            </div>
             {searchResultsLoading &&
                 <div className="overflow-auto py-6  px-9 max-md:px-1">
                     <h3 className="font-medium text-neutral-300 text-xl ml-9  max-md:ml-5 mb-5">

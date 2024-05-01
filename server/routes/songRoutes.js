@@ -13,7 +13,7 @@ router.get('/getplaylistsongs/:email/:name', async (req, res) => {
             //playlist exists
             try {
                 const playlistIndex = user.playlist.findIndex(playlist => playlist.name === req.params.name)
-                
+
                 if (playlistIndex !== -1) {
                     res.json(user.playlist[playlistIndex])
                 }
@@ -34,4 +34,94 @@ router.get('/getplaylistsongs/:email/:name', async (req, res) => {
     }
 })
 
+//set favorite sts
+router.put('/setfavorite/:songid', async (req, res) => {
+    console.log("email")
+    const { songid } = req.params
+    const { email } = req.body
+
+    try {
+        const user = await User.findOne({ email })
+        if (user) {
+            if (user.favorites.length !== 0) {
+                const songIndex = user.favorites.findIndex(favorites => favorites.songID == songid)
+                console.log(songIndex)
+
+                if (songIndex !== -1) {
+                    user.favorites.splice(songIndex, 1)
+                    await user.save()
+                    res.status(200).json("removed")
+                }
+                else {
+                    //add the song to favorites
+                    user.favorites.push({ songID: songid })
+                    await user.save()
+                    res.status(200).json("added")
+                }
+            }
+            else {
+                //add the song to favorites
+                user.favorites.push({ songID: songid });
+                await user.save();
+                res.json("Song added to favorites");
+            }
+        }
+        else {
+            res.status(404).json("user not found")
+        }
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+//get fav sts
+router.get('/checkfavorite/:email/:songid', async (req, res) => {
+    const { songid , email} = req.params
+    try {
+        const user = await User.findOne({ email })
+        if (user) {
+            if (user.favorites.length !== 0) {
+                const songIndex = user.favorites.findIndex(favorites => favorites.songID == songid)
+                console.log(songIndex)
+
+                if (songIndex !== -1) {
+                    res.json("true")
+                }
+                else {
+                    res.json("false")
+                }
+            }
+            else {
+                res.json("no favorite songs");
+            }
+        }
+        else {
+            res.status(404).json("user not found")
+        }
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
+
+//get all favourite songs
+router.get('/getallfavourites/:email' , async (req, res) => {
+    const {email} = req.params
+
+    const user = await User.findOne({email})
+    if(user){
+        if(user.favorites.length !== 0){
+            res.json({
+                count: user.favorites.length,
+                tracks: user.favorites
+            })
+        }
+        else{
+            res.json("no favorites")
+        }
+    }
+    else{
+        res.json("user not found")
+    }
+})
 export default router

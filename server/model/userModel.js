@@ -3,9 +3,6 @@ import mongoose from "mongoose";
 const songSchema = mongoose.Schema({
     songID:{
         type: String
-    },
-    isFavourite:{
-        type: Boolean
     }
 })
 
@@ -16,6 +13,11 @@ const playlistSchema = mongoose.Schema({
     songs:[songSchema]
 })
 
+const favoritesSchema = mongoose.Schema({
+    songID:{
+        type:String
+    }
+})
 
 const userSchema = mongoose.Schema(
     {
@@ -34,7 +36,8 @@ const userSchema = mongoose.Schema(
         image:{
             type: String
         },
-        playlist:[playlistSchema]
+        playlist:[playlistSchema],
+        favorites:[favoritesSchema]
     },
     {
         timestamps: true,

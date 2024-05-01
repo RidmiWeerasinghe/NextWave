@@ -174,7 +174,7 @@ router.post('/addtoplaylist/:email/:name/:songid', async (req, res) => {
                     try {
                         const isUpdated = await User.findOneAndUpdate(
                             { email, "playlist.name": name },
-                            { $push: { "playlist.$.songs": { songID: songid, isFavourite: false } } },
+                            { $push: { "playlist.$.songs": { songID: songid, isFavorite: false } } },
                             { new: true }
                         )
                         if (isUpdated) {
@@ -243,5 +243,6 @@ router.delete('/removefromplalist/:email/:name/:songid', async (req, res) => {
         res.status(500).json("Internal Server Errorrr")
     }
 })
+
 
 export default router
