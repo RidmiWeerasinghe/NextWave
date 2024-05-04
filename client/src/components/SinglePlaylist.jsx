@@ -9,6 +9,7 @@ function SinglePlaylist() {
 
     const clientID = "72cdd5687f2146adaf6d90d7d3f95270"
     const clientSecret = "e521133ff90f4230885d2e1dc8d0fd11"
+    const scopes = ["streaming","user-read-email","user-read-private"] 
 
     //console.log("accessToken from context api : " + accessToken)
 
@@ -20,11 +21,12 @@ function SinglePlaylist() {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: "grant_type=client_credentials&client_id=" + clientID + "&client_secret=" + clientSecret
+                body: "grant_type=client_credentials&client_id=" + clientID + "&client_secret=" + clientSecret +"&scope="+scopes.join("%20")
             }
             fetch("https://accounts.spotify.com/api/token", authParameters)
                 .then(result => result.json())
                 .then(data => {
+                    console.log(data)
                     // if (data) {
                     //setIsLoading(false)
                     dispatch({

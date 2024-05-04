@@ -19,11 +19,13 @@ import toast, { Toaster } from 'react-hot-toast'
 
 function AlbumSongLists(trackID) {
 
-    console.log(trackID)
-    const [{ user, accessToken, pageRefresh }, dispatch] = useStateValue()
+    //console.log(trackID)
+    const [{ user, accessToken, pageRefresh, currentPlayingTrack }, dispatch] = useStateValue()
     const [track, setTrack] = useState(cTrack)
     const [isFavorite, setIsFavorite] = useState(false)
     const [currentUserPlaylists, setCurrentUserPlaylists] = useState([{ name: "" }])
+    const [play, setPlay] = useState(false)
+
     //popover
     const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -159,9 +161,6 @@ function AlbumSongLists(trackID) {
             console.log(error.message)
         }
     }
-    function handleClick() {
-        console.log("play song : " + trackID.trackID)
-    }
 
     //find the favorite sts
     if (user.username) {
@@ -211,6 +210,20 @@ function AlbumSongLists(trackID) {
             toast.error("Login to add to favorites")
         }
     }
+
+    
+    const handleClick = () => {
+        const trackid = trackID.trackID
+        let currentUserEmail = user.email
+        console.log("play song : " + trackID)
+        //setting the music player
+        dispatch({
+            type: 'SET_CURRENTPLAYINGTRACK',
+            currentPlayingTrack: trackid
+        })
+    }
+
+
 
     return (
         <div className="w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1 cursor-pointer" onClick={() => { console.log(trackID) }}>
@@ -282,7 +295,7 @@ function AlbumSongLists(trackID) {
                     {removeBtnVisible && <div className='text-xl cursor-pointer' onClick={handleRemoveSong}><RemoveCircleIcon style={{ fontSize: 25 }} /></div>}
                 </div>
             </div>
-
+            {/* {play && <iframe className=' w-full h-2/4'  src={trackUrl}  frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>} */}
         </div>
     )
 }

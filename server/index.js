@@ -1,4 +1,4 @@
-import express, { json, request, response } from "express";
+import express from "express";
 import { PORT, mongodbUrl } from './config.js'
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes.js"

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useStateValue } from '../StateProvider'
 import { userSelectedPlaylist } from '../dummyData/dummy'
 import { Toaster } from 'react-hot-toast'
+import Player from './Player'
 
 function UserSinglePlaylist() {
     const [{ user, pageRefresh }, dispatch] = useStateValue()
@@ -56,7 +57,8 @@ function UserSinglePlaylist() {
                     </div>
                 )}
             </section>
-        </div>
+
+            </div>
     )
 }
 

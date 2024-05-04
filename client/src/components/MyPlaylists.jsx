@@ -77,7 +77,6 @@ function MyPlaylists() {
         <div>
             {user.username ? LoggedInMessage : notLoggedInMessage}
 
-
         </div>
     )
 }

@@ -19,8 +19,11 @@ import SearchResultsArtists from './components/SearchResultsArtists'
 import SearchResultsAlbums from './components/SearchResultsAlbums'
 import SearchResultsTracks from './components/SearchResultsTracks'
 import { Routes, Route, useLocation } from 'react-router-dom'
+import Player from './components/Player'
+import { useStateValue } from './StateProvider'
 
 function App() {
+  const [{currentPlayingTrack},dispatch] = useStateValue()
   const Location = useLocation()
   const isLoginRoute = Location.pathname === '/login'
   const isRegisterRoute = Location.pathname === '/register'
@@ -50,7 +53,7 @@ function App() {
         <Route path="/searchresultsalbums" element={<SearchResultsAlbums />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-
+      {currentPlayingTrack && <Player trackID={currentPlayingTrack}/>}
     </main>
   )
 }
