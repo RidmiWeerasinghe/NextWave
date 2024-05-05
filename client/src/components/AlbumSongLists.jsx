@@ -211,7 +211,7 @@ function AlbumSongLists(trackID) {
         }
     }
 
-    
+
     const handleClick = () => {
         const trackid = trackID.trackID
         let currentUserEmail = user.email
@@ -221,6 +221,25 @@ function AlbumSongLists(trackID) {
             type: 'SET_CURRENTPLAYINGTRACK',
             currentPlayingTrack: trackid
         })
+        if (currentUserEmail) {
+
+            //check if user has a history
+            axios.post('http://localhost:5555/history/check', { email: currentUserEmail })
+                .then(response => {
+                    console.log(response)
+
+                    //adding to history
+                    axios.post('http://localhost:5555/history/add', { email: currentUserEmail, trackID: trackid })
+                        .then(response => {
+                            console.log(response.data.message)
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                }).catch((error) => {
+                    console.log(error)
+                })
+        }
     }
 
 

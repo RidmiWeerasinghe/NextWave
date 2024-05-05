@@ -1,7 +1,7 @@
 import express, { json } from 'express'
 import { User } from '../model/userModel.js'
 
-const router = express.Router();
+const router = express.Router()
 
 //adding a new playlist
 router.post('/createplaylist', async (req, res) => {

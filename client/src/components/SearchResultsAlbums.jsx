@@ -18,6 +18,13 @@ function SearchResultsAlbums() {
                     ))}
                 </div>
             </section >
+            {searchedAlbums.length == 0 &&
+                <section className="flex w-full my-6 items-center justify-center">
+                <h1 className="text-lg text-lightTextColor">
+                    No album found for the given name 🤧
+                </h1>
+            </section >
+            }
         </div >
     )
 }
