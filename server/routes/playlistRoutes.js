@@ -31,7 +31,7 @@ router.post('/findPlaylist', async (req, res) => {
                 if (user) {
                     //console.log("found user")
                     //find if the user already has a playlist by same name
-                    const playlistExists = user.playlist.some(playlist => playlist.name === req.body.playlist.name);
+                    const playlistExists = user.playlist.some(playlist => playlist.name === req.body.playlist.name)
                     if (playlistExists) {
                         res.status(201).json("User already has a playlist with the same name")
                     } else {

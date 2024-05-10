@@ -118,6 +118,7 @@ function AlbumSongLists(trackID) {
                     .then(result => result.json())
                     .then(data => {
                         //if there isn't an error
+                        console.log(data)
                         if (data.album) {
                             setTrack(data)
                         }

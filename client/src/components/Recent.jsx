@@ -3,7 +3,7 @@ import { useStateValue } from '../StateProvider'
 import axios from 'axios'
 import { favoriteSongs } from '../dummyData/dummy'
 import AlbumSongLists from './AlbumSongLists'
-import toast from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 
 
 function Recent() {
@@ -59,7 +59,8 @@ function Recent() {
         </div>
     )
     const LoggedInMessage = (
-        <div>
+        <div className=' mb-36'>
+            <Toaster/>
             <section className=" px-14 max-md:px-2 overflow-auto pb-8 pt-5">
                 <section className="flex justify-between items-center pr-6">
                     <h3 className="text-neutral-50  text-2xl flex items-center max-md:text-xl px-4 mb-5">

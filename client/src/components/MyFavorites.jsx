@@ -10,14 +10,16 @@ function MyFavorites() {
     const [favorites, setFavorites] = useState(favoriteSongs)
 
     useEffect(() => {
-        axios.get(`http://localhost:5555/songs/getallfavourites/${user.email}`)
-            .then(response => {
-                //console.log(response.data)
-                setFavorites(response.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        if (user.email) {
+            axios.get(`http://localhost:5555/songs/getallfavourites/${user.email}`)
+                .then(response => {
+                    //console.log(response.data)
+                    setFavorites(response.data)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     }, [pageRefresh])
 
     console.log("favorites.count")
@@ -61,7 +63,7 @@ function MyFavorites() {
     )
     return (
         <div>
-            <Toaster/>
+            <Toaster />
             {!user.username ? notLoggedInMessage : LoggedInMessage}
         </div>
     )
