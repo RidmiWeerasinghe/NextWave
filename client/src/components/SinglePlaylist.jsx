@@ -10,14 +10,7 @@ function SinglePlaylist() {
     
     console.log("access : "+accessToken)
 
-    const clientID = "72cdd5687f2146adaf6d90d7d3f95270"
-    const clientSecret = "e521133ff90f4230885d2e1dc8d0fd11"
-    const scopes = ["streaming", "user-read-email", "user-read-private"]
     window.history.pushState({},null,'/')
-
-    useEffect(() => {
-        
-    }, [])
     //console.log(currentPlaylistsSpotify)
 
     const spotify = new SpotifyWebApi()

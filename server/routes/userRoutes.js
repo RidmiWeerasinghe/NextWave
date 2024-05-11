@@ -18,7 +18,8 @@ router.post('/', async (req, res) => {
         const newUser = {
             username: req.body.username,
             password: req.body.password,
-            email: req.body.email
+            email: req.body.email,
+            imgUrl: "/images/user.jpg"
         };
         const user = await User.create(newUser);
         return res.status(201).send(user);
@@ -31,47 +32,47 @@ router.post('/', async (req, res) => {
 
 //check if user exists
 router.post('/email', async (req, res) => {
-    const {email} = req.body
-    User.findOne({email: email})
-    .then(user => {
-        //console.log(user)
-        if(user){
-            res.json("User already exists")
-        }
-        else{
-            res.json("ok")
-        }
-    })
-    
+    const { email } = req.body
+    User.findOne({ email: email })
+        .then(user => {
+            //console.log(user)
+            if (user) {
+                res.json("User already exists")
+            }
+            else {
+                res.json("ok")
+            }
+        })
+
 })
 
 //user login
-router.post('/login', (req, res)=>{
-    const {email, password} = req.body
-    User.findOne({email: email})
-    .then(user => {
-        if(user){
-            if(user.password === password){
+router.post('/login', (req, res) => {
+    const { email, password } = req.body
+    User.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                if (user.password === password) {
+                    res.json({
+                        status: "success",
+                        user: user
+                    })
+                }
+                else {
+                    res.json({
+                        status: "Incorrect password"
+                    })
+                }
+            }
+            else {
                 res.json({
-                    status: "success",
-                    user: user
+                    status: "User doesn't exists"
                 })
             }
-            else{
-                res.json({
-                    status: "Incorrect password"
-                })
-            }
-        }
-        else{
-            res.json({
-                status:"User doesn't exists"
-            })
-        }
-    })
+        })
 })
 
-//retrieving whole users
+//retrieving all users
 router.get('/', async (req, res) => {
     try {
         const users = await User.find({});
@@ -85,62 +86,46 @@ router.get('/', async (req, res) => {
     }
 })
 
-
-//getting user by id
-router.get('/:id', async (request, response) => {
-    try {
-        const { id } = request.params;
-        const user = await User.findById(id);
-        return response.status(200).json(user)
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-})
-
-
 //update user
-router.put('/:id', async (request, response) => {
+router.put('/update/:email', async (req, res) => {
     try {
-        if (
-            !request.body.username ||
-            !request.body.password ||
-            !request.body.email
-        ) {
-            return res.status(400).send({
-                message: 'send all required fields'
-            });
-        }
+        const { email } = req.params
+        const {username, password, imgUrl} = req.body
 
-        const { id } = request.params;
-
-        const result = await User.findByIdAndUpdate(id, request.body);
-        if (!result) {
-            response.status(500).send({ message: "user not found" });
+        const user = await User.findOne({ email })
+        if (user) {
+            user.username = username
+            user.email = email
+            user.password = password
+            user.imageUrl = imgUrl
+            await user.save()
+            return res.status(200).send({ message: "user updated successfully" })
         }
-        return response.status(200).send({ message: "user updated successfully" });
+        else {
+            res.status(500).send({ message: "user not found" })
+        }
     }
     catch (error) {
         console.log(error.message);
-        response.status(500).send({ message: error.message });
+        res.status(500).send({ message: error.message });
     }
 })
 
 //delete user
-router.delete('/:id', async (request, response) => {
+router.delete('/delete/:email', async (req, res) => {
     try {
-        const { id } = request.params;
-        const result = await User.findByIdAndDelete(id)
+        const { email } = req.params
+        const result = await User.findOneAndDelete({email})
 
         if (!result) {
-            response.status(500).send({ message: "user not found" });
+            res.status(500).send({ message: "user not found" });
         }
 
-        return response.status(200).send({ message: "deleted successfully" })
+        return res.status(200).send({ message: "deleted successfully" })
     } catch (error) {
         console.log(error.message);
-        response.status(500).send({ message: error.message });
+        res.status(500).send({ message: error.message });
     }
 })
 
-export default router;
+export default router

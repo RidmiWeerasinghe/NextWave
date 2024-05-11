@@ -14,17 +14,22 @@ import MusicNoteIcon from '@mui/icons-material/MusicNote'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import PauseIcon from '@mui/icons-material/Pause'
 import { Link } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
 
 function AlbumSongLists(trackID) {
 
     //console.log(trackID)
-    const [{ user, accessToken, pageRefresh, currentPlayingTrack }, dispatch] = useStateValue()
+    const [{ user, accessToken, pageRefresh, currentPlayingTrackId }, dispatch] = useStateValue()
     const [track, setTrack] = useState(cTrack)
     const [isFavorite, setIsFavorite] = useState(false)
     const [currentUserPlaylists, setCurrentUserPlaylists] = useState([{ name: "" }])
-    const [play, setPlay] = useState(false)
+    let isPlaying = false
+
+    if(currentPlayingTrackId === trackID.trackID){
+        isPlaying = true
+    }
 
     //popover
     const [anchorEl, setAnchorEl] = React.useState(null)
@@ -213,15 +218,47 @@ function AlbumSongLists(trackID) {
     }
 
 
-    const handleClick = () => {
+    const handlePlay = () => {
         const trackid = trackID.trackID
         let currentUserEmail = user.email
         console.log("play song : " + trackID)
-        //setting the music player
-        dispatch({
-            type: 'SET_CURRENTPLAYINGTRACK',
-            currentPlayingTrack: trackid
-        })
+
+
+        //getting track uri
+        try {
+            var authParameters = {
+                method: 'GET',
+                mode: "cors",
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            }
+            fetch(`https://api.spotify.com/v1/tracks/${trackid}`, authParameters)
+                .then(result => result.json())
+                .then(data => {
+                    //if there isn't an error
+                    console.log(data)
+                    if (data.album) {
+                        //setting the music player
+                        dispatch({
+                            type: 'SET_CURRENTPLAYINGTRACKURI',
+                            currentPlayingTrackUri: [data.uri]
+                        })
+                        dispatch({
+                            type: 'SET_CURRENTPLAYINGTRACKID',
+                            currentPlayingTrackId: data.id
+                        })
+                    }
+                }
+                )
+                .catch((error) => {
+                    console.log(error)
+                    console.log("error")
+                })
+        } catch (error) {
+            console.log(error)
+        }
+
         if (currentUserEmail) {
 
             //check if user has a history
@@ -243,6 +280,17 @@ function AlbumSongLists(trackID) {
         }
     }
 
+    const handlePause = () =>{
+        isPlaying = false
+        dispatch({
+            type: 'SET_CURRENTPLAYINGTRACKURI',
+            currentPlayingTrackUri: []
+        })
+        dispatch({
+            type: 'SET_CURRENTPLAYINGTRACKID',
+            currentPlayingTrackId: ""
+        })
+    }
 
 
     return (
@@ -259,7 +307,7 @@ function AlbumSongLists(trackID) {
                     {!isFavorite && <FavoriteBorderIcon className='cursor-pointer' onClick={setFavourite} />}
                     {isFavorite && <FavoriteIcon className='cursor-pointer text-red-600' onClick={setFavourite} />}
                     <h4 className="text-base font-semibold">{millisToMinutesAndSeconds(track.duration_ms)}</h4>
-                    <div className='text-xl cursor-pointer' onClick={handleClick}><PlayArrowRoundedIcon style={{ fontSize: 35 }} /></div>
+                    <div className='text-xl cursor-pointer' >{isPlaying ? <PauseIcon style={{ fontSize: 35 }} onClick={handlePause}/> : <PlayArrowRoundedIcon style={{ fontSize: 35 }} onClick={handlePlay}/>}</div>
 
 
                     {user.email && !removeBtnVisible && <div className='text-xl cursor-pointer' onClick={handleClickPlaylistIcon}><MoreVertIcon style={{ fontSize: 30 }} aria-describedby={id} /></div>}

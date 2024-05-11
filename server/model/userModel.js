@@ -33,7 +33,7 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        image:{
+        imageUrl:{
             type: String
         },
         playlist:[playlistSchema],

@@ -10,6 +10,7 @@ function EditProfile() {
         username: user.username,
         email: user.email,
         password: user.password,
+        imgUrl: user.imgUrl
     })
 
     useEffect(() => {

@@ -24,7 +24,7 @@ import Player from './components/Player'
 import { useStateValue } from './StateProvider'
 
 function App() {
-  const [{ currentPlayingTrack }, dispatch] = useStateValue()
+  const [{ currentPlayingTrackUri }, dispatch] = useStateValue()
   const Location = useLocation()
   const isLoginRoute = Location.pathname === '/login'
   const isRegisterRoute = Location.pathname === '/register'
@@ -56,7 +56,7 @@ function App() {
         <Route path="/callback" element={<PageNotFound />} />
         <Route path="*" element={<div>xxxxx</div>} />
       </Routes>
-      {currentPlayingTrack && <Player trackID={currentPlayingTrack} />}
+      {currentPlayingTrackUri && <Player uri={currentPlayingTrackUri} />}
     </main>
   )
 }
