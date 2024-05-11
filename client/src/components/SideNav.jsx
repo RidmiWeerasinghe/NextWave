@@ -50,7 +50,7 @@ function SideNav() {
                             </NavLink>
                             <NavLink
                                 onClick={HandleSideNav}
-                                to={"/"}
+                                to={"/singleplaylist"}
                                 className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
                                 <AssessmentIcon />
@@ -106,13 +106,11 @@ function SideNav() {
                     {/* <button>Dark</button> */}
                 </section>
                 <div className="absolute bottom-0  flex justify-center right-0 left-0">
-                    <a
+                    <p
                         className="text-xs"
-                        href="https://twitter.com/immdipu"
-                        target={"_blank"}
                     >
-                        Made by <span className="text-neutral-200">RID_MI❤️</span>
-                    </a>
+                        <NavLink to={'/'}>Made by <span className="text-neutral-200">RID_MI❤️</span></NavLink>
+                    </p>
                 </div>
                 {/* {!login_success && (
                     <section className="px-7  mt-10 hidden gap-2 max-md:flex">

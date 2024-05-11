@@ -35,7 +35,6 @@ function Home() {
 
     return (
         <div className=" bg-darkBlue pl-10 pr-4 max-md:pl-4 overflow-hidden ">
-            
             {/* <section className=" w-full my-6 ">
                 <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
                     Trending

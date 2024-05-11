@@ -18,12 +18,13 @@ import SinglePlaylist from './components/SinglePlaylist'
 import SearchResultsArtists from './components/SearchResultsArtists'
 import SearchResultsAlbums from './components/SearchResultsAlbums'
 import SearchResultsTracks from './components/SearchResultsTracks'
+import SpotifyAuth from './components/SpotifyAuth'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Player from './components/Player'
 import { useStateValue } from './StateProvider'
 
 function App() {
-  const [{currentPlayingTrack},dispatch] = useStateValue()
+  const [{ currentPlayingTrack }, dispatch] = useStateValue()
   const Location = useLocation()
   const isLoginRoute = Location.pathname === '/login'
   const isRegisterRoute = Location.pathname === '/register'
@@ -33,7 +34,8 @@ function App() {
       {!isLoginRoute && !isRegisterRoute && <SideNav />}
 
       <Routes>
-        <Route path="/" element={<SinglePlaylist />} />
+        <Route path="/" element={<SpotifyAuth />} />
+        <Route path="/singleplaylist" element={<SinglePlaylist />} />
         <Route path="/topalbums" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -51,9 +53,10 @@ function App() {
         <Route path="/searchresultsartists" element={<SearchResultsArtists />} />
         <Route path="/searchresultstracks" element={<SearchResultsTracks />} />
         <Route path="/searchresultsalbums" element={<SearchResultsAlbums />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="/callback" element={<PageNotFound />} />
+        <Route path="*" element={<div>xxxxx</div>} />
       </Routes>
-      {currentPlayingTrack && <Player trackID={currentPlayingTrack}/>}
+      {currentPlayingTrack && <Player trackID={currentPlayingTrack} />}
     </main>
   )
 }

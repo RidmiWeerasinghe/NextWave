@@ -7,49 +7,18 @@ import axios from 'axios'
 
 function SinglePlaylist() {
     const [{ accessToken, currentPlaylistsSpotify, searchResultsLoading }, dispatch] = useStateValue()
+    
+    console.log("access : "+accessToken)
 
     const clientID = "72cdd5687f2146adaf6d90d7d3f95270"
     const clientSecret = "e521133ff90f4230885d2e1dc8d0fd11"
     const scopes = ["streaming", "user-read-email", "user-read-private"]
-
-    //console.log("accessToken from context api : " + accessToken)
+    window.history.pushState({},null,'/')
 
     useEffect(() => {
-        //getting access token
-        // try {
-        //     var authParameters = {
-        //         method: 'POST',
-        //         headers: {
-        //             "Content-Type": "application/x-www-form-urlencoded"
-        //         },
-        //         body: "grant_type=client_credentials&client_id=" + clientID + "&client_secret=" + clientSecret +"&scope="+scopes.join("%20")
-        //     }
-        //     fetch("https://accounts.spotify.com/api/token", authParameters)
-        //         .then(result => result.json())
-        //         .then(data => {
-        //             console.log(data)
-        //             // if (data) {
-        //             //setIsLoading(false)
-        //             dispatch({
-        //                 type: 'SET_TOKEN',
-        //                 accessToken: data.access_token
-        //             })
-        //             //}
-        //         })
-        // } catch (error) {
-        //     console.log(error)
-        // }
-
-        axios.get(`http://localhost:5555/spotify/accesstoken`)
-            .then(response => {
-                dispatch({
-                    type: 'SET_TOKEN',
-                    accessToken: response.data
-                })
-                console.log(response.data)
-            })
+        
     }, [])
-    console.log(currentPlaylistsSpotify)
+    //console.log(currentPlaylistsSpotify)
 
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)

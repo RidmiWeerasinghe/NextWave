@@ -104,7 +104,7 @@ function AlbumSongLists(trackID) {
 
     useEffect(() => {
         //retreving track by track using track id
-        if (trackID.trackID) {
+        if (trackID.trackID !== "id") {
             //console.log(trackID.trackID)
             try {
                 var authParameters = {

@@ -2,7 +2,7 @@ import { currentAlbum, currentAtist, currentAtistTracks, currentUserPlaylistsInD
 
 export const initialState = {
     user: { loggedIn: false, username: "", playlist: [] },
-    username: "",
+    authCode: "",
     accessToken: "",
     trendingAlbums: trendingAlbums,
     currentSingleAlbum: currentAlbum,
@@ -36,6 +36,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 accessToken: action.accessToken
+            }
+        case 'SET_AUTHCODE':
+            return {
+                ...state,
+                authCode: action.authCode
             }
         case 'SET_TRENDINGALBUMS':
             return {
