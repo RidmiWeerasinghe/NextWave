@@ -9,7 +9,7 @@ export default function spotifyAuth() {
       className=" text-white"
       style={{ minHeight: "100vh" }}
     >
-      <a className="btn btn-success btn-lg" href={AUTH_URL}>
+      <a href={AUTH_URL}>
         Login With Spotify
       </a>
     </button>

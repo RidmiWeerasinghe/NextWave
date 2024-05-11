@@ -4,7 +4,7 @@ import { useStateValue } from '../StateProvider'
 
 
 function Player(props) {
-    const trackUrl = `https://open.spotify.com/embed/track/${props.trackID}?utm_source=generator&theme=0&autoplay=true`
+    //const trackUrl = `https://open.spotify.com/embed/track/${props.trackID}?utm_source=generator&theme=0&autoplay=true`
     const trackUri = `spotify:track:3vkCueOmm7xQDoJ17W1Pm3`
     const [{ accessToken }, dispatch] = useStateValue()
 
