@@ -6,6 +6,7 @@ import { useStateValue } from '../StateProvider'
 function Player(props) {
     //const trackUrl = `https://open.spotify.com/embed/track/${props.trackID}?utm_source=generator&theme=0&autoplay=true`
     const trackUri = props.uri
+    //const trackUri = ["spotify:track:3soObrLZGSt1oFCb9plfcO", "spotify:track:29h6toC1TZ3Y6chQmXKmhN"]
     console.log(trackUri)
     const [{ accessToken }, dispatch] = useStateValue()
     if (!accessToken) {

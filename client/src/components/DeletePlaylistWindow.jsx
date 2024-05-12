@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useStateValue } from '../StateProvider'
-import { playlistSchema } from '../validation/playlistValidation'
 import toast, { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 

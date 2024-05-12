@@ -86,4 +86,21 @@ router.delete('/clear/:email', async (req, res)=>{
         return res.status(500).send({ message: error.message })
     }
 })
+
+//deleting user
+router.delete('/delete/:email', async (req, res) =>{
+    const {email} = req.params
+
+    try {
+        const userHistory = await History.findOneAndDelete({email})
+        if(userHistory){
+            res.status(200).send({message:"user history deleted successfully"})
+        }
+        else{
+            res.status(500).send({ message: "user not found" })
+        }
+    } catch (error) {
+        
+    }
+})
 export default router

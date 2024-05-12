@@ -34,7 +34,7 @@ const userSchema = mongoose.Schema(
             required: true
         },
         imageUrl:{
-            type: String
+            type: Object
         },
         playlist:[playlistSchema],
         favorites:[favoritesSchema]

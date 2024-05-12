@@ -19,13 +19,14 @@ router.post('/', async (req, res) => {
             username: req.body.username,
             password: req.body.password,
             email: req.body.email,
-            imgUrl: "/images/user.jpg"
-        };
-        const user = await User.create(newUser);
-        return res.status(201).send(user);
+            imageUrl: null
+        }
+        console.log(newUser)
+        const user = await User.create(newUser)
+        return res.status(201).send(user)
     }
     catch (error) {
-        console.log(error.message);
+        console.log(error.message)
         res.status(500).send({ message: error.message })
     }
 })
@@ -41,6 +42,24 @@ router.post('/email', async (req, res) => {
             }
             else {
                 res.json("ok")
+            }
+        })
+
+})
+
+//get user
+router.get('/get/:email', async (req, res) => {
+    const { email } = req.params
+    await User.findOne({ email: email })
+        .then(user => {
+            //console.log(user)
+            if (user) {
+                res.json({
+                    user: user
+                })
+            }
+            else {
+                res.json("no user")
             }
         })
 
@@ -90,14 +109,14 @@ router.get('/', async (req, res) => {
 router.put('/update/:email', async (req, res) => {
     try {
         const { email } = req.params
-        const {username, password, imgUrl} = req.body
+        const {username, password, imageUrl} = req.body
 
         const user = await User.findOne({ email })
         if (user) {
             user.username = username
             user.email = email
             user.password = password
-            user.imageUrl = imgUrl
+            user.imageUrl = imageUrl
             await user.save()
             return res.status(200).send({ message: "user updated successfully" })
         }
@@ -118,7 +137,7 @@ router.delete('/delete/:email', async (req, res) => {
         const result = await User.findOneAndDelete({email})
 
         if (!result) {
-            res.status(500).send({ message: "user not found" });
+            res.status(500).send({ message: "user not found" })
         }
 
         return res.status(200).send({ message: "deleted successfully" })
