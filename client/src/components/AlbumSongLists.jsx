@@ -27,6 +27,7 @@ function AlbumSongLists(trackID) {
     const [currentUserPlaylists, setCurrentUserPlaylists] = useState([{ name: "" }])
     let isPlaying = false
 
+    //check if the song is playing
     if(currentPlayingTrackId === trackID.trackID){
         isPlaying = true
     }
@@ -107,8 +108,9 @@ function AlbumSongLists(trackID) {
         }
     }, [])
 
+    //retreving track by track using track id
     useEffect(() => {
-        //retreving track by track using track id
+        
         if (trackID.trackID !== "id") {
             //console.log(trackID.trackID)
             try {

@@ -13,8 +13,9 @@ function UserSinglePlaylist() {
     const [playlist, setPlaylist] = useState(userSelectedPlaylist)
 
     // console.log("playlist")
-    console.log(playlist)
+    //console.log(playlist)
 
+    //loading all songs in playlist
     useEffect(() => {
         try {
             axios.get(`http://localhost:5555/playlist/getplaylist/${user.email}/${playlistName.name}`)
@@ -34,7 +35,7 @@ function UserSinglePlaylist() {
     const playPlaylist = () => {
 
         let trackIDs = playlist.songs?.map(song => song.songID) || []
-        console.log(trackIDs)
+        //console.log(trackIDs)
         dispatch({
             type: 'SET_CURRENTPLAYINGTRACKID',
             currentPlayingTrackId: trackIDs
