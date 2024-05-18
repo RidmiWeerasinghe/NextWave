@@ -18,6 +18,8 @@ import SinglePlaylist from './components/SinglePlaylist'
 import SearchResultsArtists from './components/SearchResultsArtists'
 import SearchResultsAlbums from './components/SearchResultsAlbums'
 import SearchResultsTracks from './components/SearchResultsTracks'
+import About from './components/About'
+import EmotionBasedPlaylist from './components/EmotionBasedPlaylist'
 import SpotifyAuth from './components/SpotifyAuth'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Player from './components/Player'
@@ -52,11 +54,15 @@ function App() {
         <Route path="/editprofile" element={<EditProfile />} />
         <Route path="/searchresultsartists" element={<SearchResultsArtists />} />
         <Route path="/searchresultstracks" element={<SearchResultsTracks />} />
+        <Route path="/about" element={<About />} />
         <Route path="/searchresultsalbums" element={<SearchResultsAlbums />} />
+        <Route path="/emotionBasedPlaylist/:id" element={<EmotionBasedPlaylist />} />
         <Route path="/callback" element={<PageNotFound />} />
         <Route path="*" element={<div>xxxxx</div>} />
       </Routes>
-      {currentPlayingTrackUri && <Player uri={currentPlayingTrackUri} />}
+      <div className={isLoginRoute || isRegisterRoute ? 'hidden' : ''}>
+        <Player uri={currentPlayingTrackUri} />
+      </div>
     </main>
   )
 }

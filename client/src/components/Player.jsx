@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import SpotifyPlayer from 'react-spotify-web-playback'
 import { useStateValue } from '../StateProvider'
+import toast from 'react-hot-toast'
 
 
 function Player(props) {
     //const trackUrl = `https://open.spotify.com/embed/track/${props.trackID}?utm_source=generator&theme=0&autoplay=true`
-    //const trackUri = props.uri
-    const trackUri = ["spotify:track:3soObrLZGSt1oFCb9plfcO", "spotify:track:29h6toC1TZ3Y6chQmXKmhN"]
+    const trackUri = props.uri
+    //const trackUri = ["spotify:track:3soObrLZGSt1oFCb9plfcO", "spotify:track:29h6toC1TZ3Y6chQmXKmhN"]
     console.log(trackUri)
     const [{ accessToken }, dispatch] = useStateValue()
     if (!accessToken) {
         return null
     }
     console.log("rendering player.......")
+
+    if(!trackUri){
+        toast.error("select a song to play")
+        return null
+    }
 
 
 

@@ -11,7 +11,7 @@ import { Link, useLocation } from 'react-router-dom'
 import MyPlaylists from './MyPlaylists'
 
 function TopNav() {
-  const [{ user, currentUserPlaylists }, dispatch] = useStateValue()
+  const [{ user,mood, currentUserPlaylists }, dispatch] = useStateValue()
   //popover
   const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -53,7 +53,7 @@ function TopNav() {
   const userLoggendIn = (
     <div className="flex gap-4 items-center mr-0 max-md:hidden"  >
       <div className='text-lightTextColor cursor-pointer p-4' aria-describedby={id} onMouseOver={showPopover}>
-        Hi {user.username} <SentimentSatisfiedAltIcon className='text-neutral-200' />
+        Hi {user.username} {mood? mood : <SentimentSatisfiedAltIcon className='text-neutral-200' />}
       </div>
       <Popover
         id={id}
