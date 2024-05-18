@@ -88,7 +88,7 @@ function TopNav() {
             </li>
           </ListItemButton>
         </Link>
-        <Link to={'/'}>
+        <Link to={'/singleplaylist'}>
           <ListItemButton onClick={signout}>
             <LogoutIcon className='text-neutral-200' />
             <li className="pl-3 flex text-neutral-200 font-normal text-center text-justify">

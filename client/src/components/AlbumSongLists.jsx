@@ -223,9 +223,11 @@ function AlbumSongLists(trackID) {
     }
 
 
-    const handlePlay = () => {
+    const handlePlay = async ()  => {
         const trackid = trackID.trackID
         let currentUserEmail = user.email
+        let songName = ""
+        let artistName = ""
         console.log("play song : " + trackID)
 
 
@@ -238,13 +240,15 @@ function AlbumSongLists(trackID) {
                     "Authorization": `Bearer ${accessToken}`
                 }
             }
-            fetch(`https://api.spotify.com/v1/tracks/${trackid}`, authParameters)
+            await fetch(`https://api.spotify.com/v1/tracks/${trackid}`, authParameters)
                 .then(result => result.json())
                 .then(data => {
                     //if there isn't an error
                     console.log(data)
                     if (data.album) {
                         //setting the music player
+                        songName= data.name
+                        artistName = data.artists[0].name
                         dispatch({
                             type: 'SET_CURRENTPLAYINGTRACKURI',
                             currentPlayingTrackUri: [data.uri]
@@ -272,7 +276,7 @@ function AlbumSongLists(trackID) {
                     console.log(response)
 
                     //adding to history
-                    axios.post('http://localhost:5555/history/add', { email: currentUserEmail, trackID: trackid })
+                    axios.post('http://localhost:5555/history/add', { email: currentUserEmail, trackID: trackid, name: songName, artist:artistName})
                         .then(response => {
                             console.log(response.data.message)
                         })

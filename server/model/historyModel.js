@@ -9,10 +9,19 @@ const historySchema = mongoose.Schema(
             {
                 trackID: {
                     type: String
+                },
+                name: {
+                    type: String
+                },
+                artist: {
+                    type: String
+                },
+                count: {
+                    type: Number
                 }
             }
         ]
     }
 )
 
-export const History = mongoose.model('history',historySchema)
+export const History = mongoose.model('history', historySchema)

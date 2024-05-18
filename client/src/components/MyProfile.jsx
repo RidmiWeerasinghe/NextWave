@@ -5,6 +5,7 @@ import PlaylistCard from './PlaylistCard'
 import AlbumSongLists from './AlbumSongLists'
 import SpotifyWebApi from 'spotify-web-api-js'
 import axios from 'axios'
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 import { currentUserPlaylistsInDummy } from '../dummyData/dummy'
 import { Link } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
@@ -15,6 +16,15 @@ function MyProfile() {
     const [suggestSongs, setSuggestSongs] = useState([])
     const [showSuggetions, setShowSuggetions] = useState(false)
     const [moodPlaylistId, setMoodPlaylistId] = useState("")
+    const [mostPlayedSongs, setMostPlayedSongs] = useState([])
+
+    const chartsData = mostPlayedSongs.map((track) => (
+        ({
+            "name": track.name,
+            "count": track.count
+        })
+    ))
+    console.log(chartsData)
 
     console.log("currentUserPlaylists")
     console.log(user.username)
@@ -39,6 +49,19 @@ function MyProfile() {
         }
     }, [user])
 
+    useEffect(() => {
+        if (user) {
+            axios.get(`http://localhost:5555/history/mostplayed/${user.email}`)
+                .then(response => {
+                    console.log(response.data.data)
+                    setMostPlayedSongs(response.data.data)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+    }, [])
+
     const getSongForMoood = (e) => {
         setShowSuggetions(pre => !pre)
         const mood = e.target.name
@@ -53,7 +76,7 @@ function MyProfile() {
                     spotify.getPlaylist("37i9dQZF1EIgG2NEOhqsD7")
                         .then(function (data) {
                             //console.log(data.tracks.items)
-                            const firstFiveItems = data.tracks.items.slice(0, 6)
+                            const firstFiveItems = data.tracks.items.slice(0, 5)
                             setSuggestSongs(firstFiveItems)
                         }, function (err) {
                             console.error(err)
@@ -68,7 +91,7 @@ function MyProfile() {
                     spotify.getPlaylist("37i9dQZF1EIhmSBwUDxg84")
                         .then(function (data) {
                             //console.log(data.tracks.items)
-                            const firstFiveItems = data.tracks.items.slice(0, 6)
+                            const firstFiveItems = data.tracks.items.slice(0, 5)
                             setSuggestSongs(firstFiveItems)
                         }, function (err) {
                             console.error(err)
@@ -83,7 +106,7 @@ function MyProfile() {
                     spotify.getPlaylist("37i9dQZF1EIgNZCaOGb0Mi")
                         .then(function (data) {
                             //console.log(data.tracks.items)
-                            const firstFiveItems = data.tracks.items.slice(0, 6)
+                            const firstFiveItems = data.tracks.items.slice(0, 5)
                             setSuggestSongs(firstFiveItems)
                         }, function (err) {
                             console.error(err)
@@ -98,7 +121,7 @@ function MyProfile() {
                     spotify.getPlaylist("37i9dQZF1EVJSvZp5AOML2")
                         .then(function (data) {
                             //console.log(data.tracks.items)
-                            const firstFiveItems = data.tracks.items.slice(0, 6)
+                            const firstFiveItems = data.tracks.items.slice(0, 5)
                             setSuggestSongs(firstFiveItems)
                         }, function (err) {
                             console.error(err)
@@ -113,7 +136,7 @@ function MyProfile() {
                     spotify.getPlaylist("37i9dQZF1E8KSuYNloCGgq")
                         .then(function (data) {
                             //console.log(data.tracks.items)
-                            const firstFiveItems = data.tracks.items.slice(0, 6)
+                            const firstFiveItems = data.tracks.items.slice(0, 5)
                             setSuggestSongs(firstFiveItems)
                         }, function (err) {
                             console.error(err)
@@ -128,7 +151,7 @@ function MyProfile() {
                     spotify.getPlaylist("37i9dQZF1EVGJJ3r00UGAt")
                         .then(function (data) {
                             //console.log(data.tracks.items)
-                            const firstFiveItems = data.tracks.items.slice(0, 6)
+                            const firstFiveItems = data.tracks.items.slice(0, 5)
                             setSuggestSongs(firstFiveItems)
                         }, function (err) {
                             console.error(err)
@@ -143,7 +166,7 @@ function MyProfile() {
 
 
     console.log("suggestSongs")
-    console.log(mood)
+    console.log(user.imageUrl)
     return (
         <div className={"bg-darkBlue  overflow-hidden"}>
             <Toaster />
@@ -215,9 +238,9 @@ function MyProfile() {
                         <Link to={`/emotionBasedPlaylist/${moodPlaylistId}`}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>view more</h2></Link>
                     </div>)}
                 {showSuggetions && (
-                    <div className='flex flex-wrap mt-2'>
+                    <div className='flex flex-wrap mt-2 justify-center'>
                         {suggestSongs && suggestSongs.map((track) => (
-                            <div key={track.track.id} className=" w-6/12">
+                            <div key={track.track.id} className=" w-full">
                                 <AlbumSongLists trackID={track.track.id} />
                             </div>
                         ))}
@@ -225,20 +248,25 @@ function MyProfile() {
             </section>
 
 
-            {currentUserPlaylists.length > 0 && <section className="flex ml-10 my-6 mt-10 flex-col mr-6">
+            {currentUserPlaylists.length > 0 && <section className="flex ml-10 mt-10 flex-col mr-6">
                 <div className='flex justify-between items-center ml-3'>
                     <h1 className="font-medium text-xl text-lightTextColor my-4">
                         My Most played Songs
                     </h1>
                     <Link to={'/myplaylists'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>show all playlists</h2></Link>
                 </div>
-                <div className='flex flex-wrap'>
-                    {/* {currentUserPlaylists.slice(0, 2).map((playlist) => (
-                        <div key={playlist.id} className="w-1/2">
-                            <PlaylistCard playlist={playlist} threedots={false} />
-                        </div>
-                    ))} */}
-                    <h6 className='text-white pl-20'><i>most played songs goes here.......</i></h6>
+                <div className='flex flex-wrap justify-center mt-4'>
+                    <BarChart
+                        width={900}
+                        height={400}
+                        data={chartsData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name"/>
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="count" fill="#6084AB" />
+                    </BarChart>
                 </div>
             </section>}
             {currentUserPlaylists.length > 0 && <section className="flex ml-10 my-6 mt-10 flex-col mr-6">
