@@ -74,8 +74,8 @@ function Recent() {
                     </p>
                 </section>
 
-                {recent.count > 0 && recentArray.map((song) => (
-                    <AlbumSongLists key={song.trackID} trackID={song.trackID} removeBtnVisible={false} />
+                {recent.count > 0 && recentArray.map((track) => (
+                    <AlbumSongLists key={track.trackID} trackID={track.trackID} removeBtnVisible={false} />
                 ))
 
                 }

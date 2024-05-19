@@ -5,7 +5,7 @@ import PlaylistCard from './PlaylistCard'
 import AlbumSongLists from './AlbumSongLists'
 import SpotifyWebApi from 'spotify-web-api-js'
 import axios from 'axios'
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, RadialBarChart, RadialBar, PieChart, Pie } from 'recharts'
 import { currentUserPlaylistsInDummy } from '../dummyData/dummy'
 import { Link } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
@@ -18,13 +18,75 @@ function MyProfile() {
     const [moodPlaylistId, setMoodPlaylistId] = useState("")
     const [mostPlayedSongs, setMostPlayedSongs] = useState([])
 
-    const chartsData = mostPlayedSongs.map((track) => (
+    const colors = [
+        "#ff0000", // Red
+        "#ff5733", // Red-Orange
+        "#ff8d1a", // Orange
+        "#ffbf00", // Yellow-Orange
+        "#ffff00", // Yellow
+        "#caff70", // Light Green
+        "#82ca9d", // Green
+        "#8dd1e1", // Light Blue
+        "#83a6ed", // Blue
+        "#8884d8"  // Shade of Blue
+    ];
+    let i = 0
+    const chartsData = mostPlayedSongs.map((track, index) => (
         ({
-            "name": track.name,
-            "count": track.count
+            "name": track.name + " - "+ track.artist,
+            "Number of times played": track.count,
+            "fill": colors[index % colors.length]
         })
     ))
+
+    //graph customize
+    const getPath = (x, y, width, height) => (
+        `M${x},${y + height}
+         C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3} ${x + width / 2}, ${y}
+         C${x + width / 2},${y + height / 3} ${x + 2 * width / 3},${y + height} ${x + width}, ${y + height}
+         Z`
+    )
+    const TriangleBar = (props) => {
+        const {
+            fill, x, y, width, height,
+        } = props;
+
+        return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
+    }
     console.log(chartsData)
+
+    const data = [
+        {
+            "name": "18-24",
+            "uv": 31.47,
+            "fill": "#8884d8"
+        },
+        {
+            "name": "25-29",
+            "uv": 26.69,
+            "fill": "#83a6ed"
+        },
+        {
+            "name": "30-34",
+            "uv": -15.69,
+            "fill": "#8dd1e1"
+        },
+        {
+            "name": "35-39",
+            "uv": 8.22,
+            "fill": "#82ca9d"
+        },
+        {
+            "name": "40-49",
+            "uv": -8.63,
+            "fill": "#a4de6c"
+        },
+        {
+            "name": "50+",
+            "uv": -2.63,
+            "fill": "#d0ed57"
+        }
+    ]
 
     console.log("currentUserPlaylists")
     console.log(user.username)
@@ -211,9 +273,9 @@ function MyProfile() {
 
             <section className="flex ml-10 my-6 mt-4 flex-col mr-6">
                 <div className='flex justify-between items-center ml-3'>
-                    {!showSuggetions && <h1 className="font-medium text-xl text-lightTextColor my-8">
+                    <h1 className="font-medium text-xl text-lightTextColor my-8">
                         Hi {user.username}, How Are you feeling today?
-                    </h1>}
+                    </h1>
                 </div>
                 <div className='flex justify-evenly items-center ml-3 mt-5'>
                     <img className=' w-1/12 hover:w-1/6 cursor-pointer transition-all duration-500' src="images/smile.png" name="good" alt="" onClick={getSongForMoood} />
@@ -246,33 +308,10 @@ function MyProfile() {
                         ))}
                     </div>)}
             </section>
-
-
-            {currentUserPlaylists.length > 0 && <section className="flex ml-10 mt-10 flex-col mr-6">
-                <div className='flex justify-between items-center ml-3'>
-                    <h1 className="font-medium text-xl text-lightTextColor my-4">
-                        My Most played Songs
-                    </h1>
-                    <Link to={'/myplaylists'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>show all playlists</h2></Link>
-                </div>
-                <div className='flex flex-wrap justify-center mt-4'>
-                    <BarChart
-                        width={900}
-                        height={400}
-                        data={chartsData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name"/>
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="count" fill="#6084AB" />
-                    </BarChart>
-                </div>
-            </section>}
             {currentUserPlaylists.length > 0 && <section className="flex ml-10 my-6 mt-10 flex-col mr-6">
                 <div className='flex justify-between items-center ml-3'>
                     <h1 className="font-medium text-xl text-lightTextColor my-4">
-                        My Most played Playlists
+                        My Playlists
                     </h1>
                     <Link to={'/myplaylists'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>show all playlists</h2></Link>
                 </div>
@@ -289,9 +328,9 @@ function MyProfile() {
                 <section className="flex ml-10 my-6 mt-10 flex-col mr-6 mb-40">
                     <div className='flex justify-between items-center ml-3'>
                         <h1 className="font-medium text-xl text-lightTextColor my-4">
-                            Suggest for you
+                            My Favorites ❤️
                         </h1>
-                        <Link to={'/myplaylists'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>show all playlists</h2></Link>
+                        <Link to={'/myfavorites'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>view all favorites</h2></Link>
                     </div>
                     <div className='flex flex-wrap'>
                         {/* {currentUserPlaylists.slice(0, 2).map((playlist) => (
@@ -302,6 +341,31 @@ function MyProfile() {
                         <h6 className='text-white pl-20'><i>song Suggestions goes here.......</i></h6>
                     </div>
                 </section>}
+
+            {mostPlayedSongs.length > 0 && <section className="flex ml-10 mt-10 flex-col mr-6">
+                <div className='flex justify-between items-center ml-3'>
+                    <h1 className="font-medium text-xl text-lightTextColor my-4">
+                        Top 10 Most played Songs 🎶
+                    </h1>
+                    <Link to={'/recentsongs'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>view history</h2></Link>
+                </div>
+                <div className='flex flex-wrap justify-center mt-4 mb-36'>
+                    <BarChart
+                        width={900}
+                        height={400}
+                        data={chartsData}>
+                        <CartesianGrid strokeDasharray="none" />
+                        <XAxis
+                            dataKey="name"
+                            tick={false}
+                        />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="Number of times played" fill="#6084AB" shape={<TriangleBar />} />
+                    </BarChart>
+                </div>
+            </section>}
+
             {!currentUserPlaylists.length && <section className="flex ml-10 my-6 mt-10 flex-col mr-6 items-center">
                 <p className="text-lg text-lightTextColor my-4">
                     Are you new to NextWave ?

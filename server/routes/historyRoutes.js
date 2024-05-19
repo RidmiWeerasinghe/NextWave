@@ -79,8 +79,8 @@ router.get('/mostplayed/:email', async (req, res) => {
             // Sort tracks by count in descending order and get the top 5
             let mostPlayedTracks = user.tracks.sort((a, b) => b.count - a.count)
 
-            if(mostPlayedTracks.length > 15){
-                mostPlayedTracks = mostPlayedTracks.splice(0,15)
+            if(mostPlayedTracks.length > 10){
+                mostPlayedTracks = mostPlayedTracks.splice(0,10)
             }
 
             return res.status(200).send({ message: "Most played tracks retrieved successfully", data: mostPlayedTracks })
@@ -99,8 +99,9 @@ router.get('/recent/:email', async (req, res)=>{
     try {
         const user = await History.findOne({ email: email })
         if (user) {
-            console.log(user)
-            return res.status(200).send({ message: "user history", data: {tracks :user.tracks, count:user.tracks.length}})
+            //console.log(user)
+            const reversedTracks = user.tracks.slice().reverse()
+            return res.status(200).send({ message: "user history", data: {tracks :reversedTracks, count:user.tracks.length}})
         } else {
             return res.status(404).send({ message: "User not found" })
         }

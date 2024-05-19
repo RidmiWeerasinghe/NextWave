@@ -28,7 +28,7 @@ function AlbumSongLists(trackID) {
     let isPlaying = false
 
 
-    console.log(trackID.trackID)
+    //console.log(trackID.trackID)
 
     //check if the song is playing
     if(currentPlayingTrackId === trackID.trackID){
