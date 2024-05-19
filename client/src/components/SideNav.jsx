@@ -1,15 +1,18 @@
 import React from 'react'
 import LogoText from './LogoText'
 import { NavLink, Link } from 'react-router-dom'
-import ExploreIcon from '@mui/icons-material/Explore'
-import AccountBoxIcon from '@mui/icons-material/AccountBox'
-import AssessmentIcon from '@mui/icons-material/Assessment'
-import DonutSmallIcon from '@mui/icons-material/DonutSmall'
-import SubscriptionsIcon from '@mui/icons-material/Subscriptions'
+import AlbumIcon from '@mui/icons-material/Album'
+import PersonIcon from '@mui/icons-material/Person'
+import MusicNoteIcon from '@mui/icons-material/MusicNote'
+import HistoryIcon from '@mui/icons-material/History'
+import QueueMusicIcon from '@mui/icons-material/QueueMusic'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import InfoIcon from '@mui/icons-material/Info'
+import { useStateValue } from '../StateProvider'
 
 function SideNav() {
+    const [{user},dispatch] = useStateValue()
     function HandleSideNav() {
         console.log("clicked")
     }
@@ -37,7 +40,7 @@ function SideNav() {
                                 to={"/topalbums"}
                                 className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
-                                <ExploreIcon />
+                                <AlbumIcon />
                                 Albums
                             </NavLink>
                             <NavLink
@@ -45,7 +48,7 @@ function SideNav() {
                                 to={"/topartists"}
                                 className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
-                                <AccountBoxIcon />
+                                <PersonIcon />
                                 Artists
                             </NavLink>
                             <NavLink
@@ -53,7 +56,7 @@ function SideNav() {
                                 to={"/singleplaylist"}
                                 className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                             >
-                                <AssessmentIcon />
+                                <MusicNoteIcon />
                                 Songs
                             </NavLink>
                         </ul>
@@ -72,7 +75,7 @@ function SideNav() {
                             to={"/recentsongs"}
                             className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                         >
-                            <DonutSmallIcon />
+                            <HistoryIcon />
                             Recent
                         </NavLink>
                         <NavLink
@@ -80,7 +83,7 @@ function SideNav() {
                             to={"/myplaylists"}
                             className="flex items-center  gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
                         >
-                            <SubscriptionsIcon />
+                            <QueueMusicIcon />
                             Your Playlists
                         </NavLink>
                         <NavLink
@@ -90,6 +93,13 @@ function SideNav() {
                         >
                             <FavoriteIcon /> Favorites
                         </NavLink>
+                        {user.username && <NavLink
+                            onClick={HandleSideNav}
+                            to={"/myprofile"}
+                            className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
+                        >
+                            <AdminPanelSettingsIcon /> My Profile
+                        </NavLink>}
                     </ul>
                 </section>
                 <hr className="bg-darkTextColor h-[0.8px] opacity-10 my-6 px-7" />

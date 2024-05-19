@@ -315,7 +315,7 @@ function AlbumSongLists(trackID) {
         setShowLyrics(pre => !pre)
 
         setLyrics("loading....")
-        //if (showLyrics) {
+        if (!showLyrics) {
         axios.get(`http://localhost:5555/songs/lyrics`,
             {
                 params:
@@ -332,7 +332,7 @@ function AlbumSongLists(trackID) {
                 setLyrics("Lyrics not found")
                 console.log(err)
             })
-        //}
+        }
     }
 
     //format the lyrics by replacing \n with line brake
@@ -345,8 +345,8 @@ function AlbumSongLists(trackID) {
     // console.log("lyrics")
     // console.log(lyrics)
     return (
-        <div className="m-2 w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1 cursor-pointer">
-            <div className='p-5 rounded-lg flex items-center justify-between bg-playlistcardbg  hover:bg-playlistcardhoverbg'>
+        <div className="my-3 w-full rounded-lg overflow-hidden max-md:px-0 flex flex-col gap-0 text-white px-2.1 cursor-pointer bg-playlistcardbg   hover:bg-playlistcardhoverbg">
+            <div className='p-5 mb-0 rounded-lg flex items-center justify-between '>
                 <div className="flex items-center space-x-4">
                     <img src={track.album.images[0].url} alt="" className='w-14 h-14 rounded-sm' />
                     <div>
@@ -415,7 +415,8 @@ function AlbumSongLists(trackID) {
                     {removeBtnVisible && <div className='text-xl cursor-pointer' onClick={handleRemoveSong}><RemoveCircleIcon style={{ fontSize: 25 }} /></div>}
                 </div>
             </div>
-            {showLyrics && <div className='p-5 mb-2 mt-0 text-white rounded-lg flex flex-col justify-start items-center  bg-playlistcardbg  hover:bg-playlistcardhoverbg'>
+            {showLyrics && 
+            <div className='p-5 m-4 text-white rounded-lg flex flex-col justify-start items-center  bg-playlistcardbg'>
                 {lyrics && formatLyrics(lyrics)}
             </div>}
         </div>

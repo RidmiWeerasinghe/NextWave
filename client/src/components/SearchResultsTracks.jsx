@@ -9,11 +9,11 @@ function SearchResultsTracks() {
 
     return (
         <div className=" bg-darkBlue pl-10 pr-4 max-md:pl-4 overflow-hidden ">
-            <section className="w-full my-6 ">
+            <section className="w-full my-4 ">
                 <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
                     Search Results.....
                 </h1>
-                <div className="flex flex-wrap justify-between gap-2 overflow-scroll h-full mr-4">
+                <div className="flex flex-wrap justify-between overflow-scroll h-full">
                     {searchedTracks.map((track) => (
                         <AlbumSongLists key={track.id} trackID={track.id} />
                     ))}

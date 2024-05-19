@@ -29,7 +29,7 @@ function EmotionBasedPlaylist() {
     console.log("playlistID")
     console.log(playlistID.id)
     return (
-        <div className={"bg-darkBlue  overflow-hidden "}>
+        <div className={"bg-darkBlue  overflow-hidden mb-20"}>
             <Toaster/>
             <div className={"bg-darkBlue  overflow-hidden "}>
                 <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7  Artistbackground">

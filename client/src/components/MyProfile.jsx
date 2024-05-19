@@ -5,6 +5,7 @@ import PlaylistCard from './PlaylistCard'
 import AlbumSongLists from './AlbumSongLists'
 import SpotifyWebApi from 'spotify-web-api-js'
 import axios from 'axios'
+import arrayShuffle from 'array-shuffle'
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, RadialBarChart, RadialBar, PieChart, Pie } from 'recharts'
 import { currentUserPlaylistsInDummy } from '../dummyData/dummy'
 import { Link } from 'react-router-dom'
@@ -17,6 +18,7 @@ function MyProfile() {
     const [showSuggetions, setShowSuggetions] = useState(false)
     const [moodPlaylistId, setMoodPlaylistId] = useState("")
     const [mostPlayedSongs, setMostPlayedSongs] = useState([])
+    const [favorites, setFavorites] = useState([])
 
     const colors = [
         "#ff0000", // Red
@@ -31,9 +33,10 @@ function MyProfile() {
         "#8884d8"  // Shade of Blue
     ];
     let i = 0
-    const chartsData = mostPlayedSongs.map((track, index) => (
+    const shuffledArray = arrayShuffle(mostPlayedSongs)
+    const chartsData = shuffledArray.map((track, index) => (
         ({
-            "name": track.name + " - "+ track.artist,
+            "name": track.name + " - " + track.artist,
             "Number of times played": track.count,
             "fill": colors[index % colors.length]
         })
@@ -62,8 +65,23 @@ function MyProfile() {
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)
 
+    //getting favorites
     useEffect(() => {
-        //loading all playlists
+        if (user.email) {
+            axios.get(`http://localhost:5555/songs/getallfavourites/${user.email}`)
+                .then(response => {
+                    // console.log("response.data")
+                    // console.log(response.data)
+                    setFavorites(response.data.tracks)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    }, [])
+
+    //loading all playlists
+    useEffect(() => {
         if (user.username) {
             axios.get(`http://localhost:5555/playlist/getallplaylist/${user.email}`)
                 .then(response => {
@@ -79,6 +97,7 @@ function MyProfile() {
         }
     }, [user])
 
+    //get most played songs
     useEffect(() => {
         if (user) {
             axios.get(`http://localhost:5555/history/mostplayed/${user.email}`)
@@ -268,7 +287,7 @@ function MyProfile() {
                         <Link to={`/emotionBasedPlaylist/${moodPlaylistId}`}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>view more</h2></Link>
                     </div>)}
                 {showSuggetions && (
-                    <div className='flex flex-wrap mt-2 justify-center'>
+                    <div className='flex flex-wrap justify-center'>
                         {suggestSongs && suggestSongs.map((track) => (
                             <div key={track.track.id} className=" w-full">
                                 <AlbumSongLists trackID={track.track.id} />
@@ -296,23 +315,25 @@ function MyProfile() {
                 <section className="flex ml-10 my-6 mt-10 flex-col mr-6 mb-40">
                     <div className='flex justify-between items-center ml-3'>
                         <h1 className="font-medium text-xl text-lightTextColor my-4">
-                            My Favorites ❤️
+                            My Recently added Favorites ❤️
                         </h1>
                         <Link to={'/myfavorites'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>view all favorites</h2></Link>
                     </div>
-                    <div className='flex flex-wrap'>
-                        {/* {currentUserPlaylists.slice(0, 2).map((playlist) => (
-                        <div key={playlist.id} className="w-1/2">
-                            <PlaylistCard playlist={playlist} threedots={false} />
-                        </div>
-                    ))} */}
-                        <h6 className='text-white pl-20'><i>song Suggestions goes here.......</i></h6>
-                    </div>
+                    {
+                        <div className='flex flex-wrap'>
+                            {favorites && favorites.reverse().slice(0, 4).map((track) => (
+                                <div key={track.songID} className=" w-full">
+                                    <AlbumSongLists trackID={track.songID} />
+                                </div>
+                            ))}
+                            {!favorites && <h6 className='text-white pl-20'><i>song Suggestions goes here.......</i></h6>}
+                        </div>}
                 </section>}
 
-            {mostPlayedSongs.length > 0 && <section className="flex ml-10 mt-10 flex-col mr-6">
+            {mostPlayedSongs.length > 0 && 
+            <section className="flex ml-10 flex-col mr-6">
                 <div className='flex justify-between items-center ml-3'>
-                    <h1 className="font-medium text-xl text-lightTextColor my-4">
+                    <h1 className="font-medium text-xl text-lightTextColor my-5">
                         Top 10 Most played Songs 🎶
                     </h1>
                     <Link to={'/recentsongs'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>view history</h2></Link>
@@ -329,7 +350,7 @@ function MyProfile() {
                         />
                         <YAxis />
                         <Tooltip />
-                        <Bar dataKey="Number of times played" fill="#6084AB" shape={<TriangleBar />} />
+                        <Bar dataKey="Number of times played" fill="#6084AB" shape={<TriangleBar />} className=' cursor-pointer' />
                     </BarChart>
                 </div>
             </section>}

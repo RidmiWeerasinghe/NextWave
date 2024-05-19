@@ -19,7 +19,7 @@ function TopNav() {
   const Location = useLocation()
   const isArtists = Location.pathname === '/topartists'
   const isArtistsSearch = Location.pathname === '/searchresultsartists'
-  const isSongs = Location.pathname === '/singleplaylist' || Location.pathname === '/'
+  const isSongs = Location.pathname === '/singleplaylist' || Location.pathname === '/' || Location.pathname === '/callback'
   const isSongsSearch = Location.pathname === '/searchresultstracks'
   const isAlbums = Location.pathname === '/topalbums'
   const isAlbumsSearch = Location.pathname === '/searchresultsalbums'
