@@ -59,7 +59,7 @@ function Recent() {
         </div>
     )
     const LoggedInMessage = (
-        <div className=' mb-36'>
+        <div >
             <Toaster/>
             <section className=" px-14 max-md:px-2 overflow-auto pb-8 pt-5">
                 <section className="flex justify-between items-center pr-6">
@@ -92,7 +92,7 @@ function Recent() {
     )
 
     return (
-        <div>
+        <div className=' mb-20'>
             {user.username ? LoggedInMessage : notLoggedInMessage}
         </div>
     )

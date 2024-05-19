@@ -62,7 +62,7 @@ function MyFavorites() {
         </div>
     )
     return (
-        <div>
+        <div className=' mb-20'>
             <Toaster />
             {!user.username ? notLoggedInMessage : LoggedInMessage}
         </div>

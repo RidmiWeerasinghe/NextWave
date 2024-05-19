@@ -6,7 +6,6 @@ import { cTrack } from '../dummyData/dummy'
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd'
 import Popover from '@mui/material/Popover'
 import ListItemButton from '@mui/material/ListItemButton'
 import AddIcon from '@mui/icons-material/Add'
@@ -15,6 +14,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import PauseIcon from '@mui/icons-material/Pause'
+import LyricsIcon from '@mui/icons-material/Lyrics'
 import { Link } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
 
@@ -27,11 +27,16 @@ function AlbumSongLists(trackID) {
     const [currentUserPlaylists, setCurrentUserPlaylists] = useState([{ name: "" }])
     let isPlaying = false
 
+    //for finding lyrics
+    const [trackName, setTrackName] = useState("")
+    const [artistName, setArtistName] = useState("")
+    const [lyrics, setLyrics] = useState("")
+    const [showLyrics, setShowLyrics] = useState(false)
 
     //console.log(trackID.trackID)
 
     //check if the song is playing
-    if(currentPlayingTrackId === trackID.trackID){
+    if (currentPlayingTrackId === trackID.trackID) {
         isPlaying = true
     }
 
@@ -113,7 +118,7 @@ function AlbumSongLists(trackID) {
 
     //retreving track by track using track id
     useEffect(() => {
-        
+
         if (trackID.trackID !== "id" && trackID.trackID) {
             console.log(trackID.trackID)
             try {
@@ -131,6 +136,8 @@ function AlbumSongLists(trackID) {
                         console.log(data)
                         if (data.album) {
                             setTrack(data)
+                            setTrackName(data.name)
+                            setArtistName(data.artists[0].name)
                         }
                     }
                     )
@@ -223,7 +230,7 @@ function AlbumSongLists(trackID) {
     }
 
 
-    const handlePlay = async ()  => {
+    const handlePlay = async () => {
         const trackid = trackID.trackID
         let currentUserEmail = user.email
         let songName = ""
@@ -247,7 +254,7 @@ function AlbumSongLists(trackID) {
                     console.log(data)
                     if (data.album) {
                         //setting the music player
-                        songName= data.name
+                        songName = data.name
                         artistName = data.artists[0].name
                         dispatch({
                             type: 'SET_CURRENTPLAYINGTRACKURI',
@@ -276,7 +283,7 @@ function AlbumSongLists(trackID) {
                     console.log(response)
 
                     //adding to history
-                    axios.post('http://localhost:5555/history/add', { email: currentUserEmail, trackID: trackid, name: songName, artist:artistName})
+                    axios.post('http://localhost:5555/history/add', { email: currentUserEmail, trackID: trackid, name: songName, artist: artistName })
                         .then(response => {
                             console.log(response.data.message)
                         })
@@ -289,7 +296,7 @@ function AlbumSongLists(trackID) {
         }
     }
 
-    const handlePause = () =>{
+    const handlePause = () => {
         isPlaying = false
         dispatch({
             type: 'SET_CURRENTPLAYINGTRACKURI',
@@ -301,10 +308,45 @@ function AlbumSongLists(trackID) {
         })
     }
 
+    const getLyrics = () => {
+        console.log("getLyrics")
+        console.log(artistName)
+        console.log(trackName)
+        setShowLyrics(pre => !pre)
 
+        setLyrics("loading....")
+        //if (showLyrics) {
+        axios.get(`http://localhost:5555/songs/lyrics`,
+            {
+                params:
+                {
+                    artist: artistName,
+                    track: trackName
+                }
+            })
+            .then(response => {
+                console.log(response)
+                setLyrics(response.data.lyrics)
+            })
+            .catch((err) => {
+                setLyrics("Lyrics not found")
+                console.log(err)
+            })
+        //}
+    }
+
+    //format the lyrics by replacing \n with line brake
+    const formatLyrics = (lyrics) => {
+        return lyrics.split('\n').map((line, index) => (
+            <p key={index} className="m-0 p-0 leading-loose">{line}</p>
+        ))
+    }
+
+    // console.log("lyrics")
+    // console.log(lyrics)
     return (
-        <div className="w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1 cursor-pointer" onClick={() => { console.log(trackID) }}>
-            <div className='p-5 m-2 rounded-lg flex items-center justify-between bg-playlistcardbg  hover:bg-playlistcardhoverbg'>
+        <div className="m-2 w-full overflow-hidden max-md:px-0 flex flex-col gap-2 text-white px-2.1 cursor-pointer">
+            <div className='p-5 rounded-lg flex items-center justify-between bg-playlistcardbg  hover:bg-playlistcardhoverbg'>
                 <div className="flex items-center space-x-4">
                     <img src={track.album.images[0].url} alt="" className='w-14 h-14 rounded-sm' />
                     <div>
@@ -313,10 +355,11 @@ function AlbumSongLists(trackID) {
                     </div>
                 </div>
                 <div className="flex items-center space-x-4">
+                    <LyricsIcon className='cursor-pointer' onClick={getLyrics} />
                     {!isFavorite && <FavoriteBorderIcon className='cursor-pointer' onClick={setFavourite} />}
                     {isFavorite && <FavoriteIcon className='cursor-pointer text-red-600' onClick={setFavourite} />}
                     <h4 className="text-base font-semibold">{millisToMinutesAndSeconds(track.duration_ms)}</h4>
-                    <div className='text-xl cursor-pointer' >{isPlaying ? <PauseIcon style={{ fontSize: 35 }} onClick={handlePause}/> : <PlayArrowRoundedIcon style={{ fontSize: 35 }} onClick={handlePlay}/>}</div>
+                    <div className='text-xl cursor-pointer' >{isPlaying ? <PauseIcon style={{ fontSize: 35 }} onClick={handlePause} /> : <PlayArrowRoundedIcon style={{ fontSize: 35 }} onClick={handlePlay} />}</div>
 
 
                     {user.email && !removeBtnVisible && <div className='text-xl cursor-pointer' onClick={handleClickPlaylistIcon}><MoreVertIcon style={{ fontSize: 30 }} aria-describedby={id} /></div>}
@@ -372,7 +415,9 @@ function AlbumSongLists(trackID) {
                     {removeBtnVisible && <div className='text-xl cursor-pointer' onClick={handleRemoveSong}><RemoveCircleIcon style={{ fontSize: 25 }} /></div>}
                 </div>
             </div>
-            {/* {play && <iframe className=' w-full h-2/4'  src={trackUrl}  frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>} */}
+            {showLyrics && <div className='p-5 mb-2 mt-0 text-white rounded-lg flex flex-col justify-start items-center  bg-playlistcardbg  hover:bg-playlistcardhoverbg'>
+                {lyrics && formatLyrics(lyrics)}
+            </div>}
         </div>
     )
 }
