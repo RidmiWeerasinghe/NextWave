@@ -12,13 +12,12 @@ import { Link } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 
 function MyProfile() {
-    const [{ user, accessToken, mood }, dispatch] = useStateValue()
+    const [{ user, accessToken, mood, pageRefresh, favoriteTracks }, dispatch] = useStateValue()
     const [currentUserPlaylists, setCurrentUserPlaylists] = useState(currentUserPlaylistsInDummy)
     const [suggestSongs, setSuggestSongs] = useState([])
     const [showSuggetions, setShowSuggetions] = useState(false)
     const [moodPlaylistId, setMoodPlaylistId] = useState("")
     const [mostPlayedSongs, setMostPlayedSongs] = useState([])
-    const [favorites, setFavorites] = useState([])
 
     const colors = [
         "#ff0000", // Red
@@ -32,7 +31,7 @@ function MyProfile() {
         "#83a6ed", // Blue
         "#8884d8"  // Shade of Blue
     ];
-    let i = 0
+    //shuffle array
     const shuffledArray = arrayShuffle(mostPlayedSongs)
     const chartsData = shuffledArray.map((track, index) => (
         ({
@@ -56,36 +55,40 @@ function MyProfile() {
 
         return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
     }
-    console.log(chartsData)
 
 
-    console.log("currentUserPlaylists")
-    console.log(user.username)
+    // console.log("currentUserPlaylists")
+    // console.log(user.username)
 
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)
 
     //getting favorites
     useEffect(() => {
+        console.log("getting favorites")
         if (user.email) {
             axios.get(`http://localhost:5555/songs/getallfavourites/${user.email}`)
                 .then(response => {
                     // console.log("response.data")
                     // console.log(response.data)
-                    setFavorites(response.data.tracks)
+                    const tracks = response.data.tracks
+                    dispatch({
+                        type: 'SET_FAVORITETRACKS',
+                        favoriteTracks: tracks.reverse()
+                    })
                 })
                 .catch((error) => {
                     console.log(error)
                 })
         }
-    }, [])
+    }, [pageRefresh])
 
     //loading all playlists
     useEffect(() => {
         if (user.username) {
             axios.get(`http://localhost:5555/playlist/getallplaylist/${user.email}`)
                 .then(response => {
-                    console.log(response.data.data)
+                    //console.log(response.data.data)
                     setCurrentUserPlaylists(response.data.data)
                 })
                 .catch((error) => {
@@ -102,7 +105,7 @@ function MyProfile() {
         if (user) {
             axios.get(`http://localhost:5555/history/mostplayed/${user.email}`)
                 .then(response => {
-                    console.log(response.data.data)
+                    //console.log(response.data.data)
                     setMostPlayedSongs(response.data.data)
                 })
                 .catch((err) => {
@@ -213,9 +216,6 @@ function MyProfile() {
         }
     }
 
-
-    console.log("suggestSongs")
-    console.log(user.imageUrl)
     return (
         <div className={"bg-darkBlue  overflow-hidden"}>
             <Toaster />
@@ -312,48 +312,44 @@ function MyProfile() {
             </section>}
 
             {currentUserPlaylists.length > 0 &&
-                <section className="flex ml-10 my-6 mt-10 flex-col mr-6 mb-40">
+                <section className="flex ml-10 my-6 mt-10 flex-col mr-6 mb-20">
                     <div className='flex justify-between items-center ml-3'>
                         <h1 className="font-medium text-xl text-lightTextColor my-4">
                             My Recently added Favorites ❤️
                         </h1>
                         <Link to={'/myfavorites'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>view all favorites</h2></Link>
                     </div>
-                    {
-                        <div className='flex flex-wrap'>
-                            {favorites && favorites.reverse().slice(0, 4).map((track) => (
-                                <div key={track.songID} className=" w-full">
-                                    <AlbumSongLists trackID={track.songID} />
-                                </div>
-                            ))}
-                            {!favorites && <h6 className='text-white pl-20'><i>song Suggestions goes here.......</i></h6>}
-                        </div>}
+                    {favoriteTracks && favoriteTracks.slice(0, 4).map((track) => (
+                        <AlbumSongLists trackID={track.songID} key={track.songID} />
+                    ))}
+                    {!favoriteTracks && <h6 className='text-white pl-20'><i>You haven't added any favorite songs yet !! </i></h6>}
+
                 </section>}
 
-            {mostPlayedSongs.length > 0 && 
-            <section className="flex ml-10 flex-col mr-6">
-                <div className='flex justify-between items-center ml-3'>
-                    <h1 className="font-medium text-xl text-lightTextColor my-5">
-                        Top 10 Most played Songs 🎶
-                    </h1>
-                    <Link to={'/recentsongs'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>view history</h2></Link>
-                </div>
-                <div className='flex flex-wrap justify-center mt-4 mb-36'>
-                    <BarChart
-                        width={900}
-                        height={400}
-                        data={chartsData}>
-                        <CartesianGrid strokeDasharray="none" />
-                        <XAxis
-                            dataKey="name"
-                            tick={false}
-                        />
-                        <YAxis />
-                        <Tooltip />
-                        <Bar dataKey="Number of times played" fill="#6084AB" shape={<TriangleBar />} className=' cursor-pointer' />
-                    </BarChart>
-                </div>
-            </section>}
+            {mostPlayedSongs.length > 0 &&
+                <section className="flex ml-10 flex-col mr-6">
+                    <div className='flex justify-between items-center ml-3'>
+                        <h1 className="font-medium text-xl text-lightTextColor my-5">
+                            Top 10 Most played Songs 🎶
+                        </h1>
+                        <Link to={'/recentsongs'}><h2 className='font-light text-sm text-lightTextColor mr-4 hover:underline cursor-pointer'>view history</h2></Link>
+                    </div>
+                    <div className='flex flex-wrap justify-center mt-4 mb-36'>
+                        <BarChart
+                            width={900}
+                            height={400}
+                            data={chartsData}>
+                            <CartesianGrid strokeDasharray="none" />
+                            <XAxis
+                                dataKey="name"
+                                tick={false}
+                            />
+                            <YAxis />
+                            <Tooltip />
+                            <Bar dataKey="Number of times played" fill="#6084AB" shape={<TriangleBar />} className=' cursor-pointer' />
+                        </BarChart>
+                    </div>
+                </section>}
 
             {!currentUserPlaylists.length && <section className="flex ml-10 my-6 mt-10 flex-col mr-6 items-center">
                 <p className="text-lg text-lightTextColor my-4">

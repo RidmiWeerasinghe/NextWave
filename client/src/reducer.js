@@ -22,7 +22,8 @@ export const initialState = {
     searchResultsLoading: false,
     currentPlayingTrackUri: [],
     currentPlayingTrackId: "",
-    mood: ""
+    mood: "",
+    favoriteTracks: [],
 }
 
 const reducer = (state, action) => {
@@ -138,6 +139,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 mood: action.mood
+            }
+        case 'SET_FAVORITETRACKS':
+            return {
+                ...state,
+                favoriteTracks: action.favoriteTracks
             }
         default:
             return state;

@@ -120,7 +120,7 @@ function AlbumSongLists(trackID) {
     useEffect(() => {
 
         if (trackID.trackID !== "id" && trackID.trackID) {
-            console.log(trackID.trackID)
+            //console.log(trackID.trackID)
             try {
                 var authParameters = {
                     method: 'GET',
@@ -133,7 +133,7 @@ function AlbumSongLists(trackID) {
                     .then(result => result.json())
                     .then(data => {
                         //if there isn't an error
-                        console.log(data)
+                        //console.log(data)
                         if (data.album) {
                             setTrack(data)
                             setTrackName(data.name)

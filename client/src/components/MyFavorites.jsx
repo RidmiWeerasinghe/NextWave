@@ -6,7 +6,7 @@ import axios from 'axios'
 import { Toaster } from 'react-hot-toast'
 
 function MyFavorites() {
-    const [{ user, pageRefresh }, dispatch] = useStateValue()
+    const [{ user, pageRefresh, favoriteTracks }, dispatch] = useStateValue()
     const [favorites, setFavorites] = useState(favoriteSongs)
 
     useEffect(() => {
@@ -15,6 +15,10 @@ function MyFavorites() {
                 .then(response => {
                     //console.log(response.data)
                     setFavorites(response.data)
+                    dispatch({
+                        type: 'SET_FAVORITETRACKS',
+                        favoriteTracks: response.data.tracks
+                    })
                 })
                 .catch((error) => {
                     console.log(error)
@@ -23,7 +27,7 @@ function MyFavorites() {
     }, [pageRefresh])
 
     console.log("favorites.count")
-    console.log(favorites)
+    console.log(favoriteTracks)
 
     const notLoggedInMessage = (
         <div className="w-full flex justify-center items-center mt-10">
@@ -45,11 +49,9 @@ function MyFavorites() {
                     </p>
                 </section>
 
-                {favorites.count > 0 && favorites.tracks.map((song) => (
+                {favorites.count > 0 && favoriteTracks.map((song) => (
                     <AlbumSongLists key={song.songID} trackID={song.songID} removeBtnVisible={false} />
-                ))
-
-                }
+                ))}
 
                 {!favorites.count && (
                     <div className="w-full flex justify-center items-center mt-10">

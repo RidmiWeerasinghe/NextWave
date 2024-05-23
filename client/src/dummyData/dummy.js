@@ -107,3 +107,6 @@ export const favoriteSongs = {
         { songID: "id" }
     ]
 }
+export const favoriteTracks = [
+        { songID: "id" }
+    ]
