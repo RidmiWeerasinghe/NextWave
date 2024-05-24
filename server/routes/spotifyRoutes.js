@@ -5,8 +5,6 @@ const router = express.Router()
 
 router.get('/accesstoken/:code', async (req, res) => {
 
-    //res.json("BQDnMiU2E_MylPykM8Ru8PeeazAt5x8pqMX2-SZcWw9Fr0P-rOk6_bimdE5uUJT2HcHFlOIFeAjtLKYrXrGNie8VDON0cR16U9Q5fnHBBDpJ5OiYMLzmzHxNqEcuVWKUNxsnBFqQzWvSnNmZKKlNyxirlgwqaZ2KgC5bWBb-CYFNldahQkpuQo3tEVdo3_Tal-kpUDFDi6sLqnf65aigO0cxMcbWYlc0")
-
     const {code} = req.params
     console.log(code)
 
@@ -42,7 +40,6 @@ router.get('/accesstoken/:code', async (req, res) => {
         spotifyApi
             .authorizationCodeGrant(code)
             .then(data => {
-                // console.log("ccccccccccc")
                 // console.log(data)
                 res.json(data.body.access_token)
             })

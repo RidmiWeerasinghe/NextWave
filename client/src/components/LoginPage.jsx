@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import MailIcon from '@mui/icons-material/Mail'
-import KeyIcon from '@mui/icons-material/Key'
 import axios from 'axios'
 import { loginSchema } from '../validation/userValidation'
 import toast, { Toaster } from 'react-hot-toast'
@@ -75,7 +74,7 @@ function Login() {
                                 <input type="password" onChange={handleChange} name="password" id="password" placeholder="🗝 Password" className=" text-lightTextColor text-base mt-4 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" required="" />
                             </div>
                             <div className=" mr-8 flex items-center justify-end">
-                                <a href="#" className="text-sm text-white hover:underline">Forgot password?</a>
+                                <Link to={'/resetpasswordgetemail'}><p className="text-sm text-white hover:underline">Forgot password?</p></Link>
                             </div>
 
                         </form>

@@ -15,8 +15,10 @@
     "@flytri/lyrics-finder": "^1.0.7",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.19.2",
     "mongoose": "^8.3.1",
+    "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
     "spotify-web-api-node": "^5.0.2"
   }

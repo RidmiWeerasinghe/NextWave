@@ -11,3 +11,11 @@ export const loginSchema = yup.object().shape({
     email:yup.string().email("Enter valid email").required("Enter your email"),
     password:yup.string().required("Enter your password")
 })
+
+export const emailSchema = yup.object().shape({
+    email:yup.string().email("Enter valid email").required("Enter your email"),
+})
+
+export const passwordSchema = yup.object().shape({
+    password:yup.string().required("Password is required").matches(/^\S*$/, "Password cannot contain white spaces")
+})

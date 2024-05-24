@@ -1,21 +1,21 @@
 import mongoose from "mongoose";
 
 const songSchema = mongoose.Schema({
-    songID:{
+    songID: {
         type: String
     }
 })
 
 const playlistSchema = mongoose.Schema({
-    name:{
-        type:String
+    name: {
+        type: String
     },
-    songs:[songSchema]
+    songs: [songSchema]
 })
 
 const favoritesSchema = mongoose.Schema({
-    songID:{
-        type:String
+    songID: {
+        type: String
     }
 })
 
@@ -33,11 +33,17 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        imageUrl:{
+        imageUrl: {
             type: Object
         },
-        playlist:[playlistSchema],
-        favorites:[favoritesSchema]
+        playlist: [playlistSchema],
+        favorites: [favoritesSchema],
+        resetToken: {
+            type: String
+        },
+        resetTokenExpiry: {
+            type: Date
+        }
     },
     {
         timestamps: true,

@@ -5,7 +5,7 @@ import { useStateValue } from '../StateProvider'
 import axios from 'axios'
 
 function PageNotFound() {
-    const [{authCode, accessToken}, dispatch] = useStateValue()
+    const [{ accessToken}, dispatch] = useStateValue()
     const code = new URLSearchParams(window.location.search).get("code")
 
     useEffect(()=>{

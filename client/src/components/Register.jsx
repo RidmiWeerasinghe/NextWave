@@ -48,7 +48,7 @@ function Register() {
             axios.post('http://localhost:5555/users/email', { email: form.email })
                 .then(result => {
                     console.log(result)
-                    if (result.data === "ok") {
+                    if (result.status === 204) {
                         axios.post("http://localhost:5555/users", user)
                             .then(() => {
                                 navigate('/login')
@@ -60,6 +60,9 @@ function Register() {
                     else {
                         toast.error(result.data)
                     }
+                })
+                .catch(error=>{
+                    console.log(error)
                 })
         } catch (error) {
             error.inner.forEach((err) => {

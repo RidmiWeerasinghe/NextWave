@@ -20,6 +20,8 @@ import SearchResultsAlbums from './components/SearchResultsAlbums'
 import SearchResultsTracks from './components/SearchResultsTracks'
 import About from './components/About'
 import EmotionBasedPlaylist from './components/EmotionBasedPlaylist'
+import ResetPassword from './components/ResetPassword'
+import ResetPasswordGetEmail from './components/ResetPasswordGetEmail'
 import SpotifyAuth from './components/SpotifyAuth'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Player from './components/Player'
@@ -30,10 +32,12 @@ function App() {
   const Location = useLocation()
   const isLoginRoute = Location.pathname === '/login'
   const isRegisterRoute = Location.pathname === '/register'
+  const isResetPasswordRoute = Location.pathname === '/resetpassword'
+  const isResetPasswordGetEmailRoute = Location.pathname === '/resetpasswordgetemail'
   return (
     <main>
-      {!isLoginRoute && !isRegisterRoute && <TopNav />}
-      {!isLoginRoute && !isRegisterRoute && <SideNav />}
+      {!isLoginRoute && !isRegisterRoute && !isResetPasswordRoute && !isResetPasswordGetEmailRoute && <TopNav />}
+      {!isLoginRoute && !isRegisterRoute && !isResetPasswordRoute && !isResetPasswordGetEmailRoute && <SideNav />}
 
       <Routes>
         <Route path="/" element={<SpotifyAuth />} />
@@ -56,11 +60,13 @@ function App() {
         <Route path="/searchresultstracks" element={<SearchResultsTracks />} />
         <Route path="/about" element={<About />} />
         <Route path="/searchresultsalbums" element={<SearchResultsAlbums />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/resetpasswordgetemail" element={<ResetPasswordGetEmail />} />
         <Route path="/emotionBasedPlaylist/:id" element={<EmotionBasedPlaylist />} />
         <Route path="/callback" element={<PageNotFound />} />
         <Route path="*" element={<div>xxxxx</div>} />
       </Routes>
-      <div className={isLoginRoute || isRegisterRoute ? 'hidden' : ''}>
+      <div className={isLoginRoute || isRegisterRoute || isResetPasswordRoute || isResetPasswordGetEmailRoute ? 'hidden' : ''}>
         <Player uri={currentPlayingTrackUri} />
       </div>
     </main>

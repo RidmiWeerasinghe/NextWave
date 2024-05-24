@@ -13,6 +13,7 @@ function Home() {
 
     useEffect(() => {
 
+        console.log("use effect running")
         //getting trending albums
         if (accessToken) {
             spotify.getArtistAlbums('00FQb4jTyendYWaN8pK0wa').then(
