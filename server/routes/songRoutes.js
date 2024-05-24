@@ -64,7 +64,7 @@ router.put('/setfavorite/:songid', async (req, res) => {
                 //add the song to favorites
                 user.favorites.push({ songID: songid });
                 await user.save();
-                res.json("Song added to favorites");
+                res.json("added");
             }
         }
         else {

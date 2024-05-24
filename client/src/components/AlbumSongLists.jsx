@@ -206,7 +206,10 @@ function AlbumSongLists(trackID) {
             try {
                 axios.put(`http://localhost:5555/songs/setfavorite/${trackID.trackID}`, { email: user.email })
                     .then(response => {
+                        console.log("response.data")
+                        console.log(response.data)
                         if (response.data === "added") {
+                           
                             toast.success("Song added to favorites")
                         }
                         else if (response.data == "removed") {
@@ -263,6 +266,10 @@ function AlbumSongLists(trackID) {
                         dispatch({
                             type: 'SET_CURRENTPLAYINGTRACKID',
                             currentPlayingTrackId: data.id
+                        })
+                        dispatch({
+                            type: 'SET_PAGEREFRESH',
+                            pageRefresh: !pageRefresh
                         })
                     }
                 }

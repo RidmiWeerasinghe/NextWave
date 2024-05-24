@@ -112,7 +112,7 @@ function MyProfile() {
                     console.log(err)
                 })
         }
-    }, [])
+    }, [pageRefresh])
 
     const getSongForMoood = (e) => {
         setShowSuggetions(pre => !pre)
