@@ -152,12 +152,15 @@ router.delete('/delete/:email', async (req, res) => {
 
 router.post('/sendemail', async (req, res) => {
     const { email } = req.body
+    //generating a token
     const resetToken = crypto.randomBytes(32).toString('hex')
+    //setting
     const resetRout = `http://localhost:5173/resetpassword?token=${resetToken}`
-    console.log("email")
 
+    //storing token and expiry in db
     await User.updateOne({ email: email }, { resetToken: resetToken, resetTokenExpiry: Date.now() + 3600000 })
 
+    //structure of the email (html)
     const emailStructure = ` 
 <!doctype html>
 <html lang="en-US">
@@ -196,11 +199,11 @@ router.post('/sendemail', async (req, res) => {
                                 <tr>
                                     <td style="padding:0 35px;">
                                         <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">You have
-                                            requested to reset your password</h1>
+                                            requested to reset your NextWave account password</h1>
                                         <span
                                             style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                            We cannot simply send you your old password. A unique link to reset your
+                                            We cannot simply send you the old password. A unique link to reset your
                                             password has been generated for you. To reset your password, click the
                                             following link.
                                         </p>
@@ -229,7 +232,6 @@ router.post('/sendemail', async (req, res) => {
 
 </html>
 `
-
     let config = {
         service: 'gmail',
         auth: {
@@ -239,6 +241,7 @@ router.post('/sendemail', async (req, res) => {
     }
     let transporter = nodemailer.createTransport(config)
 
+    console.log(EMAIL, PASSWORD)
     let message = {
         from: EMAIL,
         to: email,
@@ -260,6 +263,7 @@ router.post('/verify-reset-token', async (req, res) => {
     console.log(token)
 
     try {
+        //find the user with given token (conditions : 1- is db token equal to given one? 2- is the token expired?)
         const user = await User.findOne({ resetToken: token, resetTokenExpiry: { $gt: Date.now() } })
         if (!user) {
             return res.status(400).json({ message: "Invalid or expired token" })

@@ -1,5 +1,6 @@
 import express, { json } from 'express'
 import SpotifyWebApi from 'spotify-web-api-node'
+import { SPOTIFY_CLIENT_Id, SPOTIFY_CLIENT_SCECRET } from '../config.js'
 
 const router = express.Router()
 
@@ -34,8 +35,8 @@ router.get('/accesstoken/:code', async (req, res) => {
     
         const spotifyApi = new SpotifyWebApi({
             redirectUri: "http://localhost:5173/callback",
-            clientId: "72cdd5687f2146adaf6d90d7d3f95270",
-            clientSecret: "e521133ff90f4230885d2e1dc8d0fd11",
+            clientId: SPOTIFY_CLIENT_Id,
+            clientSecret: SPOTIFY_CLIENT_SCECRET,
         })
         spotifyApi
             .authorizationCodeGrant(code)
