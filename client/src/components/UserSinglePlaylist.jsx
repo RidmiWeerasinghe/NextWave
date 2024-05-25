@@ -79,7 +79,7 @@ function UserSinglePlaylist() {
     }
 
     return (
-        <div>
+        <div className=' mb-20'>
             <Toaster />
             <section className=" px-14 max-md:px-2 overflow-auto pb-8 pt-5">
                 <section className="flex justify-between items-center ">

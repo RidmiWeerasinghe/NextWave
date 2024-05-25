@@ -74,7 +74,7 @@ function MyPlaylists() {
         </div>)
     //console.log(currentUserPlaylists.length)
     return (
-        <div>
+        <div className=' mb-50'>
             {user.username ? LoggedInMessage : notLoggedInMessage}
 
         </div>

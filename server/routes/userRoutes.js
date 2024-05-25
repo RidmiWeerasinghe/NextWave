@@ -256,17 +256,17 @@ router.post('/sendemail', async (req, res) => {
 
 
 router.post('/verify-reset-token', async (req, res) => {
-    const { token } = req.body;
+    const { token } = req.body
     console.log(token)
 
     try {
-        const user = await User.findOne({ resetToken: token, resetTokenExpiry: { $gt: Date.now() } });
+        const user = await User.findOne({ resetToken: token, resetTokenExpiry: { $gt: Date.now() } })
         if (!user) {
-            return res.status(400).json({ message: "Invalid or expired token" });
+            return res.status(400).json({ message: "Invalid or expired token" })
         }
-        return res.status(200).json({ email: user.email });
+        return res.status(200).json({ email: user.email })
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message })
     }
 });
 

@@ -23,7 +23,11 @@ function ResetPassword() {
                 setIsValid(true)
             })
             .catch(err => {
+                console.log(err)
                 toast.error("Invalid or expired token")
+                setTimeout(() => {
+                    navigate('/login')
+                }, 5000)
             })
     }, [])
 

@@ -62,7 +62,7 @@ function SinglePlaylist() {
                     ))}
                 </section>
             </div>
-            {searchResultsLoading &&
+            {!searchResultsLoading &&
                 <div className="overflow-auto py-6  px-9 max-md:px-1">
                     <h3 className="font-medium text-neutral-300 text-xl ml-9  max-md:ml-5 mb-5">
                         search results loading.....
