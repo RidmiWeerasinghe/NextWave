@@ -3,6 +3,10 @@ import { User } from '../model/userModel.js'
 import nodemailer from 'nodemailer'
 import { EMAIL, PASSWORD } from '../config.js'
 import crypto from 'crypto'
+import multer from 'multer'
+import path from 'path'
+import fs from 'fs'
+import { fileURLToPath } from 'url'
 
 const router = express.Router();
 
@@ -115,11 +119,34 @@ router.put('/update/:email', async (req, res) => {
         const { username, password, imageUrl } = req.body
 
         const user = await User.findOne({ email })
+
         if (user) {
+
+            //users current profile picture's url
+            const currentProfileImageUrl = user.imageUrl
+            //if there is an already image url in db
+            if (currentProfileImageUrl && imageUrl) {
+                console.log("")
+                const __filename = fileURLToPath(import.meta.url);
+                const __dirname = path.dirname(__filename)
+                const currentProfileImageName = path.basename(currentProfileImageUrl)
+                const imagePath = path.join(__dirname, '../../client/public/images', currentProfileImageName)
+                
+                //removing old image from public folder
+                fs.unlink(imagePath, (err) => {
+                    if (err) {
+                        console.error("Error removing old profile image:", err);
+                    } else {
+                        console.log("Old profile image removed successfully.");
+                    }
+                })
+
+            }
+
             user.username = username
             user.email = email
             user.password = password
-            user.imageUrl = imageUrl
+            user.imageUrl = imageUrl? imageUrl : currentProfileImageUrl
             await user.save()
             return res.status(200).send({ message: "user updated successfully" })
         }
@@ -150,6 +177,7 @@ router.delete('/delete/:email', async (req, res) => {
     }
 })
 
+//sending the password reset email
 router.post('/sendemail', async (req, res) => {
     const { email } = req.body
     //generating a token
@@ -257,7 +285,7 @@ router.post('/sendemail', async (req, res) => {
         })
 })
 
-
+//verifying the reset token
 router.post('/verify-reset-token', async (req, res) => {
     const { token } = req.body
     console.log(token)
@@ -274,7 +302,7 @@ router.post('/verify-reset-token', async (req, res) => {
     }
 });
 
-
+//updating password
 router.put('/update/password/:email', async (req, res) => {
     try {
         const { email } = req.params
@@ -296,6 +324,27 @@ router.put('/update/password/:email', async (req, res) => {
         console.log(error.message);
         res.status(500).send({ message: error.message });
     }
+})
+
+
+
+//uploading image to public folder and generate a url
+const storage = multer.diskStorage({
+    destination: '../client/public/images',
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`)
+    },
+})
+
+// Initialize upload variable
+const upload = multer({ storage })
+router.post('/image/upload', upload.single('profilePic'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No file uploaded.')
+    }
+    const fileUrl = `/images/${req.file.filename}`
+    res.json({ fileUrl })
+
 })
 
 export default router
