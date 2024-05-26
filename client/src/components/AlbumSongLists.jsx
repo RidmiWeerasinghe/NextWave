@@ -150,9 +150,6 @@ function AlbumSongLists(trackID) {
             }
         }
     }, [])
-    // console.log("track")
-    // console.log(cTrack.album.images[0])
-    // console.log(track)
 
     function addToPlaylist(event, playlist) {
         const songID = trackID.trackID
@@ -231,7 +228,6 @@ function AlbumSongLists(trackID) {
             toast.error("Login to add to favorites")
         }
     }
-
 
     const handlePlay = async () => {
         const trackid = trackID.trackID
@@ -349,8 +345,6 @@ function AlbumSongLists(trackID) {
         ))
     }
 
-    // console.log("lyrics")
-    // console.log(lyrics)
     return (
         <div className="my-3 w-full rounded-lg overflow-hidden max-md:px-0 flex flex-col gap-0 text-white px-2.1 cursor-pointer bg-playlistcardbg   hover:bg-playlistcardhoverbg">
             <div className='p-5 mb-0 rounded-lg flex items-center justify-between '>

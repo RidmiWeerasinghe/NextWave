@@ -18,6 +18,7 @@ import SinglePlaylist from './components/SinglePlaylist'
 import SearchResultsArtists from './components/SearchResultsArtists'
 import SearchResultsAlbums from './components/SearchResultsAlbums'
 import SearchResultsTracks from './components/SearchResultsTracks'
+import SearchResultsMyPlaylists from './components/SearchResultsMyPlaylists'
 import About from './components/About'
 import EmotionBasedPlaylist from './components/EmotionBasedPlaylist'
 import ResetPassword from './components/ResetPassword'
@@ -58,6 +59,7 @@ function App() {
         <Route path="/editprofile" element={<EditProfile />} />
         <Route path="/searchresultsartists" element={<SearchResultsArtists />} />
         <Route path="/searchresultstracks" element={<SearchResultsTracks />} />
+        <Route path="/searchresultsmyplaylists" element={<SearchResultsMyPlaylists />} />
         <Route path="/about" element={<About />} />
         <Route path="/searchresultsalbums" element={<SearchResultsAlbums />} />
         <Route path="/resetpassword" element={<ResetPassword />} />

@@ -7,7 +7,7 @@ import PlaylistCard from './PlaylistCard'
 import axios from 'axios'
 
 function MyPlaylists() {
-    const [{ user, showCreatePlaylistWindow, currentUserPlaylists,showEditPlaylistWindow,showDeletePlaylistWindow }, dispatch] = useStateValue()
+    const [{ user, showCreatePlaylistWindow, currentUserPlaylists, showEditPlaylistWindow, showDeletePlaylistWindow}, dispatch] = useStateValue()
 
     //loading all playlists
     useEffect(() => {
@@ -23,7 +23,7 @@ function MyPlaylists() {
             .catch((error) => {
                 console.log(error)
             })
-    }, [showCreatePlaylistWindow, showEditPlaylistWindow,showDeletePlaylistWindow])
+    }, [showCreatePlaylistWindow, showEditPlaylistWindow, showDeletePlaylistWindow])
 
 
     const notLoggedInMessage = (
@@ -51,7 +51,7 @@ function MyPlaylists() {
                     <p className="text-neutral-300"> Create new playlist</p>
                 </ListItemButton>
             </div>
-            <section className="mt-4 flex flex-col mb-12">
+            <section className="mt-8 flex flex-col mb-12">
                 <h3 className="text-xl text-neutral-200 mb-2 pl-4 mt-4">
                     Your Playlists
                 </h3>
@@ -60,10 +60,10 @@ function MyPlaylists() {
                         <p className="text-neutral-400 w-1/2 text-center max-md:w-full max-md:px-4">
                             You haven't created any playlist yet.
                         </p>
-                    </div> ):
+                    </div>) :
                     (<section className="mt-4 flex flex-col mb-12">
                         {currentUserPlaylists.map((playlist) => (
-                            <PlaylistCard key={playlist.id} playlist={playlist} threedots={true}/>
+                            <PlaylistCard key={playlist.id} playlist={playlist} threedots={true} />
                         ))}
                     </section>)}
             </section>
@@ -71,10 +71,11 @@ function MyPlaylists() {
                 <CreatePlaylistWindow />
             )}
 
-        </div>)
-    //console.log(currentUserPlaylists.length)
+        </div>
+    )
+
     return (
-        <div className=' mb-50'>
+        <div className=' mb-30'>
             {user.username ? LoggedInMessage : notLoggedInMessage}
 
         </div>

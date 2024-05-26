@@ -18,6 +18,7 @@ export const initialState = {
     searchedArtists: topArtists,
     searchedAlbums: trendingAlbums,
     searchedTracks: currentUserPlaylistsInDummy,
+    searchedUserPlaylist: "",
     pageRefresh: false,
     searchResultsLoading: false,
     currentPlayingTrackUri: [],
@@ -124,6 +125,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 searchResultsLoading: action.searchResultsLoading
+            }
+        case 'SET_SEARCHEDUSERPLAYLIST':
+            return {
+                ...state,
+                searchedUserPlaylist: action.searchedUserPlaylist
             }
         case 'SET_CURRENTPLAYINGTRACKURI':
             return {

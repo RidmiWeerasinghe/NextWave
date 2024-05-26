@@ -23,6 +23,7 @@ function TopNav() {
   const isSongsSearch = Location.pathname === '/searchresultstracks'
   const isAlbums = Location.pathname === '/topalbums'
   const isAlbumsSearch = Location.pathname === '/searchresultsalbums'
+  const isUserPlaylists = Location.pathname === '/myplaylists'
 
   //popover
   const showPopover = (e) => {
@@ -106,7 +107,7 @@ function TopNav() {
   return (
     <div className=" border-b-2 border-slate-100 border-opacity-10 h-20">
       <div className="h-20 flex items-center pl-9 pr-4 max-md:px-4 justify-between fixed z-40 backdrop-blur-sm bg-darkBlue bg-opacity-60 right-0 left-0 ml-52 max-md:ml-0 top-0">
-        {isArtists || isSongs || isAlbums || isAlbumsSearch || isArtistsSearch || isSongsSearch? <SearchBar />: <></>}
+        {isArtists || isSongs || isAlbums || isAlbumsSearch || isArtistsSearch || isSongsSearch || isUserPlaylists? <SearchBar />: <></>}
         <div className="flex-grow" />
         <div> {user.username ? userLoggendIn : <LoginAndSignUp />}</div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useStateValue } from '../StateProvider'
 import axios from 'axios'
-import { favoriteSongs } from '../dummyData/dummy'
+import { favoriteSongs, favoriteTracks } from '../dummyData/dummy'
 import AlbumSongLists from './AlbumSongLists'
 import toast, { Toaster } from 'react-hot-toast'
 
@@ -10,10 +10,7 @@ function Recent() {
 
     const [{ user, pageRefresh }, dispatch] = useStateValue()
     const [recent, setRecent] = useState(favoriteSongs)
-    let recentArray
-    if (recent.count !== 0) {
-        recentArray = recent.tracks.reverse()
-    }
+    const [recentTracks, setRecentTracks] = useState(favoriteTracks)
 
     useEffect(() => {
         const email = user.email
@@ -22,8 +19,9 @@ function Recent() {
             axios.get(`http://localhost:5555/history/recent/${email}`)
                 .then(response => {
                     console.log("response")
-                    console.log(response)
+                    console.log(response.data.data)
                     setRecent(response.data.data)
+                    setRecentTracks(response.data.data.tracks.reverse())
                 })
                 .catch((errror) => {
                     console.log(errror)
@@ -74,7 +72,7 @@ function Recent() {
                     </p>
                 </section>
 
-                {recent.count > 0 && recentArray.map((track) => (
+                {recent.count > 0 && recentTracks.map((track) => (
                     <AlbumSongLists key={track.trackID} trackID={track.trackID} removeBtnVisible={false} />
                 ))
 

@@ -7,10 +7,10 @@ import axios from 'axios'
 
 function SinglePlaylist() {
     const [{ accessToken, currentPlaylistsSpotify, searchResultsLoading }, dispatch] = useStateValue()
-    
-    console.log("access : "+accessToken)
 
-    window.history.pushState({},null,'/')
+    console.log("searchResultsLoading: "+ searchResultsLoading)
+
+    window.history.pushState({}, null, '/')
     //console.log(currentPlaylistsSpotify)
 
     const spotify = new SpotifyWebApi()
@@ -62,13 +62,18 @@ function SinglePlaylist() {
                     ))}
                 </section>
             </div>
-            {!searchResultsLoading &&
+            {/* {searchResultsLoading &&
                 <div className="overflow-auto py-6  px-9 max-md:px-1">
                     <h3 className="font-medium text-neutral-300 text-xl ml-9  max-md:ml-5 mb-5">
                         search results loading.....
                     </h3>
+                    <img
+                        src="/images/spinner.gif"
+                        className='w-6 ml-2'
+                        alt="Loading spinner"
+                    />
                 </div>
-            }
+            } */}
         </div>
     )
 }

@@ -41,6 +41,7 @@ function EditProfile() {
                     type: 'SET_USER',
                     user: response.data.user
                 })
+                navigate('/myprofile')
             })
             .catch((err) => {
                 console.log(err)

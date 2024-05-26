@@ -62,7 +62,6 @@ function EditPlaylistWindow(name) {
     }
     return (
         <div className="fixed inset-0 z-[60] grid place-items-center bg-black bg-opacity-30">
-            <Toaster />
             <div className="relative w-[400px] bg-grayBackground rounded-lg shadow-lg">
                 <div className="p-8">
                     <p className="text-neutral-200 text-base font-thin tracking-wider mb-4">

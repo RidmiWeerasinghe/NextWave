@@ -126,7 +126,6 @@ router.get('/getallfavourites/:email', async (req, res) => {
     }
 })
 
-
 //getting lyrics
 router.get('/lyrics', async (req, res) => {
     const artist = req.query.artist

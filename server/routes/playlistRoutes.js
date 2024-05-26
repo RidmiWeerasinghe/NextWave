@@ -244,5 +244,41 @@ router.delete('/removefromplalist/:email/:name/:songid', async (req, res) => {
     }
 })
 
+//searching a playlist
+router.get('/search', async (req, res) => {
+    const { email } = req.query
+    const { searchtext } = req.query
 
+    //find the user
+    try {
+        const user = await User.findOne({ email })
+        if (user) {
+            //searching playlists
+            const searchResults = await User.findOne({
+                email,
+                "playlist.name": { $regex: searchtext, $options: "i" }
+            })
+
+            //are there playlists to this user?
+            if (searchResults && searchResults.playlist.length > 0) {
+
+                //filter the playlists
+                const filteredPlaylists = searchResults.playlist.filter(playlist =>
+                    new RegExp(searchtext, "i").test(playlist.name)
+                )
+
+                return res.status(200).json(filteredPlaylists)
+            }
+            else {
+                return res.status(200).json({message:"no matching playlist"})
+            }
+        }
+        else {
+            return res.status(404).json("user not found")
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json(error)
+    }
+})
 export default router
