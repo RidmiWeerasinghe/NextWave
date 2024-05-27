@@ -283,7 +283,7 @@ function AlbumSongLists(trackID) {
             //check if user has a history
             axios.post('http://localhost:5555/history/check', { email: currentUserEmail })
                 .then(response => {
-                    console.log(response)
+                    //console.log(response)
 
                     //adding to history
                     axios.post('http://localhost:5555/history/add', { email: currentUserEmail, trackID: trackid, name: songName, artist: artistName })

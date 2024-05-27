@@ -8,7 +8,7 @@ import { Toaster } from 'react-hot-toast'
 import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay'
 
 function UserSinglePlaylist() {
-    const [{ user, pageRefresh, currentPlayingTrackId, accessToken }, dispatch] = useStateValue()
+    const [{ user, pageRefresh, currentPlayingTrackUri, accessToken }, dispatch] = useStateValue()
     const playlistName = useParams()
     const [playlist, setPlaylist] = useState(userSelectedPlaylist)
 
@@ -76,7 +76,14 @@ function UserSinglePlaylist() {
             currentPlayingTrackUri: trackUris
         })
 
+        
+    console.log("trackUris")
+    console.log(trackUris)
+
     }
+
+    console.log("currentPlayingTrackUri")
+    console.log(currentPlayingTrackUri)
 
     return (
         <div className=' mb-20'>

@@ -29,7 +29,6 @@ import Player from './components/Player'
 import { useStateValue } from './StateProvider'
 
 function App() {
-  const [{ currentPlayingTrackUri }, dispatch] = useStateValue()
   const Location = useLocation()
   const isLoginRoute = Location.pathname === '/login'
   const isRegisterRoute = Location.pathname === '/register'
@@ -69,7 +68,7 @@ function App() {
         <Route path="*" element={<div>xxxxx</div>} />
       </Routes>
       <div className={isLoginRoute || isRegisterRoute || isResetPasswordRoute || isResetPasswordGetEmailRoute ? 'hidden' : ''}>
-        <Player uri={currentPlayingTrackUri} />
+        <Player/>
       </div>
     </main>
   )
