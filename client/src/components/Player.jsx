@@ -40,7 +40,6 @@ function Player() {
                     sliderHandleColor: '#e7e5e4',
                 }}
             />
-            <h1 className=' text-white'>{trackUri[0] ? "yes" : "no"}</h1>
         </div>
         // <div style={{ position: 'fixed', bottom: -55, width: '100%', zIndex: 999}}>
         //     <iframe

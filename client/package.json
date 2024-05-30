@@ -23,6 +23,7 @@
     "react-spotify-web-playback": "^0.14.4",
     "recharts": "^2.12.7",
     "spotify-web-api-js": "^1.5.2",
+    "tailwind-scrollbar": "^3.1.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {

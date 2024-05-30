@@ -67,7 +67,7 @@ function App() {
         <Route path="/callback" element={<PageNotFound />} />
         <Route path="*" element={<div>xxxxx</div>} />
       </Routes>
-      <div className={isLoginRoute || isRegisterRoute || isResetPasswordRoute || isResetPasswordGetEmailRoute ? 'hidden' : ''}>
+      <div className={` fixed z-50${isLoginRoute || isRegisterRoute || isResetPasswordRoute || isResetPasswordGetEmailRoute ? 'hidden' : ''}`}>
         <Player/>
       </div>
     </main>

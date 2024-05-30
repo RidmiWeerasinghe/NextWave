@@ -60,6 +60,7 @@ function EditPlaylistWindow(name) {
             })
         }
     }
+    
     return (
         <div className="fixed inset-0 z-[60] grid place-items-center bg-black bg-opacity-30">
             <div className="relative w-[400px] bg-grayBackground rounded-lg shadow-lg">

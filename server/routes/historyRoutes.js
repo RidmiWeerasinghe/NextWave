@@ -90,8 +90,7 @@ router.get('/mostplayed/:email', async (req, res) => {
     } catch (error) {
         return res.status(500).send({ message: error.message })
     }
-});
-
+})
 
 //get history
 router.get('/recent/:email', async (req, res)=>{
