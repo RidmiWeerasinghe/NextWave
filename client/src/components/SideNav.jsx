@@ -1,6 +1,6 @@
 import React from 'react'
 import LogoText from './LogoText'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import AlbumIcon from '@mui/icons-material/Album'
 import PersonIcon from '@mui/icons-material/Person'
 import MusicNoteIcon from '@mui/icons-material/MusicNote'
@@ -12,21 +12,20 @@ import InfoIcon from '@mui/icons-material/Info'
 import { useStateValue } from '../StateProvider'
 
 function SideNav() {
-    const [{user},dispatch] = useStateValue()
+    const [{ user }, dispatch] = useStateValue()
     function HandleSideNav() {
         console.log("clicked")
     }
-    const side_navbar_show = true
+
     return (
         <div className={"float-left w-52 h-[26rem] max-md:w-0 select-none"}>
             <div
                 className={
-                    "bg-grayBackground text-lightTextColorSideNav top-0  w-52 transition-all duration-200 ease-linear  fixed z-50 h-full  py-10 " +
-                    (side_navbar_show ? "max-md:w-64 left-0" : "max-md:-left-52")
+                    "bg-grayBackground text-lightTextColorSideNav top-0  w-52 transition-all duration-200 ease-linear  fixed z-50 h-full  py-10 "
                 }
             >
                 <section className="px-7 max-md:px-10 ">
-                    <section className="scale-105">
+                    <section className="scale-105 pb-4">
                         <LogoText />
                     </section>
 
@@ -38,7 +37,7 @@ function SideNav() {
                             <NavLink
                                 onClick={HandleSideNav}
                                 to={"/topalbums"}
-                                className="flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav"
+                                className={`flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav`}
                             >
                                 <AlbumIcon />
                                 Albums
@@ -146,11 +145,6 @@ function SideNav() {
                 )} */}
             </div>
             <div
-                className={
-                    "fixed z-30 h-full max-md:block hidden top-0 w-full bg-[#0c0c0cc7] transition-all duration-200 ease-in " +
-                    (side_navbar_show ? "visible opacity-100" : "invisible opacity-0")
-                }
-                onClick={HandleSideNav}
             ></div>
         </div>
     )

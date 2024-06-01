@@ -219,7 +219,8 @@ function MyProfile() {
     return (
         <div className="bg-darkBlue  overflow-hidden h-screen">
             <Toaster />
-            <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7">
+            <div className='bg-darkBlue overflow-y-scroll h-full scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue pb-28'>
+                <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7">
                     <div className="grid grid-cols-[max-content,auto] mt-7 max-md:grid-cols-1 max-md:place-items-center gap-5 ">
                         <img className="w-56 h-56 rounded-full" src={user.imageUrl ? user.imageUrl : "/images/user.jpg"} />
 
@@ -359,6 +360,7 @@ function MyProfile() {
                         <i>Let's start exploring🎉🎉🎉 !!</i>
                     </p>
                 </section>}
+            </div>
         </div>
     )
 }
