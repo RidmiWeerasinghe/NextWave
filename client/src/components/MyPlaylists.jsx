@@ -7,7 +7,7 @@ import PlaylistCard from './PlaylistCard'
 import axios from 'axios'
 
 function MyPlaylists() {
-    const [{ user, showCreatePlaylistWindow, currentUserPlaylists, showEditPlaylistWindow, showDeletePlaylistWindow}, dispatch] = useStateValue()
+    const [{ user, showCreatePlaylistWindow, currentUserPlaylists, showEditPlaylistWindow, showDeletePlaylistWindow, hidePlayer}, dispatch] = useStateValue()
 
     //loading all playlists
     useEffect(() => {
@@ -35,7 +35,7 @@ function MyPlaylists() {
         </div>
     )
     const LoggedInMessage = (
-        <div className="overflow-auto pl-7 mr-8 max-md:pl-2 mt-8 ">
+        <div className=" pl-7 mr-8 max-md:pl-2 mt-8 ">
             <div>
                 <ListItemButton
                     className="flex gap-3 items-center"
@@ -75,7 +75,7 @@ function MyPlaylists() {
     )
 
     return (
-        <div className=' mb-30'>
+        <div className=' overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue' style={{ height: `${hidePlayer ? "88vh" : "76vh"}` }}>
             {user.username ? LoggedInMessage : notLoggedInMessage}
 
         </div>

@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 
 function MyProfile() {
-    const [{ user, accessToken, mood, pageRefresh, favoriteTracks }, dispatch] = useStateValue()
+    const [{ user, accessToken, mood, pageRefresh, favoriteTracks , hidePlayer}, dispatch] = useStateValue()
     const [currentUserPlaylists, setCurrentUserPlaylists] = useState(currentUserPlaylistsInDummy)
     const [suggestSongs, setSuggestSongs] = useState([])
     const [showSuggetions, setShowSuggetions] = useState(false)
@@ -217,9 +217,9 @@ function MyProfile() {
     }
 
     return (
-        <div className="bg-darkBlue  overflow-hidden h-screen">
+        <div className={`bg-darkBlue `}   style={{ height: `${hidePlayer ? "88vh" : "76vh"}` }}>
             <Toaster />
-            <div className='bg-darkBlue overflow-y-scroll h-full scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue pb-28'>
+            <div className='bg-darkBlue overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue pb-10'  style={{ height: `${hidePlayer ? "88vh" : "76vh"}` }}>
                 <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7">
                     <div className="grid grid-cols-[max-content,auto] mt-7 max-md:grid-cols-1 max-md:place-items-center gap-5 ">
                         <img className="w-56 h-56 rounded-full" src={user.imageUrl ? user.imageUrl : "/images/user.jpg"} />
@@ -328,7 +328,7 @@ function MyProfile() {
                     </section>}
 
                 {mostPlayedSongs.length > 0 &&
-                    <section className="flex ml-10 flex-col mr-6 mb-5">
+                    <section className="flex ml-10 flex-col mr-6">
                         <div className='flex justify-between items-center ml-3'>
                             <h1 className="font-medium text-xl text-lightTextColor my-5">
                                 Top 10 Most played Songs 🎶

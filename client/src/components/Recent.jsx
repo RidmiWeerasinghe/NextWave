@@ -8,7 +8,7 @@ import toast, { Toaster } from 'react-hot-toast'
 
 function Recent() {
 
-    const [{ user, pageRefresh }, dispatch] = useStateValue()
+    const [{ user, pageRefresh , hidePlayer}, dispatch] = useStateValue()
     const [recent, setRecent] = useState(favoriteSongs)
     const [recentTracks, setRecentTracks] = useState(favoriteTracks)
 
@@ -57,9 +57,9 @@ function Recent() {
         </div>
     )
     const LoggedInMessage = (
-        <div >
+        <div className='h-full overflow-y-scroll  scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue' style={{ height: `${hidePlayer ? "88vh" : "76vh"}` }}>
             <Toaster/>
-            <section className=" px-14 max-md:px-2 overflow-auto pb-8 pt-5">
+            <section className=" px-14 max-md:px-2 overflow-auto pt-5">
                 <section className="flex justify-between items-center pr-6">
                     <h3 className="text-neutral-50  text-2xl flex items-center max-md:text-xl px-4 mb-5">
                         My Recently played songs

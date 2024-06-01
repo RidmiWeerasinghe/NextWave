@@ -25,6 +25,8 @@ export const initialState = {
     currentPlayingTrackId: "",
     mood: "",
     favoriteTracks: [],
+    isSongPlaying: false,
+    hidePlayer: false
 }
 
 const reducer = (state, action) => {
@@ -150,6 +152,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 favoriteTracks: action.favoriteTracks
+            }
+        case 'SET_ISSONGPLAYING':
+            return {
+                ...state,
+                isSongPlaying: action.isSongPlaying
+            }
+        case 'SET_HIDEPLAYER':
+            return {
+                ...state,
+                hidePlayer: action.hidePlayer
             }
         default:
             return state;

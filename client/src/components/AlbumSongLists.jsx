@@ -21,23 +21,25 @@ import toast, { Toaster } from 'react-hot-toast'
 function AlbumSongLists(trackID) {
 
     //console.log(trackID)
-    const [{ user, accessToken, pageRefresh, currentPlayingTrackId }, dispatch] = useStateValue()
+    const [{ user, accessToken, pageRefresh, currentPlayingTrackId, isSongPlaying }, dispatch] = useStateValue()
     const [track, setTrack] = useState(cTrack)
     const [isFavorite, setIsFavorite] = useState(false)
     const [currentUserPlaylists, setCurrentUserPlaylists] = useState([{ name: "" }])
-    let isPlaying = false
 
     //for finding lyrics
     const [trackName, setTrackName] = useState("")
     const [artistName, setArtistName] = useState("")
     const [lyrics, setLyrics] = useState("")
     const [showLyrics, setShowLyrics] = useState(false)
+    let isPlayingTrack = false
+    console.log("isSongPlaying")
+    console.log(isSongPlaying)
 
     //console.log(trackID.trackID)
 
     //check if the song is playing
-    if (currentPlayingTrackId === trackID.trackID) {
-        isPlaying = true
+    if (currentPlayingTrackId === trackID.trackID && isSongPlaying) {
+        isPlayingTrack = true
     }
 
     //popover
@@ -230,6 +232,7 @@ function AlbumSongLists(trackID) {
     }
 
     const handlePlay = async () => {
+        
         const trackid = trackID.trackID
         let currentUserEmail = user.email
         let songName = ""
@@ -300,7 +303,15 @@ function AlbumSongLists(trackID) {
     }
 
     const handlePause = () => {
-        isPlaying = false
+        //pausing song
+        dispatch({
+            type: 'SET_ISSONGPLAYING',
+            isSongPlaying: false
+        })
+        dispatch({
+            type: 'SET_CURRENTPLAYINGTRACKURI',
+            currentPlayingTrackUri: []
+        })
         dispatch({
             type: 'SET_CURRENTPLAYINGTRACKURI',
             currentPlayingTrackUri: []
@@ -360,7 +371,7 @@ function AlbumSongLists(trackID) {
                     {!isFavorite && <FavoriteBorderIcon className='cursor-pointer' onClick={setFavourite} />}
                     {isFavorite && <FavoriteIcon className='cursor-pointer text-red-600' onClick={setFavourite} />}
                     <h4 className="text-base font-semibold">{millisToMinutesAndSeconds(track.duration_ms)}</h4>
-                    <div className='text-xl cursor-pointer' >{isPlaying ? <PauseIcon style={{ fontSize: 35 }} onClick={handlePause} /> : <PlayArrowRoundedIcon style={{ fontSize: 35 }} onClick={handlePlay} />}</div>
+                    <div className='text-xl cursor-pointer' >{isPlayingTrack ? <PauseIcon style={{ fontSize: 35 }} onClick={handlePause} /> : <PlayArrowRoundedIcon style={{ fontSize: 35 }} onClick={handlePlay} />}</div>
 
 
                     {user.email && !removeBtnVisible && <div className='text-xl cursor-pointer' onClick={handleClickPlaylistIcon}><MoreVertIcon style={{ fontSize: 30 }} aria-describedby={id} /></div>}

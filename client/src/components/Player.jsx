@@ -5,7 +5,7 @@ import toast from 'react-hot-toast'
 
 
 function Player() {
-    const [{ accessToken, currentPlayingTrackUri }, dispatch] = useStateValue()
+    const [{ accessToken, currentPlayingTrackUri, isSongPlaying }, dispatch] = useStateValue()
     if (!accessToken) {
         return null
     }
@@ -27,7 +27,7 @@ function Player() {
         <div style={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 999, boxShadow: '0 -2px 4px rgba(255, 255, 255, 0.1)' }}>
             <SpotifyPlayer
                 token={accessToken}
-                uris={trackUri ? [trackUri] : []}
+                uris={trackUri ? trackUri : []}
                 play={true}
                 styles={{
                     bgColor: '#1e2126',
@@ -38,6 +38,20 @@ function Player() {
                     trackArtistColor: '#ccc',
                     trackNameColor: '#fff',
                     sliderHandleColor: '#e7e5e4',
+                }}
+                callback={(state)=>{
+                    if(state.isPlaying){
+                        dispatch({
+                            type: 'SET_ISSONGPLAYING',
+                            isSongPlaying: true
+                        })
+                    }
+                    else{
+                        dispatch({
+                            type: 'SET_ISSONGPLAYING',
+                            isSongPlaying: false
+                        })
+                    }
                 }}
             />
         </div>

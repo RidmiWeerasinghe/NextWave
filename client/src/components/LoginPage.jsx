@@ -6,6 +6,7 @@ import { loginSchema } from '../validation/userValidation'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { useStateValue } from '../StateProvider'
+import LogoText from './LogoText'
 
 function Login() {
     const [{ username }, dispatch] = useStateValue()
@@ -63,12 +64,14 @@ function Login() {
                 <div className="w-full rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 dark:bg-grayBackground">
                     <Toaster />
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <h1 className="text-xl mt-5 font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-lightTextColor text text-center">
-                            NextWave
-                        </h1>
+                        <div className=' flex items-center justify-center w-full mt-5'>
+                            <div className=' flex items-center justify-center w-1/2'>
+                                <LogoText />
+                            </div>
+                        </div>
                         <form className="space-y-4 md:space-y-1" action="#">
                             <div className='flex items-center justify-center mb-5'>
-                                <input type="text" onChange={handleChange} name="email" id="email" className=" text-lightTextColor text-base mt-8 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" placeholder="✉ Email" required="" />
+                                <input type="text" onChange={handleChange} name="email" id="email" className=" text-lightTextColor text-base mt-4 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" placeholder="✉ Email" required="" />
                             </div>
                             <div className='flex items-center justify-center'>
                                 <input type="password" onChange={handleChange} name="password" id="password" placeholder="🗝 Password" className=" text-lightTextColor text-base mt-4 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" required="" />
