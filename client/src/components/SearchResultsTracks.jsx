@@ -3,12 +3,12 @@ import AlbumSongLists from './AlbumSongLists'
 import { useStateValue } from '../StateProvider'
 
 function SearchResultsTracks() {
-    const [{searchedTracks}, dispatch] = useStateValue()
+    const [{searchedTracks, hidePlayer}, dispatch] = useStateValue()
 
     console.log(searchedTracks)
 
     return (
-        <div className=" bg-darkBlue pl-10 pr-4 max-md:pl-4 overflow-hidden ">
+        <div className=" bg-darkBlue pl-10 pr-4 max-md:pl-4 mb-20 h-full overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue" style={{ height: `${hidePlayer ? "88vh" : "76vh"}` }}>
             <section className="w-full my-4 ">
                 <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
                     Search Results.....

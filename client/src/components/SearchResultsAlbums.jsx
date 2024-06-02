@@ -4,10 +4,10 @@ import MusicCard from './MusicCard'
 import { useStateValue } from '../StateProvider'
 
 function SearchResultsAlbums() {
-    const [{searchedAlbums }, dispatch] = useStateValue()
+    const [{searchedAlbums, hidePlayer }, dispatch] = useStateValue()
 
     return (
-        <div className=" bg-darkBlue pl-10 pr-4 max-md:pl-4 overflow-hidden ">
+        <div className=" bg-darkBlue pl-10 pr-4 max-md:pl-4 overflow-hidden h-full overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue" style={{ height: `${hidePlayer ? "88vh" : "76vh"}` }}>
             <section className="w-full my-6 ">
                 <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
                     Search Results.....

@@ -61,13 +61,13 @@ function Recent() {
             <Toaster/>
             <section className=" px-14 max-md:px-2 overflow-auto pt-5">
                 <section className="flex justify-between items-center pr-6">
-                    <h3 className="text-neutral-50  text-2xl flex items-center max-md:text-xl px-4 mb-5">
+                    <h3 className="text-neutral-50  text-2xl flex items-center max-md:text-sm px-4 mb-5">
                         My Recently played songs
                     </h3>
-                    <p className='text-lightTextColor text-sm flex items-center max-md:text-xl px-4 mb-5'>
+                    <p className='text-lightTextColor text-sm flex items-center max-md:text-sm px-4 mb-5'>
                         {recent.count} Songs
                     </p>
-                    <p className='text-lightTextColor text-sm flex items-center max-md:text-xl px-4 mb-5 cursor-pointer' onClick={clearHistory}>
+                    <p className='text-lightTextColor text-sm flex items-center max-md:text-sm px-4 mb-5 cursor-pointer' onClick={clearHistory}>
                         <u>clear all</u>
                     </p>
                 </section>

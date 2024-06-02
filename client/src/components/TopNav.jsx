@@ -8,10 +8,10 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import PersonIcon from '@mui/icons-material/Person'
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt'
 import { Link, useLocation } from 'react-router-dom'
-import MyPlaylists from './MyPlaylists'
+import SideNavFloatingButton from './SideNavFloatingButton'
 
 function TopNav() {
-  const [{ user,mood, currentUserPlaylists }, dispatch] = useStateValue()
+  const [{ user, mood, currentUserPlaylists, isSidebarVisible }, dispatch] = useStateValue()
   //popover
   const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -54,7 +54,7 @@ function TopNav() {
   const userLoggendIn = (
     <div className="flex gap-4 items-center mr-0 max-md:hidden"  >
       <div className='text-lightTextColor cursor-pointer p-4' aria-describedby={id} onMouseOver={showPopover}>
-        Hi {user.username} {mood? mood : <SentimentSatisfiedAltIcon className='text-neutral-200' />}
+        Hi {user.username} {mood ? mood : <SentimentSatisfiedAltIcon className='text-neutral-200' />}
       </div>
       <Popover
         id={id}
@@ -106,8 +106,13 @@ function TopNav() {
   )
   return (
     <div className=" border-b-2 border-slate-100 border-opacity-10 h-20">
-      <div className="h-20 flex items-center pl-9 pr-4 max-md:px-4 justify-between fixed z-40 backdrop-blur-sm bg-darkBlue bg-opacity-60 right-0 left-0 ml-52 max-md:ml-0 top-0">
-        {isArtists || isSongs || isAlbums || isAlbumsSearch || isArtistsSearch || isSongsSearch || isUserPlaylists? <SearchBar />: <></>}
+      <div className={`h-20 flex items-center pl-9 pr-4 max-md:px-4 justify-between fixed z-40 backdrop-blur-sm bg-darkBlue bg-opacity-60 right-0 left-0 ${isSidebarVisible ? "ml-52":""} max-md:ml-0 top-0`}>
+        {!isSidebarVisible && (
+          <div className="mr-4">
+            <SideNavFloatingButton />
+          </div>
+        )}
+        {isArtists || isSongs || isAlbums || isAlbumsSearch || isArtistsSearch || isSongsSearch || isUserPlaylists ? <SearchBar /> : <></>}
         <div className="flex-grow" />
         <div> {user.username ? userLoggendIn : <LoginAndSignUp />}</div>
       </div>

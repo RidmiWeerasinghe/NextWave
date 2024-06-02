@@ -27,6 +27,7 @@ import SpotifyAuth from './components/SpotifyAuth'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Player from './components/Player'
 import { useStateValue } from './StateProvider'
+import FloatingButton from './components/FloatingButton'
 
 function App() {
   const [{hidePlayer},dispatch] = useStateValue()
@@ -70,6 +71,9 @@ function App() {
       </Routes>
       <div className={isLoginRoute || isRegisterRoute || isResetPasswordRoute || isResetPasswordGetEmailRoute || hidePlayer? 'hidden' : ''}>
         <Player/>
+      </div>
+      <div className={!hidePlayer ? 'hidden' : ''}>
+       <FloatingButton/>
       </div>
     </main>
   )

@@ -26,7 +26,8 @@ export const initialState = {
     mood: "",
     favoriteTracks: [],
     isSongPlaying: false,
-    hidePlayer: false
+    hidePlayer: false,
+    isSidebarVisible: true
 }
 
 const reducer = (state, action) => {
@@ -162,6 +163,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 hidePlayer: action.hidePlayer
+            }
+        case 'SET_ISSIDENAVVISIBLE':
+            return {
+                ...state,
+                isSidebarVisible: action.isSidebarVisible
             }
         default:
             return state;

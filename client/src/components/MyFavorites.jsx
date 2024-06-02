@@ -4,6 +4,7 @@ import { favoriteSongs } from '../dummyData/dummy'
 import AlbumSongLists from './AlbumSongLists'
 import axios from 'axios'
 import { Toaster } from 'react-hot-toast'
+import FloatingButton from './FloatingButton'
 
 function MyFavorites() {
     const [{ user, pageRefresh, favoriteTracks, hidePlayer }, dispatch] = useStateValue()
@@ -64,9 +65,10 @@ function MyFavorites() {
         </div>
     )
     return (
-        <div className=' mb-20'>
+        <div className=' mb-20 relative'>
             <Toaster />
             {!user.username ? notLoggedInMessage : LoggedInMessage}
+            <FloatingButton/>
         </div>
     )
 }

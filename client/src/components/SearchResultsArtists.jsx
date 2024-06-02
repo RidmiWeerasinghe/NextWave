@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import ArtistCard from './ArtistCard'
 import { useStateValue } from '../StateProvider'
 function SearchResultsArtists() {
-    const [{ searchedArtists }, dispatch] = useStateValue()
+    const [{ searchedArtists, hidePlayer }, dispatch] = useStateValue()
 
     console.log("searchedArtists")
     console.log(searchedArtists)
 
     return (
-        <div className="overflow-auto py-6  px-9 max-md:px-1">
+        <div className="overflow-auto py-6  px-9 max-md:px-1 h-full overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue" style={{ height: `${hidePlayer ? "88vh" : "76vh"}` }}>
             <h3 className="font-medium text-neutral-300 text-xl ml-9  max-md:ml-5 mb-5">
                 search results.....
             </h3>

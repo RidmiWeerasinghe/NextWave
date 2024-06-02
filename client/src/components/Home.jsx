@@ -5,7 +5,7 @@ import { useStateValue } from '../StateProvider'
 import Player from './Player'
 
 function Home() {
-    const [{ accessToken, trendingAlbums, topAlbums }, dispatch] = useStateValue()
+    const [{ accessToken, trendingAlbums, topAlbums, hidePlayer }, dispatch] = useStateValue()
 
 
     const spotify = new SpotifyWebApi()
@@ -35,17 +35,7 @@ function Home() {
     console.log(trendingAlbums)
 
     return (
-        <div className=" bg-darkBlue pl-10 pr-4 max-md:pl-4 overflow-hidden ">
-            {/* <section className=" w-full my-6 ">
-                <h1 className="font-medium text-xl w-fit text-lightTextColor my-4">
-                    Trending
-                </h1>
-                <div className="flex gap-6 overflow-scroll h-full">
-                    {trendingAlbums.map((item) => (
-                        <MusicCard album={item} key={item.id} />
-                    ))}
-                </div>
-            </section > */}
+        <div className=" bg-darkBlue pl-10 pr-4 max-md:pl-4 h-full overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue" style={{ height: `${hidePlayer ? "88vh" : "76vh"}` }} >
             <section className="w-full my-6 ">
                 <h1 className="font-medium text-xl w-fit text-lightTextColor my-6">
                     Top Albums of all the time

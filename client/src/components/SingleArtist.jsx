@@ -6,10 +6,8 @@ import AlbumSongList from './AlbumSongLists'
 import { Toaster } from 'react-hot-toast'
 
 function SingleArtist() {
-    const [{ accessToken, currentAtist, currentAtistTracks }, dispatch] = useStateValue()
+    const [{ accessToken, currentAtist, currentAtistTracks, hidePlayer }, dispatch] = useStateValue()
     const id = useParams()
-    // console.log(id.id)
-    // console.log(currentAtistTracks)
 
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)
@@ -30,6 +28,7 @@ function SingleArtist() {
             })
             ).catch(console.error())
     }, [])
+
     useEffect(() => {
         spotify.getArtist(id.id).then(
             function (data) {
@@ -42,13 +41,14 @@ function SingleArtist() {
             function (err) {
                 console.error(err);
             }
-        );
+        )
     }, [])
+
     return (
         <div className={"bg-darkBlue  overflow-hidden "}>
             <Toaster/>
             <div className={"bg-darkBlue  overflow-hidden "}>
-                <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7  Artistbackground">
+                <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7">
                     <div className="grid grid-cols-[max-content,auto] mt-7 max-md:grid-cols-1 max-md:place-items-center gap-5 ">
                         <img className="w-60 h-60 rounded-lg" src={currentAtist.images[0].url} />
 
@@ -59,11 +59,10 @@ function SingleArtist() {
                                     __html: `${currentAtist.name}`,
                                 }}
                             />
-
                         </div>
                     </div>
                 </div>
-                <section className="mx-12 mb-10 mt-6 max-md:mx-2">
+                <section className={`mx-12 mb-10 mt-6 max-md:mx-2 h-96 overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue pr-2 ${hidePlayer ? "mb-5" : "mb-24"}`}>
                     {currentAtistTracks?.tracks.map((track) => (
                         <AlbumSongList key={track.id} trackID={track.id} />
                     ))}

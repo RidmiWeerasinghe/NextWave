@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import LogoText from './LogoText'
 import { NavLink, useLocation } from 'react-router-dom'
 import AlbumIcon from '@mui/icons-material/Album'
@@ -11,10 +11,11 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import InfoIcon from '@mui/icons-material/Info'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import SideNavFloatingButton from './SideNavFloatingButton'
 import { useStateValue } from '../StateProvider'
 
 function SideNav() {
-    const [{ user, hidePlayer }, dispatch] = useStateValue()
+    const [{ user, hidePlayer,isSidebarVisible }, dispatch] = useStateValue()
     function HandleSideNav() {
         console.log("clicked")
     }
@@ -23,12 +24,8 @@ function SideNav() {
 
 
     return (
-        <div className={"float-left w-52 h-[26rem] max-md:w-0 select-none"}>
-            <div
-                className={
-                    "bg-grayBackground text-lightTextColorSideNav top-0  w-52 transition-all duration-200 ease-linear  fixed z-50 h-full  py-10 "
-                }
-            >
+        <div className={`float-left w-52 h-[26rem] max-md:w-0 select-none ${isSidebarVisible ? 'block' : 'hidden'}`}>
+            <div className="bg-grayBackground text-lightTextColorSideNav top-0  w-52 transition-all duration-200 ease-linear  fixed z-50 h-full  py-10 ">
                 <section className="px-7 max-md:px-10 ">
                     <section className="scale-105 pb-4">
                         <LogoText />
@@ -65,9 +62,14 @@ function SideNav() {
                             </NavLink>
                         </ul>
                     </section>
+
                 </section>
 
-                <hr className="bg-darkTextColor h-[0.8px] opacity-10 my-6 px-7" />
+                <div className="relative">
+                    <hr className="bg-darkTextColor h-[0.8px] opacity-10 my-6 px-7" />
+                    {/* Floating Button */}
+                    <SideNavFloatingButton/>
+                </div>
 
                 <section className="px-7 max-md:px-10">
                     <h3 className="uppercase font-Rubik font-medium tracking-wider text-sm">
@@ -106,7 +108,9 @@ function SideNav() {
                         </NavLink>}
                     </ul>
                 </section>
+
                 <hr className="bg-darkTextColor h-[0.8px] opacity-10 my-6 px-7" />
+
                 <section className="px-7 max-md:px-10 mt-5">
                     <ul className="flex flex-col gap-6 mt-2">
                         <NavLink
@@ -118,11 +122,12 @@ function SideNav() {
                             }}
                             className={`flex items-center gap-4 text-sm max-md:text-base font-medium hover:text-lightTextHoverColorSideNav text-${location.pathname === "/about" ? " text-lightTextHoverColorSideNav" : "text-lightTextColorSideNav"}`}
                         >
-                            {!hidePlayer ? <VisibilityOffIcon/> : <VisibilityIcon/>}{!hidePlayer ? `Hide Player` : `Show Player`}
+                            {!hidePlayer ? <VisibilityOffIcon /> : null}{!hidePlayer ? `Hide Player` : ""}
                         </NavLink>
                     </ul>
                     {/* <button>Dark</button> */}
                 </section>
+
                 <div className="absolute bottom-0  flex justify-center right-0 left-0">
                     <p
                         className="text-xs"
@@ -130,28 +135,6 @@ function SideNav() {
                         <NavLink to={'/'}>Made by <span className="text-neutral-200">RID_MI❤️</span></NavLink>
                     </p>
                 </div>
-                {/* {!login_success && (
-                    <section className="px-7  mt-10 hidden gap-2 max-md:flex">
-                        <RippleButton color={"#519aff2e"} speed={500}>
-                            <Link
-                                onClick={HandleSideNav}
-                                to={"/login"}
-                                className="text-white text-lg block hover:opacity-90 bg-[#519aff2e] w-full pl-5 py-3 rounded-md"
-                            >
-                                Log In
-                            </Link>
-                        </RippleButton>
-                        <RippleButton color={"#959aff8e"} radius={6} speed={500}>
-                            <Link
-                                onClick={HandleSideNav}
-                                to={"/signup"}
-                                className="bg-skyBlue bg-opacity-70 block text-lg text-white rounded-md pl-4 py-3  "
-                            >
-                                Sign up
-                            </Link>
-                        </RippleButton>
-                    </section>
-                )} */}
             </div>
             <div
             ></div>

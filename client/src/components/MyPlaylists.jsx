@@ -75,9 +75,8 @@ function MyPlaylists() {
     )
 
     return (
-        <div className=' overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue' style={{ height: `${hidePlayer ? "88vh" : "76vh"}` }}>
+        <div className=' overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue' style={{ height: `${hidePlayer ? "88vh" : "76vh"}` }}cd>
             {user.username ? LoggedInMessage : notLoggedInMessage}
-
         </div>
     )
 }

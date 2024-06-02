@@ -4,7 +4,7 @@ import { useStateValue } from '../StateProvider'
 import SpotifyWebApi from 'spotify-web-api-js'
 
 function TopArtists() {
-    const [{ topArtists, accessToken }, dispatch] = useStateValue()
+    const [{ topArtists, accessToken , hidePlayer}, dispatch] = useStateValue()
 
     const spotify = new SpotifyWebApi()
     spotify.setAccessToken(accessToken)
@@ -28,7 +28,7 @@ function TopArtists() {
     console.log(topArtists[3])
 
     return (
-        <div className="overflow-auto py-6  px-9 max-md:px-1">
+        <div className="py-6  px-9 max-md:px-1 h-full overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue" style={{ height: `${hidePlayer ? "88vh" : "76vh"}` }}>
             <h3 className="font-medium text-neutral-300 text-xl ml-9  max-md:ml-5 mb-5">
                 Top Artists
             </h3>

@@ -9,7 +9,7 @@ function SearchResultsMyPlaylists() {
     console.log("searchedUserPlaylist")
     console.log(searchedUserPlaylist)
     return (
-        <div className=' mb-30'>
+        <div className=' mb-20'>
             <div className="overflow-auto pl-7 mr-8 max-md:pl-2 mt-8 ">
                 {!searchResultsLoading ?
                     (<section className="mt-8 flex flex-col mb-12">

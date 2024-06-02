@@ -8,7 +8,7 @@ import { Toaster } from 'react-hot-toast'
 function SingleAlbum() {
     const albumID = useParams()
     //console.log(albumID)
-    const [{ accessToken, currentSingleAlbum }, dispatch] = useStateValue()
+    const [{ accessToken, currentSingleAlbum , hidePlayer}, dispatch] = useStateValue()
     const [{ isLoading, setIsLoading }] = useState(true)
 
     const spotify = new SpotifyWebApi()
@@ -49,7 +49,7 @@ function SingleAlbum() {
         <div className={"bg-darkBlue  overflow-hidden "}>
             <Toaster/>
             <div className={"bg-darkBlue  overflow-hidden "}>
-                <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7  Artistbackground">
+                <div className="gradient flex flex-col gap-8 relative w-full pt-3 px-16 max-md:px-5 pb-7">
                     <div className="grid grid-cols-[max-content,auto] mt-7 max-md:grid-cols-1 max-md:place-items-center gap-5 ">
                         <img className="w-56 h-56 rounded-md" src={currentSingleAlbum?.images[0].url} />
 
@@ -81,7 +81,7 @@ function SingleAlbum() {
                         </div>
                     </div>
                 </div>
-                <section className="mx-12 mb-10 mt-6 max-md:mx-2">
+                <section className={`mx-12 mb-10 mt-6 max-md:mx-2 ${hidePlayer ? "mb-5" : "mb-24"} bg-darkBlue  h-96 overflow-y-scroll scrollbar scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-darkBlue`}>
                     {!isLoading &&currentSingleAlbum?.tracks.items.map((track) => (
                         <AlbumSongList key={track.id} trackID={track.id} />
                     ))}
