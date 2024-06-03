@@ -48,8 +48,13 @@ function CreatePlaylistWindow() {
                                     toast.error("something went wrong")
                                 }
                             })
+                            .catch(err => {
+                                console.log(err)
+                                toast.error("Please try again later")
+                                toast.error("something went wrong")
+                            })
                     }
-                    else{
+                    else {
                         toast.error("Playlist already exists")
                     }
                 })

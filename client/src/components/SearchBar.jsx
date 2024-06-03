@@ -67,6 +67,8 @@ function SearchBar() {
                     })
                     .catch((err) => {
                         console.log(err)
+                        toast.error("something went wrong")
+                        toast.error("Please try again later")
                     })
             }
 
@@ -86,6 +88,8 @@ function SearchBar() {
                     })
                     .catch((err) => {
                         console.log(err)
+                        toast.error("something went wrong")
+                        toast.error("Please try again later")
                     })
             }
 
@@ -109,6 +113,8 @@ function SearchBar() {
                     })
                     .catch((err) => {
                         console.log(err)
+                        toast.error("something went wrong")
+                        toast.error("Please try again later")
                     })
             }
 
@@ -131,6 +137,8 @@ function SearchBar() {
                     })
                     .catch(err => {
                         console.log(err)
+                        toast.error("something went wrong")
+                        toast.error("Please try again later")
                     })
             }
         } catch (error) {

@@ -49,6 +49,11 @@ function Login() {
                         toast.error(result.data.status)
                     }
                 })
+                .catch(err => {
+                    console.log(err)
+                    toast.error("something went wrong")
+                    toast.error("Please try again later")
+                })
         } catch (error) {
             error.inner.forEach((err) => {
                 toast.error(err.message)

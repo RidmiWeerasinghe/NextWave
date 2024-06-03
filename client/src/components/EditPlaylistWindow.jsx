@@ -53,6 +53,8 @@ function EditPlaylistWindow(name) {
                     }
                 }).catch((error) => {
                     console.log(error)
+                    toast.error("something went wrong")
+                    toast.error("Please try again later")
                 })
         } catch (error) {
             error.inner.forEach((err) => {

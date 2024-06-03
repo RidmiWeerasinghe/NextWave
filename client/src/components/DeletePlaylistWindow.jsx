@@ -15,7 +15,7 @@ function DeletePlaylistWindow(name) {
 
     const handlSubmit = async () => {
         try {
-            axios.delete(`http://localhost:5555/playlist/delete/${user.email}`, {data:{ name: name.name }})
+            axios.delete(`http://localhost:5555/playlist/delete/${user.email}`, { data: { name: name.name } })
                 .then(response => {
                     console.log(response)
                     if (response.data === "deleted") {
@@ -31,8 +31,11 @@ function DeletePlaylistWindow(name) {
                         toast.error("delete fail")
                     }
                 })
-                .catch((error) =>
+                .catch((error) => {
                     console.log(error)
+                    toast.error("something went wrong")
+                    toast.error("Please try again later")
+                }
                 )
         } catch (error) {
             console.log(error)
