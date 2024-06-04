@@ -37,28 +37,22 @@ router.post('/add', async (req, res) => {
         if (user) {
             //the track already exists
             const trackIndex = user.tracks.findIndex(track => track.trackID === trackID)
-
             // Track exists
             if (trackIndex !== -1) {
                 //update count
                 const track = user.tracks[trackIndex]
                 track.count += 1
-
                 // Remove the track from the current position
                 user.tracks.splice(trackIndex, 1)
-
                 // Add the track to the front
                 user.tracks.unshift(track)
-
             // Track does not exist
             } else {
                 //add new track
                 user.tracks.unshift({ trackID: trackID, count: 1 , name: name, artist: artist})
             }
-
             // Save the updated user document
             await user.save()
-
             return res.status(200).send({ message: "Added to history successfully", data: user })
         } else {
             return res.status(404).send({ message: "User not found" })

@@ -7,6 +7,7 @@ import multer from 'multer'
 import path from 'path'
 import fs from 'fs'
 import { fileURLToPath } from 'url'
+import bcrypt from 'bcrypt'
 
 const router = express.Router();
 
@@ -22,9 +23,14 @@ router.post('/', async (req, res) => {
                 message: 'send all required fields'
             });
         }
+
+        //password encryption
+        const salt = await bcrypt.genSalt(10)
+        const hash = await bcrypt.hash(req.body.password,salt)
+
         const newUser = {
             username: req.body.username,
-            password: req.body.password,
+            password: hash,
             email: req.body.email,
             imageUrl: null
         }
@@ -73,12 +79,13 @@ router.get('/get/:email', async (req, res) => {
 })
 
 //user login
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const { email, password } = req.body
     User.findOne({ email: email })
         .then(user => {
             if (user) {
-                if (user.password === password) {
+                const match = bcrypt.compare(password, user.password)
+                if (match) {
                     res.json({
                         status: "success",
                         user: user

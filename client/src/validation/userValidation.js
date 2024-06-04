@@ -3,7 +3,11 @@ import * as yup from 'yup'
 export const userSchema = yup.object().shape({
     username:yup.string().required("Username is required").matches(/^\S.*$/, "Username cannot start with whitespace"),
     email:yup.string().email("Enter valid email").required("Email is required"),
-    password:yup.string().required("Password is required").matches(/^\S*$/, "Password cannot contain white spaces"),
+    password:yup.string()
+    .required("Password is required")
+    .matches(/^\S*$/, "Password cannot contain white spaces")
+    .min(8, 'Password must be at least 8 characters')
+    .matches(/^(?=.*[!@#$%^&*()\-_=+{};:,<.>])/g, 'Password must contain at least one special character'),
     confirmPassword:yup.string().required("Password confirmation is required")
 })
 

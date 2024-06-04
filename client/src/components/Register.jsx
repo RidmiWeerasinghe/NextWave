@@ -25,29 +25,28 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
+        //getting values from useState form variable
         const username = form.username
         const password = form.password
         const confirmPassword = form.confirmPassword
         const email = form.email
 
+        //defining user object
         const user = {
             username,
             email,
             password,
             confirmPassword
         }
-
-
         try {
+            //validate user schema
             await userSchema.validate(user, { abortEarly: false })
+            //check if the password and confirm password match
             if (form.password != form.confirmPassword) {
                 return toast.error("confirm password doesn't match")
             }
-
             axios.post('http://localhost:5555/users/email', { email: form.email })
                 .then(result => {
-                    console.log(result)
                     if (result.status === 204) {
                         axios.post("http://localhost:5555/users", user)
                             .then(() => {
@@ -55,6 +54,7 @@ function Register() {
                             })
                             .catch((error) => {
                                 console.log(error)
+                                toast.error("something went wrong")
                             })
                     }
                     else {
@@ -67,13 +67,13 @@ function Register() {
                     toast.error("Please try again later")
                 })
         } catch (error) {
+            //displaying validation errors
             error.inner.forEach((err) => {
                 toast.error(err.message)
             })
         }
-
-
     }
+    
     return (
         <div>
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
