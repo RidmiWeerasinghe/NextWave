@@ -3,6 +3,7 @@ import { useStateValue } from '../StateProvider'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
+import { userSchema } from '../validation/userValidation'
 
 function EditProfile() {
     const [{ user }, dispatch] = useStateValue()
@@ -23,51 +24,79 @@ function EditProfile() {
 
     //update user
     const handleSubmit = async () => {
-        const username = form.username
-        let imageUrl = null
-        const password = user.password
-
-        if (imageFile) {
-            const formData = new FormData()
-            formData.append('profilePic', imageFile)
-
-            //generating url
-            try {
-                const response = await axios.post('http://localhost:5555/users/image/upload', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-                //console.log('File URL:', response.data.fileUrl)
-                imageUrl = response.data.fileUrl
-
-            } catch (error) {
-                console.error('Error uploading file:', error)
-            }
+        const userObj = {
+            username: form.username,
+            email: form.email,
+            password: "123456789*",
+            confirmPassword: "123456789*",
         }
-        console.log("imageUrl : ")
-        console.log(imageUrl)
-        await axios.put(`http://localhost:5555/users/update/${user.email}`, { username: username, imageUrl: imageUrl, password: password })
-            .then(response => {
-                console.log(response)
-                toast.success("account updated successfully")
-            })
-            .catch((err) => {
-                console.log(err)
-            })
 
-        await axios.get(`http://localhost:5555/users/get/${user.email}`)
-            .then(response => {
-                console.log(response.data.user)
-                dispatch({
-                    type: 'SET_USER',
-                    user: response.data.user
+        try {
+
+            await userSchema.validate(userObj, { abortEarly: false })
+            const username = form.username
+            let imageUrl = null
+            const password = user.password
+
+            if (imageFile) {
+                const formData = new FormData()
+                formData.append('profilePic', imageFile)
+
+                //generating url
+                try {
+                    const response = await axios.post('http://localhost:5555/users/image/upload', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    });
+                    //console.log('File URL:', response.data.fileUrl)
+                    imageUrl = response.data.fileUrl
+
+                } catch (error) {
+                    console.error('Error uploading file:', error)
+                }
+            }
+
+
+            axios.post('http://localhost:5555/users/email', { email: form.email })
+                .then(async result => {
+                    if (result.status === 201 && user.email !== form.email) {
+                        toast.error("email is already registered")
+                    }
+                    else {
+                        await axios.put(`http://localhost:5555/users/update/${user.email}`, { username: username, imageUrl: imageUrl, password: password, newEmail: form.email })
+                            .then(response => {
+                                console.log(response)
+                                toast.success("account updated successfully")
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+
+                        await axios.get(`http://localhost:5555/users/get/${form.email}`)
+                            .then(response => {
+                                console.log(response.data.user)
+                                dispatch({
+                                    type: 'SET_USER',
+                                    user: response.data.user
+                                })
+                                navigate('/myprofile')
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+                    }
                 })
-                navigate('/myprofile')
+                .catch(error => {
+                    console.log(error)
+                    toast.error("something went wrong")
+                    toast.error("Please try again later")
+                })
+        } catch (error) {
+            error.inner.forEach((err) => {
+                toast.error(err.message)
             })
-            .catch((err) => {
-                console.log(err)
-            })
+        }
     }
 
     //delete user

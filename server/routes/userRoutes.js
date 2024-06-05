@@ -82,9 +82,10 @@ router.get('/get/:email', async (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, password } = req.body
     User.findOne({ email: email })
-        .then(user => {
+        .then(async user => {
             if (user) {
-                const match = bcrypt.compare(password, user.password)
+                const match = await bcrypt.compare(password, user.password)
+                console.log(match)
                 if (match) {
                     res.json({
                         status: "success",
@@ -123,7 +124,7 @@ router.get('/', async (req, res) => {
 router.put('/update/:email', async (req, res) => {
     try {
         const { email } = req.params
-        const { username, password, imageUrl } = req.body
+        const { username, password, imageUrl ,newEmail} = req.body
 
         const user = await User.findOne({ email })
 
@@ -151,7 +152,7 @@ router.put('/update/:email', async (req, res) => {
             }
 
             user.username = username
-            user.email = email
+            user.email = newEmail
             user.password = password
             user.imageUrl = imageUrl? imageUrl : currentProfileImageUrl
             await user.save()
