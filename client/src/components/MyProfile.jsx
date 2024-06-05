@@ -18,6 +18,9 @@ function MyProfile() {
     const [showSuggetions, setShowSuggetions] = useState(false)
     const [moodPlaylistId, setMoodPlaylistId] = useState("")
     const [mostPlayedSongs, setMostPlayedSongs] = useState([])
+    const [noOfPlaylists, setNoOfPlaylists] = useState(user?.playlist.length)
+
+    
 
     const colors = [
         "#ff0000", // Red
@@ -88,7 +91,8 @@ function MyProfile() {
         if (user.username) {
             axios.get(`http://localhost:5555/playlist/getallplaylist/${user.email}`)
                 .then(response => {
-                    //console.log(response.data.data)
+                    console.log(response.data.count)
+                    setNoOfPlaylists(response.data.count)
                     setCurrentUserPlaylists(response.data.data)
                 })
                 .catch((error) => {
@@ -98,7 +102,7 @@ function MyProfile() {
         else {
             console.log("no user")
         }
-    }, [user])
+    }, [user, pageRefresh])
 
     //get most played songs
     useEffect(() => {
@@ -257,7 +261,7 @@ console.log(convertDateFormat())
                                 />
                                 <div className="bg-darkTextColor rounded-full w-1 h-1 max-md:hidden"></div>
                                 <p className="text-slate-200 text-sm max-md:text-xs">
-                                    {user?.playlist.length} playlists
+                                    {noOfPlaylists} playlists
                                 </p>
                                 <div className="bg-darkTextColor rounded-full max-md:text-xs w-1 h-1 max-md:hidden"></div>
                                 <p className="text-slate-200 text-sm min-w-fit">
