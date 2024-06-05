@@ -315,9 +315,13 @@ router.put('/update/password/:email', async (req, res) => {
         const { email } = req.params
         const { newPassword } = req.body
 
+        //password encryption
+        const salt = await bcrypt.genSalt(10)
+        const hash = await bcrypt.hash(newPassword,salt)
+
         const user = await User.findOne({ email })
         if (user) {
-            user.password = newPassword
+            user.password = hash
             user.resetToken = undefined
             user.resetTokenExpiry = undefined
             await user.save()
