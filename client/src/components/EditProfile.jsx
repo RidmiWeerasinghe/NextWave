@@ -113,6 +113,20 @@ function EditProfile() {
         setImageFile(file)
     }
 
+    const convertDateFormat = () => {
+
+        const date = new Date(user.updatedAt)
+
+        // Extracting date parts
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0')// Adding 1 to month since it's zero-based
+        const day = String(date.getDate()).padStart(2, '0')
+
+        // Forming the desired date string
+        const formattedDate = `${year}-${month}-${day}`
+        return formattedDate
+    }
+
     return (
         <div className={"bg-darkBlue  overflow-hidden mb-20"}>
             <Toaster />
@@ -131,11 +145,14 @@ function EditProfile() {
 
 
                     <form className="space-y-4 md:space-y-6" action="#">
-                        <div className='flex items-center justify-center'>
+                        <div className='flex items-center justify-center mt-10'>
                             <input type="text" name="username" id="username" value={form.username} onChange={handleChange} className=" text-lightTextColor text-base mt-5 block w-10/12 pl-1 p-3 bg-darkBlue border-b border-lightTextColor focus:border-none" placeholder="🖉 name" required="" />
                         </div>
                         <div className='flex items-center justify-center'>
                             <input type="text" name="email" id="email" value={form.email} onChange={handleChange} className=" text-lightTextColor text-base mt-5 block w-10/12 pl-1 p-3 bg-darkBlue border-b border-lightTextColor focus:border-none" placeholder="✉ Email" required="" />
+                        </div>
+                        <div className='flex items-center justify-center'>
+                            <label htmlFor="" className='text-lightTextColor text-sm mt-5 block w-10/12'><i>Last Updated on : {convertDateFormat()}</i></label>
                         </div>
                     </form>
                     <div className='flex items-center justify-center'>
