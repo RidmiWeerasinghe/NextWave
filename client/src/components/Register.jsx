@@ -9,7 +9,8 @@ function Register() {
         username: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        language:""
     });
     const navigate = useNavigate()
 
@@ -31,12 +32,20 @@ function Register() {
         const confirmPassword = form.confirmPassword
         const email = form.email
 
+
         //defining user object
         const user = {
             username,
             email,
             password,
             confirmPassword
+        }
+        const user2 = {
+            username,
+            email,
+            password,
+            confirmPassword,
+            language : form.language
         }
         try {
             //validate user schema
@@ -95,6 +104,9 @@ function Register() {
                             </div>
                             <div className='flex items-center justify-center'>
                                 <input type="password" name="confirmPassword" id="confirmPassword" value={form.confirmPassword} onChange={handleChange} placeholder="🗝 Confirm Password" className="text-lightTextColor text-base mt-5 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" required="" />
+                            </div>
+                            <div className='flex items-center justify-center'>
+                                <input type="text" name="language" id="language" value={form.language} onChange={handleChange} placeholder="language" className="text-lightTextColor text-base mt-5 block w-10/12 pl-1 p-3 bg-grayBackground border-b border-lightTextColor focus:border-none" required="" />
                             </div>
                         </form>
                         <div className='flex items-center justify-center'>
