@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🎵 NextWave Music Streaming Web Application
 
 ## 📖 Table of Contents
@@ -51,6 +52,55 @@ Developed with the **MERN stack**, it provides **playlist management, lyrics int
 ---
 
 ## 🛠 Built With
+=======
+# 🎵 NextWave Music Streaming Web Application    
+
+## 📖 Table of Contents  
+1. [Overview](#-overview)  
+2. [Features](#-features)  
+3. [Built With](#-built-with)  
+4. [Installation & Setup](#️-installation--setup)  
+5. [UI Screenshots](#-ui-screenshots)  
+6. [Database Design](#-database-design)  
+7. [Testing](#-testing)  
+8. [Future Enhancements](#-future-enhancements)  
+9. [License](#-license)  
+
+---
+
+## 📖 Overview  
+The **NextWave Music Streaming Web Application** is an interactive and personalized platform for music lovers.  
+Developed with the **MERN stack**, it provides **playlist management, lyrics integration, mood-based recommendations, history insights, and secure user profiles** — all within a **modern dark-themed UI**.  
+
+---
+
+## ✨ Features  
+
+### 🔑 User Module  
+- Secure registration, login & password reset  
+- Profile management with personalization  
+- Dashboard showing playlists, moods, favorites  
+
+### 🎶 Music & Playback  
+- Search by **song, artist, or album**  
+- **Mood-based song suggestions** 🎭  
+- Lyrics integration while streaming  
+- Full playback controls  
+
+### 🎧 Playlist & Favorites  
+- Create, update & delete playlists  
+- Add/remove songs from playlists  
+- Mark/unmark songs as favorites ❤️  
+
+### 📜 History & Insights  
+- Track listening history  
+- Clear history anytime  
+- Graphs & charts of **top played songs** 📊  
+
+---
+
+## 🛠 Built With  
+>>>>>>> a64f2a7d2efdfa6b0af4c6a0317672b79350db2e
 
 <p align="center">  
   <img src="https://img.shields.io/badge/Frontend-React-blue?logo=react" alt="React"/>  
@@ -60,11 +110,19 @@ Developed with the **MERN stack**, it provides **playlist management, lyrics int
   <img src="https://img.shields.io/badge/Database-MongoDB-4EA94B?logo=mongodb" alt="MongoDB"/>  
   <img src="https://img.shields.io/badge/API-Spotify-1DB954?logo=spotify" alt="Spotify API"/>  
   <img src="https://img.shields.io/badge/Version_Control-GitHub-181717?logo=github" alt="GitHub"/>  
+<<<<<<< HEAD
 </p>
 
 ---
 
 ## ⚙️ Installation & Setup
+=======
+</p>  
+
+---
+
+## ⚙️ Installation & Setup  
+>>>>>>> a64f2a7d2efdfa6b0af4c6a0317672b79350db2e
 
 ```bash
 # 1. Clone the repository
@@ -90,6 +148,7 @@ npm start
 # 6. Open in browser
 http://localhost:3000
 ```
+<<<<<<< HEAD
 
 ---
 
@@ -155,3 +214,65 @@ http://localhost:3000
 
 This project is licensed under the **MIT License**.  
 You are free to use, modify, and distribute it.
+=======
+---
+## 🖼 UI Screenshots  
+
+### 1️⃣ Profile Page – Personalized Dashboard  
+![Profile Page](assets/profile1.png)  
+➡️ Features: Side navigation, mood selection, playlists, recently added favorites.  
+
+---
+
+### 2️⃣ Profile Page – Listening Insights  
+![Profile Insights](assets/profile2.png)  
+➡️ Interactive graph showing top played songs & play counts.  
+
+---
+
+### 3️⃣ Lyrics Display & Hidden Player  
+![Lyrics Page](assets/lyrics.png)  
+➡️ View song lyrics while listening; toggle music player visibility.  
+
+---
+
+### 4️⃣ Artist Search Results  
+![Search Results](assets/search.png)  
+➡️ Search artists/albums/songs. Example: “Melanie Martinez”.  
+
+---
+
+## 📊 Database Design  
+
+- **User Collection**: Stores profile, playlists, favorites, authentication.  
+- **History Collection**: Stores songs played & play counts.  
+
+📌 Data flow ensures real-time updates to history, favorites, and playlists.  
+
+---
+
+## 🧪 Testing  
+
+- ✔️ User Registration & Authentication  
+- ✔️ Search & Playback  
+- ✔️ Playlist & Favorites Management  
+- ✔️ History Tracking  
+- ✔️ Password Reset  
+
+---
+
+## 🚀 Future Enhancements  
+
+- 📱 Mobile App (React Native)  
+- 🔄 Offline Playback Mode  
+- 👥 Social Playlist Sharing  
+- 🤖 AI-driven Smart Recommendations  
+
+---
+
+## 📜 License  
+
+This project is licensed under the **MIT License**.  
+You are free to use, modify, and distribute it.
+
+>>>>>>> a64f2a7d2efdfa6b0af4c6a0317672b79350db2e
